@@ -1,0 +1,252 @@
+-1 = -1
+2
+4 : 1 3
+2
+0 : 2 3
+2
+8 : 1 3
+2
+5 : 0 3
+0
+positive
+1
+positive 13
+5 : -1 3
+2
+7 : 0 3
+0
+positive
+1
+positive 7
+7 : -1 3
+0
+negative
+2
+negative 10
+positive 10
+8 : -1 3
+2
+2 : 2 3
+2
+1 : 2 3
+0
+positive
+1
+positive 16
+1 : -1 3
+0
+negative
+2
+negative 16
+positive 8
+2 : -1 3
+2
+6 : 2 3
+2
+3 : 2 3
+0
+positive
+1
+positive 13
+3 : -1 3
+2
+7 : 2 3
+0
+positive
+2
+negative 2
+positive 5
+7 : -1 3
+0
+negative
+1
+negative 7
+6 : -1 3
+0
+negative
+1
+negative 30
+0 : -1 3
+2
+8 : 2 3
+2
+1 : 2 3
+2
+5 : 2 3
+2
+2 : 2 3
+0
+positive
+1
+positive 6
+2 : -1 3
+0
+negative
+2
+negative 5
+positive 1
+5 : -1 3
+2
+6 : 2 3
+2
+7 : 2 3
+0
+positive
+1
+positive 3
+7 : -1 3
+0
+negative
+1
+negative 4
+6 : -1 3
+0
+negative
+1
+negative 10
+1 : -1 3
+2
+7 : 1 3
+2
+1 : 0 3
+0
+positive
+1
+positive 2
+1 : -1 3
+0
+negative
+1
+negative 7
+7 : -1 3
+2
+2 : 1 3
+2
+6 : 2 3
+0
+positive
+2
+positive 7
+negative 1
+6 : -1 3
+0
+negative
+1
+negative 5
+2 : -1 3
+0
+positive
+2
+positive 24
+negative 2
+8 : -1 3
+0
+negative
+1
+negative 58
+4 : -1 3
+2
+0 : 1 3
+2
+6 : 1 3
+2
+3 : 1 3
+0
+negative
+1
+negative 27
+3 : -1 3
+0
+positive
+2
+positive 28
+negative 7
+6 : -1 3
+2
+2 : 1 3
+2
+1 : 1 3
+0
+negative
+1
+negative 23
+1 : -1 3
+0
+positive
+2
+positive 24
+negative 3
+2 : -1 3
+0
+positive
+1
+positive 77
+0 : -1 3
+2
+8 : 1 3
+2
+2 : 1 3
+2
+5 : 1 3
+0
+negative
+1
+negative 23
+5 : -1 3
+2
+3 : 1 3
+2
+6 : 2 3
+0
+negative
+1
+negative 2
+6 : -1 3
+0
+positive
+1
+positive 2
+3 : -1 3
+2
+6 : 1 3
+2
+7 : 1 3
+0
+negative
+1
+negative 1
+7 : -1 3
+0
+positive
+1
+positive 4
+6 : -1 3
+0
+positive
+1
+positive 14
+2 : -1 3
+2
+6 : 1 3
+2
+7 : 1 3
+0
+negative
+1
+negative 21
+7 : -1 3
+0
+positive
+2
+positive 14
+negative 1
+6 : -1 3
+0
+positive
+1
+positive 48
+8 : -1 3
+0
+positive
+1
+positive 174
