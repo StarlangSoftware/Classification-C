@@ -11,6 +11,7 @@
 #include "InstanceList.h"
 #include "../Instance/Instance.h"
 #include "Dictionary/Word.h"
+#include "../Classifier/Classifier.h"
 
 /**
  * Empty constructor for an instance list. Initializes the instance list with zero instances.
@@ -234,7 +235,15 @@ Attribute_ptr attribute_average(const Instance_list *instance_list, int attribut
         }
         return create_continuous_attribute(sum / size_of_instance_list(instance_list));
     } else {
-        return NULL;
+        Array_list_ptr values = create_array_list();
+        for (int i = 0; i < instance_list->list->size; i++) {
+            instance = get_instance(instance_list, i);
+            attribute = array_list_get(instance->attributes, attribute_index);
+            array_list_add(values, attribute->string_value);
+        }
+        attribute = create_discrete_attribute(get_maximum(values));
+        free_array_list(values, NULL);
+        return attribute;
     }
 }
 
@@ -554,4 +563,36 @@ Matrix_ptr covariance(const Instance_list *instance_list, const Vector* average)
 
 void clear(Instance_list_ptr instance_list) {
     array_list_clear(instance_list->list, (void (*)(void *)) free_instance);
+}
+
+Instance_list_ptr create_instance_list4(FILE *input_file) {
+    char line[MAX_LINE_LENGTH];
+    Instance_list_ptr result = malloc(sizeof(Instance_list));
+    result->list =  create_array_list();
+    fgets(line, MAX_LINE_LENGTH, input_file);
+    line[strcspn(line, "\n")] = 0;
+    Array_list_ptr attribute_types = split(line);
+    int size;
+    fscanf(input_file, "%d", &size);
+    for (int i = 0; i < size; i++){
+        fgets(line, MAX_LINE_LENGTH, input_file);
+        line[strcspn(line, "\n")] = 0;
+        Array_list_ptr attribute_list = create_array_list();
+        Array_list_ptr attribute_values = str_split(line, ',');
+        for (int j = 0; j < attribute_types->size; j++){
+            String_ptr attribute_type = array_list_get(attribute_types, j);
+            String_ptr attribute_value = array_list_get(attribute_values, j);
+            if (string_equals2(attribute_type, "DISCRETE")){
+                array_list_add(attribute_list, create_discrete_attribute(attribute_value->s));
+            } else {
+                if (string_equals2(attribute_type, "CONTINUOUS")){
+                    array_list_add(attribute_list, create_continuous_attribute(atof(attribute_value->s)));
+                }
+            }
+        }
+        String_ptr class_label = array_list_get(attribute_values, attribute_types->size);
+        Instance_ptr current = create_instance(class_label->s, attribute_list);
+        array_list_add(result->list, current);
+    }
+    return result;
 }

@@ -26,6 +26,8 @@ Instance_list_ptr create_instance_list2(const Data_definition* definition, const
 
 Instance_list_ptr create_instance_list3(Array_list_ptr list);
 
+Instance_list_ptr create_instance_list4(FILE* input_file);
+
 void free_instance_list(Instance_list_ptr instance_list);
 
 void add_instance(Instance_list_ptr instance_list, Instance_ptr instance);

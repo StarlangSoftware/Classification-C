@@ -9,11 +9,9 @@
 #include "../InstanceList/InstanceList.h"
 #include "../Performance/DetailedClassificationPerformance.h"
 
-Classifier_ptr train_dummy(Instance_list_ptr train_set, void* parameter);
+Classifier_ptr train_dummy(Instance_list_ptr train_set, const void* parameter);
 
-Classifier_ptr load_dummy(char* file_name);
-
-Detailed_classification_performance_ptr test_dummy(Classifier_ptr dummy, Instance_list_ptr test_set);
+Classifier_ptr load_dummy(const char* file_name);
 
 void free_dummy(Classifier_ptr dummy);
 

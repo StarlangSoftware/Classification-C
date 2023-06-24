@@ -18,12 +18,12 @@ typedef Dummy_model *Dummy_model_ptr;
 
 Dummy_model_ptr create_dummy_model(Instance_list_ptr train_set);
 
-Dummy_model_ptr create_dummy_model2(char* file_name);
+Dummy_model_ptr create_dummy_model2(const char* file_name);
 
 void free_dummy_model(Dummy_model_ptr dummy_model);
 
-char* predict_dummy(Dummy_model_ptr dummy_model, Instance_ptr instance);
+char* predict_dummy(const void* model, const Instance* instance);
 
-Hash_map_ptr predict_probability_dummy(Dummy_model_ptr dummy_model, Instance_ptr instance);
+Hash_map_ptr predict_probability_dummy(const void* model, const Instance* instance);
 
 #endif //CLASSIFICATION_DUMMYMODEL_H
