@@ -2,8 +2,8 @@
 // Created by Olcay Taner YILDIZ on 24.06.2023.
 //
 
-#ifndef CLASSIFICATION_KNN_MODEL_H
-#define CLASSIFICATION_KNN_MODEL_H
+#ifndef CLASSIFICATION_KNNMODEL_H
+#define CLASSIFICATION_KNNMODEL_H
 
 #include "../InstanceList/InstanceList.h"
 
@@ -29,4 +29,4 @@ char* predict_knn(const void* model, const Instance* instance);
 
 Hash_map_ptr predict_probability_knn(const void* model, const Instance* instance);
 
-#endif //CLASSIFICATION_KNN_MODEL_H
+#endif //CLASSIFICATION_KNNMODEL_H

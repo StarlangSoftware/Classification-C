@@ -50,8 +50,7 @@ char *predict_random(const void* model, const Instance* instance) {
 
 Hash_map_ptr predict_probability_random(const void* model, const Instance* instance) {
     Random_model_ptr random_model = (Random_model_ptr) model;
-    Hash_map_ptr result = create_hash_map((unsigned int (*)(const void *, int)) hash_function_string,
-                                          (int (*)(const void *, const void *)) compare_string);
+    Hash_map_ptr result = create_string_hash_map();
     for (int i = 0; i < random_model->class_labels->size; i++){
         char* class_label = array_list_get(random_model->class_labels, i);
         double* p = malloc(sizeof(double));

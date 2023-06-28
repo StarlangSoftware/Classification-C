@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include "Knn.h"
-#include "../Model/Knn_model.h"
+#include "../Model/KnnModel.h"
 #include "../Parameter/KnnParameter.h"
 
 void free_knn(Classifier_ptr knn) {

@@ -8,8 +8,7 @@
 
 Confusion_matrix_ptr create_confusion_matrix() {
     Confusion_matrix_ptr result = malloc(sizeof(Confusion_matrix));
-    result->matrix = create_hash_map((unsigned int (*)(const void *, int)) hash_function_string,
-                                     (int (*)(const void *, const void *)) compare_string);
+    result->matrix = create_string_hash_map();
     result->class_labels = create_array_list();
     return result;
 }
@@ -21,8 +20,7 @@ Confusion_matrix_ptr create_confusion_matrix() {
  */
 Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
     Confusion_matrix_ptr result = malloc(sizeof(Confusion_matrix));
-    result->matrix = create_hash_map((unsigned int (*)(const void *, int)) hash_function_string,
-                                     (int (*)(const void *, const void *)) compare_string);
+    result->matrix = create_string_hash_map();
     result->class_labels = class_labels;
     return result;
 }

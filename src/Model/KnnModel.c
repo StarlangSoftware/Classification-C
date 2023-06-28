@@ -3,7 +3,7 @@
 //
 
 #include <stdlib.h>
-#include "Knn_model.h"
+#include "KnnModel.h"
 #include "KnnInstance.h"
 #include "../Classifier/Classifier.h"
 #include "../DistanceMetric/EuclidianDistance.h"

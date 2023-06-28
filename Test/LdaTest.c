@@ -1,0 +1,26 @@
+//
+// Created by Olcay Taner YILDIZ on 27.06.2023.
+//
+
+#include <math.h>
+#include "../src/DataSet/DataSet.h"
+#include "../src/Classifier/Classifier.h"
+#include "../src/Classifier/Lda.h"
+#include "CreateDataSets.h"
+
+void test_lda_classifier(Data_set_ptr data_set, double error_rate, int index){
+
+    Classifier_ptr lda = train_lda(data_set->instances, NULL);
+    Detailed_classification_performance_ptr performance = test_classifier(lda, data_set->instances);
+    if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
+        printf("Error in lda test %d %.2lf\n", index, 100 * performance->error_rate);
+    }
+    free_lda(lda);
+}
+
+int main(){
+    create_datasets();
+    test_lda_classifier(iris, 2.00, 1);
+    test_lda_classifier(bupa, 36.81, 2);
+    test_lda_classifier(dermatology, 1.91, 3);
+}
