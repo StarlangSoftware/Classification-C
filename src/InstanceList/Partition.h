@@ -36,4 +36,6 @@ Instance_list_ptr get_instance_list(const Partition* partition, int index);
 
 Array_list_ptr* get_lists(const Partition* partition);
 
+void free_partition(Partition_ptr partition);
+
 #endif //CLASSIFICATION_PARTITION_H

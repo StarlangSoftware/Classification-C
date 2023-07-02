@@ -45,6 +45,14 @@ Lda_model_ptr create_lda_model2(const char *file_name) {
     return result;
 }
 
+/**
+ * The calculateMetric method takes an {@link Instance} and a String as inputs. It returns the dot product of given Instance
+ * and w0 plus w1.
+ *
+ * @param instance {@link Instance} input.
+ * @param Ci       String input.
+ * @return The dot product of given Instance and w0 plus w1.
+ */
 double calculate_metric_lda(const Lda_model *lda_model, const Instance *instance, const char *C_i) {
     double w0i;
     Vector_ptr xi = to_vector(instance);
@@ -61,14 +69,14 @@ void free_lda_model(Lda_model_ptr lda_model) {
 }
 
 char *predict_lda(const void *model, const Instance *instance) {
-    Lda_model_ptr k_means_model = (Lda_model_ptr) model;
+    Lda_model_ptr lda_model = (Lda_model_ptr) model;
     double max_metric = -DBL_MAX;
-    char* predicted_class = get_max_item(k_means_model->prior_distribution);
-    int size = size_of_distribution(k_means_model->prior_distribution);
-    Array_list_ptr possible_labels = get_items(k_means_model->prior_distribution);
+    char* predicted_class = get_max_item(lda_model->prior_distribution);
+    int size = size_of_distribution(lda_model->prior_distribution);
+    Array_list_ptr possible_labels = get_items(lda_model->prior_distribution);
     for (int i = 0; i < size; i++){
         char* C_i = array_list_get(possible_labels, i);
-        if (contains_distribution(k_means_model->prior_distribution, C_i)){
+        if (contains_distribution(lda_model->prior_distribution, C_i)){
             double metric = calculate_metric_lda(model, instance, C_i);
             if (metric > max_metric){
                 max_metric = metric;

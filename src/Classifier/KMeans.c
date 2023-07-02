@@ -22,6 +22,7 @@ Classifier_ptr train_k_means(Instance_list_ptr train_set, const void *parameter)
     for (int i = 0; i < size_of_partition(class_lists); i++) {
         add_instance(class_means, average(get_instance_list(class_lists, i)));
     }
+    free_partition(class_lists);
     result->model = create_k_means_model(priorDistribution, class_means, ((K_means_parameter_ptr)(parameter))->distance_function);
     result->predict = predict_k_means;
     result->predict_probability = NULL;

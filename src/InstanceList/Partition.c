@@ -192,3 +192,8 @@ Partition_ptr create_partition7(const Instance_list *instance_list, int attribut
     }
     return result;
 }
+
+void free_partition(Partition_ptr partition) {
+    free_array_list(partition->multi_list, NULL);
+    free(partition);
+}

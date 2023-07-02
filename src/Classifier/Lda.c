@@ -26,6 +26,8 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
         Vector_ptr average_vector = create_vector(continuous_attribute_average2(get_instance_list(class_lists, i)));
         Matrix_ptr class_covariance = covariance(get_instance_list(class_lists, i), average_vector);
         add_matrix(all_covariance, class_covariance);
+        free_vector(average_vector);
+        free_matrix(class_covariance);
     }
     divide_by_constant(all_covariance, size_of_instance_list(train_set) - size_of_partition(class_lists));
     inverse(all_covariance);
@@ -38,7 +40,10 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
         double* w0i = malloc(sizeof(double));
         *w0i = -0.5 * dot_product(wi, average_vector) + log(get_probability(priorDistribution, C_i));
         hash_map_insert(w0, C_i, w0i);
+        free_vector(average_vector);
     }
+    free_matrix(all_covariance);
+    free_partition(class_lists);
     result->model = create_lda_model(priorDistribution, w, w0);
     result->predict = predict_lda;
     result->predict_probability = NULL;
