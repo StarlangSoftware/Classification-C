@@ -24,8 +24,8 @@ Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
     for (int i = 0; i < size_of_partition(class_lists); i++){
         Instance_list_ptr class_list = get_instance_list(class_lists, i);
         char* C_i = get_instance(class_list, 0)->class_label;
-        Vector_ptr average_vector = create_vector(continuous_attribute_average2(get_instance_list(class_lists, i)));
-        Matrix_ptr class_covariance = covariance(get_instance_list(class_lists, i), average_vector);
+        Vector_ptr average_vector = create_vector(continuous_attribute_average2(class_list));
+        Matrix_ptr class_covariance = covariance(class_list, average_vector);
         double det = determinant(class_covariance);
         inverse(class_covariance);
         Matrix_ptr Wi = clone(class_covariance);

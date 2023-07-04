@@ -34,7 +34,7 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
     for (int i = 0; i < size_of_partition(class_lists); i++) {
         Instance_list_ptr class_list = get_instance_list(class_lists, i);
         char* C_i = get_instance(class_list, 0)->class_label;
-        Vector_ptr average_vector = create_vector(continuous_attribute_average2(get_instance_list(class_lists, i)));
+        Vector_ptr average_vector = create_vector(continuous_attribute_average2(class_list));
         Vector_ptr wi = multiply_with_vector_from_left(all_covariance, average_vector);
         hash_map_insert(w, C_i, wi);
         double* w0i = malloc(sizeof(double));
