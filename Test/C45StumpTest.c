@@ -1,0 +1,27 @@
+//
+// Created by Olcay Taner YILDIZ on 13.07.2023.
+//
+
+#include <math.h>
+#include "../src/DataSet/DataSet.h"
+#include "../src/Classifier/Classifier.h"
+#include "../src/Classifier/C45Stump.h"
+#include "CreateDataSets.h"
+
+void test_c45_stump_classifier(Data_set_ptr data_set, double error_rate, int index){
+    Classifier_ptr c45 = train_c45_stump(data_set->instances, NULL);
+    Detailed_classification_performance_ptr performance = test_classifier(c45, data_set->instances);
+    if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
+        printf("Error in c45 stump test %d %f\n", index, 100 * performance->error_rate);
+    }
+    free_c45_stump(c45);
+}
+
+int main(){
+    create_datasets();
+    test_c45_stump_classifier(iris, 33.33, 1);
+    test_c45_stump_classifier(bupa, 36.81, 2);
+    test_c45_stump_classifier(dermatology, 49.73, 3);
+    test_c45_stump_classifier(car, 29.98, 4);
+    test_c45_stump_classifier(tictactoe, 30.06, 5);
+}

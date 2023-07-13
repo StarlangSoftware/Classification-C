@@ -42,6 +42,7 @@ Naive_bayes_model_ptr create_naive_bayes_model2(const char *file_name) {
         Vector_ptr vector = create_vector5(input_file);
         hash_map_insert(result->class_deviations, class_label, vector);
     }
+    fclose(input_file);
     return result;
 }
 

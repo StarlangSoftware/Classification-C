@@ -168,3 +168,26 @@ Vector_ptr to_vector(const Instance* instance) {
 int compare_instance_labels(const Instance *instance1, const Instance *instance2) {
     return compare_string(instance1->class_label, instance2->class_label);
 }
+
+/**
+* Compares two instance on the values of the attribute with index attributeIndex.
+*
+* @param instance1 First instance to be compared
+* @param instance2 Second instance to be compared
+* @return -1 if the attribute value of the first instance is less than the attribute value of the second instance.
+* 1 if the attribute value of the first instance is greater than the attribute value of the second instance.
+* 0 if the attribute value of the first instance is equal to the attribute value of the second instance.
+*/
+int compare_attributes(const Instance *instance1, const Instance *instance2, const void *arg) {
+    double value1 = get_attribute(instance1, *(int *)arg)->float_value;
+    double value2 = get_attribute(instance2, *(int *)arg)->float_value;
+    if (value1 < value2){
+        return -1;
+    } else {
+        if (value1 > value2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}

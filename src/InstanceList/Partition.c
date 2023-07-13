@@ -115,12 +115,21 @@ Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, i
             } else {
                 add_instance(get_instance_list(result, 1), instance);
             }
+            put_counter_hash_map(counts, instance->class_label);
         }
         free_discrete_distribution(distribution);
         free_counter_hash_map(counts, free);
         free_array_list(random_array, free);
     } else {
         shuffle_instance_list(instance_list, seed);
+        for (int i = 0; i < size_of_instance_list(instance_list); i++) {
+            Instance_ptr instance = get_instance(instance_list, i);
+            if (i < size_of_instance_list(instance_list) * ratio){
+                add_instance(get_instance_list(result, 0), instance);
+            } else {
+                add_instance(get_instance_list(result, 1), instance);
+            }
+        }
     }
     return result;
 }

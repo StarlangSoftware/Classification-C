@@ -40,6 +40,8 @@ Instance_ptr get_instance(const Instance_list* instance_list, int index);
 
 void sort_wrt_class_labels(Instance_list_ptr instance_list);
 
+void sort_wrt_attribute_index(Instance_list_ptr instance_list, int attribute_index);
+
 void shuffle_instance_list(Instance_list_ptr instance_list, int seed);
 
 Bootstrap_ptr bootstrap_instance_list(Instance_list_ptr instance_list, int seed);

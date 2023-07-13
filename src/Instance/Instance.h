@@ -48,4 +48,6 @@ Vector_ptr to_vector(const Instance* instance);
 
 int compare_instance_labels(const Instance* instance1, const Instance* instance2);
 
+int compare_attributes(const Instance* instance1, const Instance* instance2, const void* arg);
+
 #endif //CLASSIFICATION_INSTANCE_H

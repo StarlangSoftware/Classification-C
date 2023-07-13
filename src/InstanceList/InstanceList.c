@@ -138,6 +138,15 @@ void sort_wrt_class_labels(Instance_list_ptr instance_list) {
 }
 
 /**
+ * Sorts attribute list according to the attribute with index 'attributeIndex'.
+ *
+ * @param attributeIndex index of the attribute.
+ */
+void sort_wrt_attribute_index(Instance_list_ptr instance_list, int attribute_index) {
+    array_list_quick_sort2(instance_list->list, (int (*)(const void *, const void *, const void *)) compare_attributes, &attribute_index);
+}
+
+/**
  * Shuffles the instance list.
  * @param seed Seed is used for random number generation.
  */
@@ -596,3 +605,4 @@ Instance_list_ptr create_instance_list4(FILE *input_file) {
     }
     return result;
 }
+
