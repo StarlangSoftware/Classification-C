@@ -13,7 +13,7 @@ Classifier_ptr train_c45(Instance_list_ptr train_set, const void* parameter);
 
 Classifier_ptr load_c45(const char* file_name);
 
-Classifier_ptr c45(Decision_tree_ptr decision_tree);
+Classifier_ptr validation_c45(Decision_tree_ptr decision_tree);
 
 void free_c45(Classifier_ptr c45);
 

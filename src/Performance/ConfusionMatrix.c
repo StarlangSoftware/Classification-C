@@ -26,8 +26,8 @@ Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
 }
 
 void free_confusion_matrix(Confusion_matrix_ptr confusion_matrix) {
-    free_hash_map(confusion_matrix->matrix, (void (*)(void *)) free_counter_hash_map);
-    free_array_list(confusion_matrix->class_labels, free);
+    free_hash_map_of_counter_hash_map(confusion_matrix->matrix, free);
+    free_array_list(confusion_matrix->class_labels, NULL);
     free(confusion_matrix);
 }
 

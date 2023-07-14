@@ -12,7 +12,7 @@ void test_c45_stump_classifier(Data_set_ptr data_set, double error_rate, int ind
     Classifier_ptr c45 = train_c45_stump(data_set->instances, NULL);
     Detailed_classification_performance_ptr performance = test_classifier(c45, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
-        printf("Error in c45 stump test %d %f\n", index, 100 * performance->error_rate);
+        printf("Error in validation_c45 stump test %d %f\n", index, 100 * performance->error_rate);
     }
     free_c45_stump(c45);
 }

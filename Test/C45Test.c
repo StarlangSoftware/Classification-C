@@ -13,7 +13,7 @@ void test_c45_classifier(Data_set_ptr data_set, double error_rate, int index, C4
     Classifier_ptr c45 = train_c45(data_set->instances, parameter);
     Detailed_classification_performance_ptr performance = test_classifier(c45, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
-        printf("Error in c45 test %d %f\n", index, 100 * performance->error_rate);
+        printf("Error in validation_c45 test %d %f\n", index, 100 * performance->error_rate);
     }
     free_c45(c45);
 }

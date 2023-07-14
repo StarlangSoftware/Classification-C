@@ -40,7 +40,7 @@ void free_c45(Classifier_ptr c45) {
     free(c45);
 }
 
-Classifier_ptr c45(Decision_tree_ptr decision_tree) {
+Classifier_ptr validation_c45(Decision_tree_ptr decision_tree) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = decision_tree;
     result->predict_probability = predict_probability_tree;

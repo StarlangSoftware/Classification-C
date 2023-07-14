@@ -62,7 +62,7 @@ void prune_node(Decision_tree_ptr decision_tree, Decision_node_ptr node, const I
     if (node->leaf){
         return;
     }
-    Classifier_ptr classifier = c45(decision_tree);
+    Classifier_ptr classifier = validation_c45(decision_tree);
     Detailed_classification_performance_ptr before = test_classifier(classifier, prune_set);
     node->leaf = true;
     Detailed_classification_performance_ptr after = test_classifier(classifier, prune_set);
@@ -80,6 +80,8 @@ void prune_node(Decision_tree_ptr decision_tree, Decision_node_ptr node, const I
         free_array_list(node->children, NULL);
         node->children = NULL;
     }
+    free_detailed_classification_performance(before);
+    free_detailed_classification_performance(after);
     free(classifier);
 }
 
