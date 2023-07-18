@@ -16,6 +16,7 @@ Classifier_ptr train_c45(Instance_list_ptr train_set, const void *parameter) {
         Partition_ptr partition = create_partition4(train_set, c45_parameter->cross_validation_ratio, c45_parameter->seed, true);
         tree = create_decision_tree(create_decision_node(get_instance_list(partition, 1), create_decision_condition4(), NULL, false));
         prune(tree, get_instance_list(partition, 0));
+        free_partition(partition);
     } else {
         tree = create_decision_tree(create_decision_node(train_set, create_decision_condition4(), NULL, false));
     }

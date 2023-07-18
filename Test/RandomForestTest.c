@@ -26,4 +26,5 @@ int main(){
     test_random_forest_classifier(dermatology, 0.00, 3, parameter);
     test_random_forest_classifier(car, 0.00, 4, parameter);
     test_random_forest_classifier(tictactoe, 0.00, 5, parameter);
+    free_random_forest_parameter(parameter);
 }
