@@ -8,15 +8,11 @@
 #include <Matrix.h>
 #include "../InstanceList/InstanceList.h"
 #include "../Parameter/LinearPerceptronParameter.h"
+#include "NeuralNetworkModel.h"
 
 struct linear_perceptron_model{
+    Neural_network_model_ptr model;
     Matrix_ptr W;
-    int K;
-    int d;
-    Vector_ptr x;
-    Vector_ptr y;
-    Vector_ptr r;
-    Array_list_ptr class_labels;
 };
 
 typedef struct linear_perceptron_model Linear_perceptron_model;
@@ -32,18 +28,10 @@ Linear_perceptron_model_ptr create_linear_perceptron_model2(const char* file_nam
 
 void free_linear_perceptron_model(Linear_perceptron_model_ptr linear_perceptron);
 
-Matrix_ptr allocate_layer_weights(int row, int column, int seed);
-
-Vector_ptr create_input_vector(const Instance *instance);
-
-Vector_ptr calculate_r_minus_y(Linear_perceptron_model_ptr linear_perceptron, const Instance* instance, const Vector *input, const Matrix* weights);
-
-Vector_ptr normalize_output(const Vector *o);
-
 char* predict_linear_perceptron(const void *model, const Instance *instance);
 
 Hash_map_ptr predict_probability_linear_perceptron(const void *model, const Instance* instance);
 
-void calculate_output_linear_perceptron(Linear_perceptron_model_ptr linear_perceptron);
+void calculate_output_linear_perceptron(const Linear_perceptron_model* linear_perceptron);
 
 #endif //CLASSIFICATION_LINEARPERCEPTRONMODEL_H
