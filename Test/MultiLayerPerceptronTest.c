@@ -20,12 +20,12 @@ void test_multi_layer_perceptron_classifier(Data_set_ptr data_set, double error_
 int main(){
     create_datasets();
     Multi_layer_perceptron_parameter_ptr parameter = create_multi_layer_perceptron_parameter_ptr(1, 0.1, 0.99, 0.2, 100, 3, SIGMOID);
-    test_multi_layer_perceptron_classifier(iris, 2.00, 1, parameter);
+    test_multi_layer_perceptron_classifier(iris, 1.33, 1, parameter);
     free_multi_layer_perceptron_parameter_ptr(parameter);
     parameter = create_multi_layer_perceptron_parameter_ptr(1, 0.01, 0.99, 0.2, 100, 30, SIGMOID);
-    test_multi_layer_perceptron_classifier(bupa, 30.72, 2, parameter);
+    test_multi_layer_perceptron_classifier(bupa, 28.99, 2, parameter);
     free_multi_layer_perceptron_parameter_ptr(parameter);
     parameter = create_multi_layer_perceptron_parameter_ptr(1, 0.01, 0.99, 0.2, 100, 20, SIGMOID);
-    test_multi_layer_perceptron_classifier(dermatology, 2.46, 3, parameter);
+    test_multi_layer_perceptron_classifier(dermatology, 1.91, 3, parameter);
     free_multi_layer_perceptron_parameter_ptr(parameter);
 }

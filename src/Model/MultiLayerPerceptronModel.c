@@ -67,6 +67,7 @@ create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_p
             multiply_with_constant(delta_W, learning_rate);
             add_matrix(result->W, delta_W);
             free_matrix(delta_W);
+            free_temporary_input_output_vectors(result->model);
         }
         Classifier_ptr validation = validation_multi_layer_perceptron(result);
         Detailed_classification_performance_ptr current_classification_performance = test_classifier(validation, validation_set);
