@@ -103,8 +103,6 @@ Detailed Description
 ============
 
 + [Classification Algorithms](#classification-algorithms)
-+ [Sampling Strategies](#sampling-strategies)
-+ [Feature Selection](#feature-selection)
 + [Statistical Tests](#statistical-tests)
 
 ## Classification Algorithms
