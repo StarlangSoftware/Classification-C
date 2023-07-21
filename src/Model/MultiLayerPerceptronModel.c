@@ -105,6 +105,8 @@ void allocate_weights(Multi_layer_perceptron_model_ptr multi_layer_perceptron, i
 
 void free_multi_layer_perceptron_model(Multi_layer_perceptron_model_ptr multi_layer_perceptron) {
     free_neural_network_model(multi_layer_perceptron->model);
+    free_matrix(multi_layer_perceptron->V);
+    free_matrix(multi_layer_perceptron->W);
     free(multi_layer_perceptron);
 }
 

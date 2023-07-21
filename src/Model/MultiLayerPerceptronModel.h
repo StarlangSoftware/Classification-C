@@ -22,8 +22,8 @@ typedef struct multi_layer_perceptron_model Multi_layer_perceptron_model;
 typedef Multi_layer_perceptron_model *Multi_layer_perceptron_model_ptr;
 
 Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model(Instance_list_ptr train_set,
-                                                           Instance_list_ptr validation_set,
-                                                           Multi_layer_perceptron_parameter_ptr parameter);
+                                                                     Instance_list_ptr validation_set,
+                                                                     Multi_layer_perceptron_parameter_ptr parameter);
 
 Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model2(const char* file_name);
 
