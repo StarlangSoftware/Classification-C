@@ -121,6 +121,9 @@ Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, In
         free(validation);
         learning_rate *= parameter->eta_decrease;
     }
+    free_array_list(hidden, (void (*)(void *)) free_vector);
+    free_array_list(hidden_biased, (void (*)(void *)) free_vector);
+    free_array_list(delta_weights, (void (*)(void *)) free_matrix);
     array_list_clear(result->weights, (void (*)(void *)) free_matrix);
     for (int i = 0; i < best_weights->size; i++){
         array_list_add(result->weights, array_list_get(best_weights, i));

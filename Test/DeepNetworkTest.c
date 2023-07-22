@@ -4,6 +4,8 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
+#include <sys/time.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/DeepNetwork.h"
@@ -19,6 +21,8 @@ void test_deep_network_classifier(Data_set_ptr data_set, double error_rate, int 
 }
 
 int main(){
+    struct timeval stop, start;
+    gettimeofday(&start, NULL);
     create_datasets();
     Array_list_ptr hidden_nodes = create_array_list();
     int* value = malloc(sizeof(int));
@@ -47,4 +51,6 @@ int main(){
     parameter = create_deep_network_parameter(1, 0.01, 0.99, 0.2, 100, hidden_nodes, SIGMOID);
     test_deep_network_classifier(dermatology, 1.91, 3, parameter);
     free_deep_network_parameter(parameter);
+    gettimeofday(&stop, NULL);
+    printf("%lf", (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0);
 }
