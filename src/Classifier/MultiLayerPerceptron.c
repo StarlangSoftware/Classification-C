@@ -19,6 +19,7 @@ Classifier_ptr train_multi_layer_perceptron(Instance_list_ptr train_set, const v
     Multi_layer_perceptron_parameter_ptr multi_layer_perceptron_parameter = (Multi_layer_perceptron_parameter_ptr) parameter;
     Partition_ptr partition = create_partition4(train_set, multi_layer_perceptron_parameter->cross_validation_ratio, multi_layer_perceptron_parameter->seed, true);
     result->model = create_multi_layer_perceptron_model(get_instance_list(partition, 1), get_instance_list(partition, 0), multi_layer_perceptron_parameter);
+    result->train = train_multi_layer_perceptron;
     result->predict_probability = predict_probability_multi_layer_perceptron;
     result->predict = predict_multi_layer_perceptron;
     return result;
@@ -27,6 +28,7 @@ Classifier_ptr train_multi_layer_perceptron(Instance_list_ptr train_set, const v
 Classifier_ptr load_multi_layer_perceptron(const char *file_name) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = create_multi_layer_perceptron_model2(file_name);
+    result->train = train_multi_layer_perceptron;
     result->predict_probability = predict_probability_multi_layer_perceptron;
     result->predict = predict_multi_layer_perceptron;
     return result;
@@ -36,6 +38,7 @@ Classifier_ptr load_multi_layer_perceptron(const char *file_name) {
 Classifier_ptr validation_multi_layer_perceptron(Multi_layer_perceptron_model_ptr multi_layer_perceptron) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = multi_layer_perceptron;
+    result->train = train_multi_layer_perceptron;
     result->predict_probability = predict_probability_multi_layer_perceptron;
     result->predict = predict_multi_layer_perceptron;
     return result;

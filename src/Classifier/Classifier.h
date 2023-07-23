@@ -12,6 +12,7 @@
 
 struct classifier{
     void* model;
+    struct classifier* (*train)(Instance_list_ptr train_set, const void* parameter);
     char* (*predict)(const void* model, const Instance* instance);
     Hash_map_ptr (*predict_probability)(const void* model, const Instance* instance);
 };

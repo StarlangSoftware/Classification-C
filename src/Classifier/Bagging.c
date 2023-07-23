@@ -27,6 +27,7 @@ Classifier_ptr train_bagging(Instance_list_ptr train_set, const void *parameter)
         array_list_add(forest, create_decision_tree(create_decision_node(create_instance_list3(get_sample(bootstrap)), create_decision_condition4(), NULL, false)));
     }
     result->model = create_tree_ensemble_model(forest);
+    result->train = train_bagging;
     result->predict_probability = predict_probability_ensemble;
     result->predict = predict_ensemble;
     return result;
@@ -35,6 +36,7 @@ Classifier_ptr train_bagging(Instance_list_ptr train_set, const void *parameter)
 Classifier_ptr load_bagging(const char *file_name) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = create_tree_ensemble_model2(file_name);
+    result->train = train_bagging;
     result->predict_probability = predict_probability_ensemble;
     result->predict = predict_ensemble;
     return result;

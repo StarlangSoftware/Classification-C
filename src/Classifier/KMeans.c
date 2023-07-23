@@ -24,6 +24,7 @@ Classifier_ptr train_k_means(Instance_list_ptr train_set, const void *parameter)
     }
     free_partition(class_lists);
     result->model = create_k_means_model(priorDistribution, class_means, ((K_means_parameter_ptr)(parameter))->distance_function);
+    result->train = train_k_means;
     result->predict = predict_k_means;
     result->predict_probability = NULL;
     return result;
@@ -32,6 +33,7 @@ Classifier_ptr train_k_means(Instance_list_ptr train_set, const void *parameter)
 Classifier_ptr load_k_means(const char *file_name) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = create_k_means_model2(file_name);
+    result->train = train_k_means;
     result->predict = predict_k_means;
     result->predict_probability = NULL;
     return result;

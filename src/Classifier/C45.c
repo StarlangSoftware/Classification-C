@@ -21,6 +21,7 @@ Classifier_ptr train_c45(Instance_list_ptr train_set, const void *parameter) {
         tree = create_decision_tree(create_decision_node(train_set, create_decision_condition4(), NULL, false));
     }
     result->model = tree;
+    result->train = train_c45;
     result->predict_probability = predict_probability_tree;
     result->predict = predict_tree;
     return result;
@@ -31,6 +32,7 @@ Classifier_ptr load_c45(const char *file_name) {
     FILE* input_file = fopen(file_name, "r");
     result->model = create_decision_tree2(input_file);
     fclose(input_file);
+    result->train = train_c45;
     result->predict_probability = predict_probability_tree;
     result->predict = predict_tree;
     return result;
@@ -44,6 +46,7 @@ void free_c45(Classifier_ptr c45) {
 Classifier_ptr validation_c45(Decision_tree_ptr decision_tree) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = decision_tree;
+    result->train = train_c45;
     result->predict_probability = predict_probability_tree;
     result->predict = predict_tree;
     return result;

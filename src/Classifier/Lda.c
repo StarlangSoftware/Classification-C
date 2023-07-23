@@ -16,6 +16,7 @@
  */
 Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
     Classifier_ptr result = malloc(sizeof(Classifier));
+    result->train = train_lda;
     Discrete_distribution_ptr priorDistribution = class_distribution(train_set);
     Partition_ptr class_lists = create_partition3(train_set);
     Hash_map_ptr w = create_string_hash_map();
@@ -53,6 +54,7 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
 Classifier_ptr load_lda(const char *file_name) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = create_lda_model2(file_name);
+    result->train = train_lda;
     result->predict = predict_lda;
     result->predict_probability = NULL;
     return result;

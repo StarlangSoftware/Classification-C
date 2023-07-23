@@ -13,7 +13,7 @@ void convert_instance_discrete_to_indexed(Lary_filter_ptr lary_filter, Instance_
     int size = attribute_size(instance);
     for (int i = 0; i < size; i++) {
         Discrete_distribution_ptr distribution = array_list_get(lary_filter->attribute_distributions, i);
-        if (distribution->map->hash_map->count != 0) {
+        if (size_of_distribution(distribution) != 0) {
             int index = get_index(distribution, get_attribute(instance, i)->string_value);
             add_attribute_to_instance(instance, create_discrete_indexed_attribute(index, distribution->map->hash_map->count));
         }
@@ -29,7 +29,7 @@ void convert_data_definition_discrete_to_indexed(Lary_filter_ptr lary_filter) {
     int size = attribute_count(data_definition);
     for (int i = 0; i < size; i++) {
         Discrete_distribution_ptr distribution = array_list_get(lary_filter->attribute_distributions, i);
-        if (distribution->map->hash_map->count != 0) {
+        if (size_of_distribution(distribution) != 0) {
             add_attribute(data_definition, DISCRETE_INDEXED);
         }
     }

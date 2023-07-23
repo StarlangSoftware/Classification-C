@@ -41,6 +41,7 @@ Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
     }
     free_partition(class_lists);
     result->model = create_qda_model(priorDistribution, W, w, w0);
+    result->train = train_qda;
     result->predict = predict_qda;
     result->predict_probability = NULL;
     return result;
@@ -49,6 +50,7 @@ Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
 Classifier_ptr load_qda(const char *file_name) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = create_qda_model2(file_name);
+    result->train = train_qda;
     result->predict = predict_qda;
     result->predict_probability = NULL;
     return result;

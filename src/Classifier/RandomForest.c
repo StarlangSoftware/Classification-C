@@ -26,13 +26,16 @@ Classifier_ptr train_random_forest(Instance_list_ptr train_set, const void *para
         array_list_add(forest, create_decision_tree(create_decision_node(create_instance_list3(get_sample(bootstrap)), create_decision_condition4(), random_forest_parameter, false)));
     }
     result->model = create_tree_ensemble_model(forest);
+    result->train = train_random_forest;
     result->predict_probability = predict_probability_ensemble;
     result->predict = predict_ensemble;
     return result;
 }
 
 Classifier_ptr load_random_forest(const char *file_name) {
-    return load_bagging(file_name);
+    Classifier_ptr result = load_bagging(file_name);
+    result->train = train_random_forest;
+    return result;
 }
 
 void free_random_forest(Classifier_ptr random_forest) {

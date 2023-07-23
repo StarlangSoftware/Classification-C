@@ -16,6 +16,7 @@
 Experiment_performance_ptr create_experiment_performance() {
     Experiment_performance_ptr result = malloc(sizeof(Experiment_performance));
     result->results = create_array_list();
+    result->contains_details = false;
     return result;
 }
 
@@ -48,6 +49,13 @@ Experiment_performance_ptr create_experiment_performance2(const char *file_name)
  */
 void add_performance(Experiment_performance_ptr experiment_performance, Performance_ptr performance) {
     array_list_add(experiment_performance->results, performance);
+    experiment_performance->contains_details = false;
+}
+
+void add_detailed_performance(Experiment_performance_ptr experiment_performance,
+                              Detailed_classification_performance_ptr performance) {
+    array_list_add(experiment_performance->results, performance);
+    experiment_performance->contains_details = true;
 }
 
 /**
@@ -66,8 +74,13 @@ int number_of_experiments(const Experiment_performance* experiment_performance) 
  * @return The errorRate at given index of results {@link vector}.
  */
 double get_error_rate(const Experiment_performance* experiment_performance, int index) {
-    Performance_ptr performance = array_list_get(experiment_performance->results, index);
-    return performance->error_rate;
+    if (!experiment_performance->contains_details){
+        Performance_ptr performance = (Performance_ptr) array_list_get(experiment_performance->results, index);
+        return performance->error_rate;
+    } else {
+        Detailed_classification_performance_ptr performance = (Detailed_classification_performance_ptr) array_list_get(experiment_performance->results, index);
+        return performance->error_rate;
+    }
 }
 
 /**
@@ -79,8 +92,13 @@ double get_error_rate(const Experiment_performance* experiment_performance, int 
 Performance_ptr mean_performance(const Experiment_performance *experiment_performance) {
     double sum_error = 0;
     for (int i = 0; i < experiment_performance->results->size; i++) {
-        Performance_ptr performance = array_list_get(experiment_performance->results, i);
-        sum_error += performance->error_rate;
+        if (!experiment_performance->contains_details){
+            Performance_ptr performance = (Performance_ptr) array_list_get(experiment_performance->results, i);
+            sum_error += performance->error_rate;
+        } else {
+            Detailed_classification_performance_ptr performance = (Detailed_classification_performance_ptr) array_list_get(experiment_performance->results, i);
+            sum_error += performance->error_rate;
+        }
     }
     return create_performance(sum_error / experiment_performance->results->size);
 }
@@ -96,8 +114,13 @@ Performance_ptr standard_deviation_performance(const Experiment_performance *exp
     Performance_ptr average_performance;
     average_performance = mean_performance(experiment_performance);
     for (int i = 0; i < experiment_performance->results->size; i++) {
-        Performance_ptr performance = array_list_get(experiment_performance->results, i);
-        sum_error_rate += pow(performance->error_rate - average_performance->error_rate, 2);
+        if (!experiment_performance->contains_details){
+            Performance_ptr performance = (Performance_ptr) array_list_get(experiment_performance->results, i);
+            sum_error_rate += pow(performance->error_rate - average_performance->error_rate, 2);
+        } else {
+            Detailed_classification_performance_ptr performance = (Detailed_classification_performance_ptr) array_list_get(experiment_performance->results, i);
+            sum_error_rate += pow(performance->error_rate - average_performance->error_rate, 2);
+        }
     }
     return create_performance(sqrt(sum_error_rate / (experiment_performance->results->size - 1)));
 }

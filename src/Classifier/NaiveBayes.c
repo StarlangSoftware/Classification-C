@@ -18,6 +18,7 @@ Classifier_ptr train_naive_bayes(Instance_list_ptr train_set, const void *parame
     Discrete_distribution_ptr prior_distribution = class_distribution(train_set);
     Partition_ptr class_lists = create_partition3(train_set);
     train_continuous_version(result, prior_distribution, class_lists);
+    result->train = train_naive_bayes;
     result->predict_probability = NULL;
     result->predict = predict_naive_bayes;
     return result;
@@ -47,6 +48,7 @@ void train_continuous_version(Classifier_ptr classifier, Discrete_distribution_p
 Classifier_ptr load_naive_bayes(const char *file_name) {
     Classifier_ptr result = malloc(sizeof(Classifier));
     result->model = create_naive_bayes_model2(file_name);
+    result->train = train_naive_bayes;
     result->predict = predict_naive_bayes;
     result->predict_probability = NULL;
     return result;

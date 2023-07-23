@@ -32,7 +32,7 @@ void remove_discrete_attributes_instance(Lary_filter_ptr lary_filter, Instance_p
     int k = 0;
     for (int i = 0; i < size; i++) {
         Discrete_distribution_ptr distribution = array_list_get(lary_filter->attribute_distributions, i);
-        if (distribution->map->hash_map->count != 0) {
+        if (size_of_distribution(distribution) != 0) {
             remove_attribute_from_instance(instance, k);
         } else {
             k++;
@@ -50,7 +50,7 @@ void remove_discrete_attributes_definition(Lary_filter_ptr lary_filter, int size
     int k = 0;
     for (int i = 0; i < size; i++) {
         Discrete_distribution_ptr distribution = array_list_get(lary_filter->attribute_distributions, i);
-        if (distribution->map->hash_map->count != 0) {
+        if (size_of_distribution(distribution) != 0) {
             remove_attribute(dataDefinition, k);
         } else {
             k++;
