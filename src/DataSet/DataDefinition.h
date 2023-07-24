@@ -7,6 +7,7 @@
 
 #include <ArrayList.h>
 #include "../Attribute/AttributeType.h"
+#include "../FeatureSelection/FeatureSubSet.h"
 
 struct data_definition{
     Array_list_ptr attribute_types;
@@ -42,5 +43,7 @@ void remove_all_attributes(Data_definition_ptr data_definition);
 int number_of_values(const Data_definition* data_definition, int index);
 
 int feature_value_index(const Data_definition* data_definition, int index, const char* value);
+
+Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definition* data_definition, const Feature_sub_set* feature_sub_set);
 
 #endif //CLASSIFICATION_DATADEFINITION_H

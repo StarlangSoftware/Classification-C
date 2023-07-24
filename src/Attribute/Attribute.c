@@ -128,3 +128,16 @@ bool is_discrete_indexed(const Attribute *attribute) {
 bool is_binary(const Attribute *attribute) {
     return attribute->attribute_type == BINARY;
 }
+
+Attribute_ptr clone_attribute(Attribute_ptr attribute) {
+    switch (attribute->attribute_type) {
+        case BINARY:
+            return create_binary_attribute(attribute->bool_value);
+        case CONTINUOUS:
+            return create_continuous_attribute(attribute->float_value);
+        case DISCRETE:
+            return create_discrete_attribute(attribute->string_value);
+        case DISCRETE_INDEXED:
+            return create_discrete_indexed_attribute(attribute->int_value, attribute->max_index);
+    }
+}

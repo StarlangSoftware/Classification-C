@@ -51,4 +51,6 @@ Partition_ptr get_class_instances(const Data_set* data_set);
 
 String_ptr get_classes(const Data_set* data_set);
 
+Data_set_ptr get_sub_set_of_features_data_set(const Data_set* data_set, const Feature_sub_set* feature_sub_set);
+
 #endif //CLASSIFICATION_DATASET_H

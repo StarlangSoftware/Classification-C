@@ -17,3 +17,8 @@ Experiment_ptr create_experiment(Classifier_ptr classifier, void *parameter, Dat
 void free_experiment(Experiment_ptr experiment) {
     free(experiment);
 }
+
+Experiment_ptr feature_selected_experiment(const Experiment *experiment, const Feature_sub_set *feature_sub_set) {
+    Data_set_ptr new_data_set = get_sub_set_of_features_data_set(experiment->data_set, feature_sub_set);
+    return create_experiment(experiment->classifier, experiment->parameter, new_data_set, experiment->seed);
+}

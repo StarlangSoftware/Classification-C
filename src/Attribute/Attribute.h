@@ -35,6 +35,8 @@ Attribute_ptr create_discrete_attribute(const char* value);
 
 Attribute_ptr create_discrete_indexed_attribute(int index, int max_index);
 
+Attribute_ptr clone_attribute(Attribute_ptr attribute);
+
 void free_attribute(Attribute_ptr attribute);
 
 int continuous_attribute_size(const Attribute* attribute);

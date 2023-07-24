@@ -191,3 +191,19 @@ int compare_attributes(const Instance *instance1, const Instance *instance2, con
         }
     }
 }
+
+/**
+ * The getSubSetOfFeatures method takes a {@link FeatureSubSet} as an input. First it creates a result {@link Instance}
+ * with the class label, and adds the attributes of the given featureSubSet to it.
+ *
+ * @param featureSubSet {@link FeatureSubSet} an {@link vector} of indices.
+ * @return result Instance.
+ */
+Instance_ptr get_sub_set_of_features_instance(const Instance *instance, const Feature_sub_set *feature_sub_set) {
+    Instance_ptr result = create_instance2(instance->class_label);
+    for (int i = 0; i < size_of_feature_sub_set(feature_sub_set); i++){
+        Attribute_ptr attribute = get_attribute(instance, get_feature(feature_sub_set, i));
+        add_attribute_to_instance(result, clone_attribute(attribute));
+    }
+    return result;
+}

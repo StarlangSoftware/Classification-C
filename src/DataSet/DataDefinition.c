@@ -142,3 +142,20 @@ int feature_value_index(const Data_definition *data_definition, int index, const
     }
     return -1;
 }
+
+/**
+ * Generates new subset of attribute types by using given feature subset.
+ *
+ * @param featureSubSet {@link FeatureSubSet} input.
+ * @return DataDefinition with new subset of attribute types.
+ */
+Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definition *data_definition,
+                                                            const Feature_sub_set *feature_sub_set) {
+    Array_list_ptr new_attribute_types = create_array_list();
+    for (int i = 0; i < size_of_feature_sub_set(feature_sub_set); i++){
+        Attribute_type* new_type = malloc(sizeof(Attribute_type));
+        *new_type = *(Attribute_type*) array_list_get(data_definition->attribute_types, i);
+        array_list_add(new_attribute_types, new_type);
+    }
+    return create_data_definition2(new_attribute_types);
+}

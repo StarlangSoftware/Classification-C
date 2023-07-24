@@ -276,3 +276,19 @@ void free_data_set(Data_set_ptr data_set) {
     free_data_definition(data_set->definition);
     free(data_set);
 }
+
+/**
+ * Return a subset generated via the given {@link FeatureSubSet}.
+ *
+ * @param featureSubSet {@link FeatureSubSet} input.
+ * @return Subset generated via the given {@link FeatureSubSet}.
+ */
+Data_set_ptr get_sub_set_of_features_data_set(const Data_set *data_set, const Feature_sub_set *feature_sub_set) {
+    Data_definition_ptr data_definition = get_sub_set_of_features_data_definition(data_definition, feature_sub_set);
+    Data_set_ptr result = create_data_set2(data_definition);
+    for (int i = 0; i < size_of_instance_list(data_set->instances); i++){
+        Instance_ptr instance = get_instance(data_set->instances, i);
+        add_instance_to_data_set(result, get_sub_set_of_features_instance(instance, feature_sub_set));
+    }
+    return result;
+}

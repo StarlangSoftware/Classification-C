@@ -8,6 +8,7 @@
 #include <ArrayList.h>
 #include "../Attribute/Attribute.h"
 #include "Vector.h"
+#include "../FeatureSelection/FeatureSubSet.h"
 
 struct instance{
     char* class_label;
@@ -49,5 +50,7 @@ Vector_ptr to_vector(const Instance* instance);
 int compare_instance_labels(const Instance* instance1, const Instance* instance2);
 
 int compare_attributes(const Instance* instance1, const Instance* instance2, const void* arg);
+
+Instance_ptr get_sub_set_of_features_instance(const Instance* instance, const Feature_sub_set* feature_sub_set);
 
 #endif //CLASSIFICATION_INSTANCE_H
