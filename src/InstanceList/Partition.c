@@ -118,7 +118,7 @@ Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, i
             put_counter_hash_map(counts, instance->class_label);
         }
         free_discrete_distribution(distribution);
-        free_counter_hash_map(counts, free);
+        free_counter_hash_map(counts);
         free_array_list(random_array, free);
     } else {
         shuffle_instance_list(instance_list, seed);

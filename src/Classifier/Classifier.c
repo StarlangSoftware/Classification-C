@@ -22,7 +22,7 @@ char *get_maximum(Array_list_ptr class_labels) {
         put_counter_hash_map(frequencies, array_list_get(class_labels, i));
     }
     char* result = max_counter_hash_map(frequencies);
-    free_counter_hash_map(frequencies, NULL);
+    free_counter_hash_map(frequencies);
     return result;
 }
 
