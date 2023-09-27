@@ -580,7 +580,7 @@ Instance_list_ptr create_instance_list4(FILE *input_file) {
     result->list =  create_array_list();
     fgets(line, MAX_LINE_LENGTH, input_file);
     line[strcspn(line, "\n")] = 0;
-    Array_list_ptr attribute_types = split(line);
+    Array_list_ptr attribute_types = str_split(line, ' ');
     int size;
     fscanf(input_file, "%d", &size);
     for (int i = 0; i < size; i++){
@@ -589,20 +589,22 @@ Instance_list_ptr create_instance_list4(FILE *input_file) {
         Array_list_ptr attribute_list = create_array_list();
         Array_list_ptr attribute_values = str_split(line, ',');
         for (int j = 0; j < attribute_types->size; j++){
-            String_ptr attribute_type = array_list_get(attribute_types, j);
-            String_ptr attribute_value = array_list_get(attribute_values, j);
-            if (string_equals2(attribute_type, "DISCRETE")){
-                array_list_add(attribute_list, create_discrete_attribute(attribute_value->s));
+            char* attribute_type = array_list_get(attribute_types, j);
+            char* attribute_value = array_list_get(attribute_values, j);
+            if (strcmp(attribute_type, "DISCRETE") == 0){
+                array_list_add(attribute_list, create_discrete_attribute(attribute_value));
             } else {
-                if (string_equals2(attribute_type, "CONTINUOUS")){
-                    array_list_add(attribute_list, create_continuous_attribute(atof(attribute_value->s)));
+                if (strcmp(attribute_type, "CONTINUOUS") == 0){
+                    array_list_add(attribute_list, create_continuous_attribute(atof(attribute_value)));
                 }
             }
         }
         String_ptr class_label = array_list_get(attribute_values, attribute_types->size);
+        free_array_list(attribute_values, free);
         Instance_ptr current = create_instance(class_label->s, attribute_list);
         array_list_add(result->list, current);
     }
+    free_array_list(attribute_types, free);
     return result;
 }
 

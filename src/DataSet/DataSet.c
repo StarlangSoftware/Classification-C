@@ -49,8 +49,8 @@ Data_set_ptr create_data_set3(char *file_name) {
         Array_list_ptr attributes = str_split(line, ',');
         if (i == 0){
             for (int j = 0; j < attributes->size - 1; j++){
-                String_ptr attribute = array_list_get(attributes, j);
-                atof(attribute->s);
+                char* attribute = array_list_get(attributes, j);
+                atof(attribute);
                 add_attribute(result->definition, CONTINUOUS);
             }
         } else {
@@ -58,17 +58,16 @@ Data_set_ptr create_data_set3(char *file_name) {
                 continue;
             }
         }
-        String_ptr attribute = array_list_get(attributes, attributes->size - 1);
-        char *class_label = attribute->s;
+        char* class_label = array_list_get(attributes, attributes->size - 1);
         Instance_ptr instance = create_instance2(class_label);
         for (int j = 0; j < attributes->size - 1; j++){
-            attribute = array_list_get(attributes, j);
+            char* attribute = array_list_get(attributes, j);
             switch (get_attribute_type(result->definition, j)) {
                 case CONTINUOUS:
-                    add_attribute_to_instance(instance, create_continuous_attribute(atof(attribute->s)));
+                    add_attribute_to_instance(instance, create_continuous_attribute(atof(attribute)));
                     break;
                 case DISCRETE:
-                    add_attribute_to_instance(instance, create_discrete_attribute(attribute->s));
+                    add_attribute_to_instance(instance, create_discrete_attribute(attribute));
                     break;
                 case BINARY:
                 case DISCRETE_INDEXED:
