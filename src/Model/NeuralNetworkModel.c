@@ -41,9 +41,7 @@ Vector_ptr normalize_output(const Vector *o) {
         sum += exp(get_value(o, i));
     }
     for (int i = 0; i < o->size; i++){
-        double* value = malloc(sizeof(double));
-        *value = exp(get_value(o, i)) / sum;
-        array_list_add(values, value);
+        array_list_add_double(values, exp(get_value(o, i)) / sum);
     }
     return create_vector(values);
 }

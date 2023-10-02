@@ -81,25 +81,20 @@ int continuous_attribute_size(const Attribute *attribute) {
 
 Array_list_ptr continuous_attributes(const Attribute *attribute) {
     Array_list_ptr result = create_array_list();
-    double* tmp;
     switch (attribute->attribute_type) {
         case CONTINUOUS:
-            tmp = malloc(sizeof(double));
-            *tmp = attribute->float_value;
-            array_list_add(result, tmp);
+            array_list_add_double(result, attribute->float_value);
             break;
         case DISCRETE:
         case BINARY:
             break;
         case DISCRETE_INDEXED:
             for (int i = 0; i < attribute->max_index; i++) {
-                tmp = malloc(sizeof(double));
                 if (i != attribute->int_value) {
-                    *tmp = 0.0;
+                    array_list_add_double(result, 0.0);
                 } else {
-                    *tmp = 1.0;
+                    array_list_add_double(result, 1.0);
                 }
-                array_list_add(result, tmp);
             }
             break;
     }
