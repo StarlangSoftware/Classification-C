@@ -21,36 +21,22 @@ void test_deep_network_classifier(Data_set_ptr data_set, double error_rate, int 
 }
 
 int main(){
-    struct timeval stop, start;
-    gettimeofday(&start, NULL);
     create_datasets();
     Array_list_ptr hidden_nodes = create_array_list();
-    int* value = malloc(sizeof(int));
-    *value = 5;
-    array_list_add(hidden_nodes, value);
-    value = malloc(sizeof(int));
-    *value = 5;
-    array_list_add(hidden_nodes, value);
+    array_list_add_int(hidden_nodes, 5);
+    array_list_add_int(hidden_nodes, 5);
     Deep_network_parameter_ptr parameter = create_deep_network_parameter(1, 0.1, 0.99, 0.2, 100, hidden_nodes, SIGMOID);
     test_deep_network_classifier(iris, 6.0, 1, parameter);
     free_deep_network_parameter(parameter);
     hidden_nodes = create_array_list();
-    value = malloc(sizeof(int));
-    *value = 15;
-    array_list_add(hidden_nodes, value);
-    value = malloc(sizeof(int));
-    *value = 15;
-    array_list_add(hidden_nodes, value);
+    array_list_add_int(hidden_nodes, 15);
+    array_list_add_int(hidden_nodes, 15);
     parameter = create_deep_network_parameter(1, 0.01, 0.99, 0.2, 100, hidden_nodes, SIGMOID);
     test_deep_network_classifier(bupa, 28.70, 2, parameter);
     free_deep_network_parameter(parameter);
     hidden_nodes = create_array_list();
-    value = malloc(sizeof(int));
-    *value = 20;
-    array_list_add(hidden_nodes, value);
+    array_list_add_int(hidden_nodes, 20);
     parameter = create_deep_network_parameter(1, 0.01, 0.99, 0.2, 100, hidden_nodes, SIGMOID);
     test_deep_network_classifier(dermatology, 1.91, 3, parameter);
     free_deep_network_parameter(parameter);
-    gettimeofday(&stop, NULL);
-    printf("%lf", (stop.tv_sec - start.tv_sec) + (stop.tv_usec - start.tv_usec) / 1000000.0);
 }

@@ -69,9 +69,7 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
     } else {
         index_list = create_array_list();
         for (int i = 0; i < attribute_size(get_instance(data, 0)); i++) {
-            int *index = malloc(sizeof(int));
-            *index = i;
-            array_list_add(index_list, index);
+            array_list_add_int(index_list, i);
         }
         size = attribute_size(get_instance(data, 0));
     }

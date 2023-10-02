@@ -15,9 +15,7 @@ Feature_sub_set_ptr create_feature_sub_set(int number_of_features) {
     Feature_sub_set_ptr result = malloc(sizeof(Feature_sub_set));
     result->index_list = create_array_list();
     for (int i = 0; i < number_of_features; i++){
-        int* value = malloc(sizeof(int));
-        *value = i;
-        array_list_add(result->index_list, value);
+        array_list_add_int(result->index_list, i);
     }
     return result;
 }
@@ -58,7 +56,7 @@ int size_of_feature_sub_set(const Feature_sub_set* feature_sub_set) {
  * @return The item of indexList at given index.
  */
 int get_feature(const Feature_sub_set* feature_sub_set, int index) {
-    return *(int*)array_list_get(feature_sub_set->index_list, index);
+    return array_list_get_int(feature_sub_set->index_list, index);
 }
 
 /**
@@ -83,9 +81,7 @@ void free_feature_sub_set(Feature_sub_set_ptr feature_sub_set) {
  * @param featureNo Integer that will be added to indexList.
  */
 void add_feature(Feature_sub_set_ptr feature_sub_set, int feature_no) {
-    int* value = malloc(sizeof(int));
-    *value = feature_no;
-    array_list_add(feature_sub_set->index_list, value);
+    array_list_add_int(feature_sub_set->index_list, feature_no);
 }
 
 /**
