@@ -14,9 +14,9 @@ Confusion_matrix_ptr create_confusion_matrix() {
 }
 
 /**
- * Constructor that sets the class labels {@link ArrayList} and creates new {@link HashMap} matrix
+ * Constructor that sets the class labels ArrayList and creates new HashMap matrix
  *
- * @param class_labels {@link ArrayList} of String.
+ * @param class_labels ArrayList of String.
  */
 Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
     Confusion_matrix_ptr result = malloc(sizeof(Confusion_matrix));
@@ -32,10 +32,10 @@ void free_confusion_matrix(Confusion_matrix_ptr confusion_matrix) {
 }
 
 /**
- * The classify method takes two Strings; actual class and predicted class as inputs. If the matrix {@link map} contains
- * given actual class String as a key, it then assigns the corresponding object of that key to a {@link CounterHashMap}, if not
- * it creates a new {@link CounterHashMap}. Then, it puts the given predicted class String to the counterHashMap and
- * also put this counterHashMap to the matrix {@link map} together with the given actual class String.
+ * The classify method takes two Strings; actual class and predicted class as inputs. If the matrix map contains
+ * given actual class String as a key, it then assigns the corresponding object of that key to a CounterHashMap, if not
+ * it creates a new CounterHashMap. Then, it puts the given predicted class String to the counterHashMap and
+ * also put this counterHashMap to the matrix map together with the given actual class String.
  *
  * @param actualClass    String input actual class.
  * @param predictedClass String input predicted class.
@@ -53,10 +53,10 @@ void classify(Confusion_matrix_ptr confusion_matrix, char *actual_class, char *p
 }
 
 /**
- * The addConfusionMatrix method takes a {@link ConfusionMatrix} as an input and loops through actual classes of that {@link HashMap}
- * and initially gets one row at a time. Then it puts the current row to the matrix {@link HashMap} together with the actual class string.
+ * The addConfusionMatrix method takes a ConfusionMatrix as an input and loops through actual classes of that HashMap
+ * and initially gets one row at a time. Then it puts the current row to the matrix HashMap together with the actual class string.
  *
- * @param confusion_matrix2 {@link ConfusionMatrix} input.
+ * @param confusion_matrix2 ConfusionMatrix input.
  */
 void add_confusion_matrix(Confusion_matrix_ptr confusion_matrix, const Confusion_matrix* confusion_matrix2) {
     Array_list_ptr list = key_list(confusion_matrix2->matrix);
@@ -75,7 +75,7 @@ void add_confusion_matrix(Confusion_matrix_ptr confusion_matrix, const Confusion
 }
 
 /**
- * The sumOfElements method loops through the keys in matrix {@link HashMap} and returns the summation of all the values of the keys.
+ * The sumOfElements method loops through the keys in matrix HashMap and returns the summation of all the values of the keys.
  * I.e: TP+TN+FP+FN.
  *
  * @return The summation of values.
@@ -93,7 +93,7 @@ double sum_of_elements(const Confusion_matrix* confusion_matrix) {
 }
 
 /**
- * The trace_confusion method loops through the keys in matrix {@link HashMap} and if the current key contains the actual key,
+ * The trace_confusion method loops through the keys in matrix HashMap and if the current key contains the actual key,
  * it accumulates the corresponding values. I.e: TP+TN.
  *
  * @return Summation of values.
@@ -113,7 +113,7 @@ double trace_confusion(const Confusion_matrix* confusion_matrix) {
 }
 
 /**
- * The columnSum method takes a String predicted class as input, and loops through the keys in matrix {@link HashMap}.
+ * The columnSum method takes a String predicted class as input, and loops through the keys in matrix HashMap.
  * If the current key contains the predicted class String, it accumulates the corresponding values. I.e: TP+FP.
  *
  * @param predictedClass String input predicted class.

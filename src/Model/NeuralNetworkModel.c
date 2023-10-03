@@ -11,7 +11,7 @@
 /**
  * Constructor that sets the class labels, their sizes as K and the size of the continuous attributes as d.
  *
- * @param trainSet {@link InstanceList} to use as train set.
+ * @param trainSet InstanceList to use as train set.
  */
 Neural_network_model_ptr create_neural_network_model(const Instance_list *train_set) {
     Neural_network_model_ptr result = malloc(sizeof(Neural_network_model));
@@ -28,7 +28,7 @@ void free_temporary_input_output_vectors(Neural_network_model_ptr neural_network
 }
 
 /**
- * The normalizeOutput method takes an input {@link Vector} o, gets the result for e^o of each element of o,
+ * The normalizeOutput method takes an input Vector o, gets the result for e^o of each element of o,
  * then sums them up. At the end, divides the each e^o by the summation.
  *
  * @param o Vector to normalize.
@@ -69,7 +69,7 @@ calculate_r_minus_y(Neural_network_model_ptr neural_network, const Instance *ins
 }
 
 /**
- * The createInputVector method takes an {@link Instance} as an input. It converts given Instance to the {@link java.util.Vector}
+ * The createInputVector method takes an Instance as an input. It converts given Instance to the {@link java.util.Vector}
  * and insert 1.0 to the first element.
  *
  * @param instance Instance to insert 1.0.
@@ -81,7 +81,7 @@ Vector_ptr create_input_vector(const Instance *instance) {
 }
 
 /**
- * The allocateLayerWeights method returns a new {@link Matrix} with random weights.
+ * The allocateLayerWeights method returns a new Matrix with random weights.
  *
  * @param row    Number of rows.
  * @param column Number of columns.
@@ -109,7 +109,7 @@ Neural_network_model_ptr create_neural_network_model2(FILE *input_file) {
 }
 
 /**
- * The calculateHidden method takes a {@link Vector} input and {@link Matrix} weights, It multiplies the weights
+ * The calculateHidden method takes a Vector input and Matrix weights, It multiplies the weights
  * Matrix with given input Vector than applies the sigmoid function and returns the result.
  *
  * @param input   Vector to multiply weights.
@@ -165,8 +165,8 @@ void calculate_forward_single_hidden_layer(Neural_network_model_ptr neural_netwo
 }
 
 /**
- * The predict method takes an {@link Instance} as an input, converts it to a Vector and calculates the {@link Matrix} y by
- * multiplying Matrix W with {@link Vector} x. Then it returns the class label which has the maximum y value.
+ * The predict method takes an Instance as an input, converts it to a Vector and calculates the Matrix y by
+ * multiplying Matrix W with Vector x. Then it returns the class label which has the maximum y value.
  *
  * @param instance Instance to predict.
  * @return The class lable which has the maximum y.

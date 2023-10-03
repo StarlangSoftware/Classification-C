@@ -41,7 +41,7 @@ Instance_ptr create_instance2(const char *class_label) {
 }
 
 /**
- * Adds a discrete attribute with the given {@link String} value.
+ * Adds a discrete attribute with the given String value.
  *
  * @param value Value of the discrete attribute.
  */
@@ -50,7 +50,7 @@ void add_discrete_attribute(Instance_ptr instance, const char *value) {
 }
 
 /**
- * Adds a continuous attribute with the given {@link double} value.
+ * Adds a continuous attribute with the given double value.
  *
  * @param value Value of the continuous attribute.
  */
@@ -68,9 +68,9 @@ void add_attribute_to_instance(Instance_ptr instance, Attribute_ptr attribute) {
 }
 
 /**
- * Adds a {@link Vector} of continuous attributes.
+ * Adds a Vector of continuous attributes.
  *
- * @param vector {@link Vector} that has the continuous attributes.
+ * @param vector Vector that has the continuous attributes.
  */
 void add_vector_attribute(Instance_ptr instance, Vector_ptr vector) {
     for (int i = 0; i < vector->size; i++) {
@@ -193,10 +193,10 @@ int compare_attributes(const Instance *instance1, const Instance *instance2, con
 }
 
 /**
- * The getSubSetOfFeatures method takes a {@link FeatureSubSet} as an input. First it creates a result {@link Instance}
+ * The getSubSetOfFeatures method takes a FeatureSubSet as an input. First it creates a result Instance
  * with the class label, and adds the attributes of the given featureSubSet to it.
  *
- * @param featureSubSet {@link FeatureSubSet} an {@link vector} of indices.
+ * @param featureSubSet FeatureSubSet an vector of indices.
  * @return result Instance.
  */
 Instance_ptr get_sub_set_of_features_instance(const Instance *instance, const Feature_sub_set *feature_sub_set) {

@@ -11,7 +11,7 @@
 
 /**
  * Constructor that sets the class labels, their sizes as K and the size of the continuous attributes as d.
- * Constructor also takes {@link InstanceList}s as trainSet and validationSet. Initially it allocates layer weights,
+ * Constructor also takes InstanceLists as trainSet and validationSet. Initially it allocates layer weights,
  * then creates an input vector by using given trainSet and finds error. Via the validationSet it finds the classification
  * performance and at the end it reassigns the allocated weight Matrix with the matrix that has the best accuracy.
  *
@@ -62,8 +62,8 @@ create_linear_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr va
 }
 
 /**
- * The predict method takes an {@link Instance} as an input, converts it to a Vector and calculates the {@link Matrix} y by
- * multiplying Matrix W with {@link Vector} x. Then it returns the class label which has the maximum y value.
+ * The predict method takes an Instance as an input, converts it to a Vector and calculates the Matrix y by
+ * multiplying Matrix W with Vector x. Then it returns the class label which has the maximum y value.
  *
  * @param instance Instance to predict.
  * @return The class lable which has the maximum y.
@@ -81,7 +81,7 @@ Hash_map_ptr predict_probability_linear_perceptron(const void *model, const Inst
 }
 
 /**
- * The calculateOutput method calculates the {@link Matrix} y by multiplying Matrix W with {@link Vector} x.
+ * The calculateOutput method calculates the Matrix y by multiplying Matrix W with Vector x.
  */
 void calculate_output_linear_perceptron(const Linear_perceptron_model* linear_perceptron) {
     linear_perceptron->model->y = multiply_with_vector_from_right(linear_perceptron->W, linear_perceptron->model->x);

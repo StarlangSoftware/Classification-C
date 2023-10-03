@@ -8,10 +8,10 @@
 #include "DecisionCondition.h"
 
 /**
- * A constructor that sets attributeIndex and {@link Attribute} value. It also assigns equal sign to the comparison character.
+ * A constructor that sets attributeIndex and Attribute value. It also assigns equal sign to the comparison character.
  *
  * @param attributeIndex Integer number that shows attribute index.
- * @param value          The value of the {@link Attribute}.
+ * @param value          The value of the Attribute.
  */
 Decision_condition_ptr create_decision_condition(int attribute_index, Attribute_ptr value) {
     Decision_condition_ptr result = malloc(sizeof(Decision_condition));
@@ -22,10 +22,10 @@ Decision_condition_ptr create_decision_condition(int attribute_index, Attribute_
 }
 
 /**
- * A constructor that sets attributeIndex, comparison and {@link Attribute} value.
+ * A constructor that sets attributeIndex, comparison and Attribute value.
  *
  * @param attributeIndex Integer number that shows attribute index.
- * @param value          The value of the {@link Attribute}.
+ * @param value          The value of the Attribute.
  * @param comparison     Comparison character.
  */
 Decision_condition_ptr create_decision_condition2(int attribute_index, char comparison, Attribute_ptr value) {
@@ -65,16 +65,16 @@ void free_decision_condition(Decision_condition_ptr decision_condition) {
 }
 
 /**
- * The satisfy method takes an {@link Instance} as an input.
+ * The satisfy method takes an Instance as an input.
  * <p>
- * If defined {@link Attribute} value is a {@link DiscreteIndexedAttribute} it compares the index of {@link Attribute} of instance at the
- * attributeIndex and the index of {@link Attribute} value and returns the result.
+ * If defined Attribute value is a DiscreteIndexedAttribute it compares the index of Attribute of instance at the
+ * attributeIndex and the index of Attribute value and returns the result.
  * <p>
- * If defined {@link Attribute} value is a {@link DiscreteAttribute} it compares the value of {@link Attribute} of instance at the
- * attributeIndex and the value of {@link Attribute} value and returns the result.
+ * If defined Attribute value is a DiscreteAttribute it compares the value of Attribute of instance at the
+ * attributeIndex and the value of Attribute value and returns the result.
  * <p>
- * If defined {@link Attribute} value is a {@link ContinuousAttribute} it compares the value of {@link Attribute} of instance at the
- * attributeIndex and the value of {@link Attribute} value and returns the result according to the comparison character whether it is
+ * If defined Attribute value is a ContinuousAttribute it compares the value of Attribute of instance at the
+ * attributeIndex and the value of Attribute value and returns the result according to the comparison character whether it is
  * less than or greater than signs.
  *
  * @param instance Instance to compare.

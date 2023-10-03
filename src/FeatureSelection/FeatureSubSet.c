@@ -21,7 +21,7 @@ Feature_sub_set_ptr create_feature_sub_set(int number_of_features) {
 }
 
 /**
- * A constructor that sets the indexList {@link vector}.
+ * A constructor that sets the indexList vector.
  *
  * @param indexList A vector consists of integer indices.
  */

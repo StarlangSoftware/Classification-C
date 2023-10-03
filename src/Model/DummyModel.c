@@ -6,9 +6,9 @@
 #include "DummyModel.h"
 
 /**
- * Constructor which sets the distribution using the given {@link InstanceList}.
+ * Constructor which sets the distribution using the given InstanceList.
  *
- * @param trainSet {@link InstanceList} which is used to get the class distribution.
+ * @param trainSet InstanceList which is used to get the class distribution.
  */
 Dummy_model_ptr create_dummy_model(Instance_list_ptr train_set) {
     Dummy_model_ptr result = malloc(sizeof(Dummy_model));

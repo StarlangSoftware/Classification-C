@@ -13,7 +13,7 @@
  * @param eta_decrease          Double value for decrease in eta of the algorithm.
  * @param cross_validation_ratio Double value for cross validation ratio of the algorithm.
  * @param epoch                Integer value for epoch number of the algorithm.
- * @param hidden_layers         An integer {@link vector} for hidden layers of the algorithm.
+ * @param hidden_layers         An integer vector for hidden layers of the algorithm.
  * @param activation_function   Activation function
  */
 Deep_network_parameter_ptr
@@ -41,9 +41,9 @@ void free_deep_network_parameter(Deep_network_parameter_ptr deep_network_paramet
 }
 
 /**
- * The layerSize method returns the size of the hiddenLayers {@link ArrayList}.
+ * The layerSize method returns the size of the hiddenLayers ArrayList.
  *
- * @return The size of the hiddenLayers {@link ArrayList}.
+ * @return The size of the hiddenLayers ArrayList.
  */
 int layer_size(Deep_network_parameter_ptr deep_network_parameter) {
     return deep_network_parameter->hidden_layers->size;
@@ -51,10 +51,10 @@ int layer_size(Deep_network_parameter_ptr deep_network_parameter) {
 
 /**
  * The getHiddenNodes method takes a layer index as an input and returns the element at the given index of hiddenLayers
- * {@link vector}.
+ * vector.
  *
  * @param layerIndex Index of the layer.
- * @return The element at the layerIndex of hiddenLayers {@link vector}.
+ * @return The element at the layerIndex of hiddenLayers vector.
  */
 int get_hidden_nodes(Deep_network_parameter_ptr deep_network_parameter, int layer_index) {
     return *(int*)array_list_get(deep_network_parameter->hidden_layers, layer_index);

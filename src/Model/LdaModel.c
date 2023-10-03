@@ -11,9 +11,9 @@
 /**
  * A constructor which sets the priorDistribution, w and w1 according to given inputs.
  *
- * @param priorDistribution {@link DiscreteDistribution} input.
- * @param w                 {@link HashMap} of String and Vectors.
- * @param w0                {@link HashMap} of String and Double.
+ * @param priorDistribution DiscreteDistribution input.
+ * @param w                 HashMap of String and Vectors.
+ * @param w0                HashMap of String and Double.
  */
 Lda_model_ptr create_lda_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr w, Hash_map_ptr w0) {
     Lda_model_ptr result = malloc(sizeof(Lda_model));
@@ -46,10 +46,10 @@ Lda_model_ptr create_lda_model2(const char *file_name) {
 }
 
 /**
- * The calculateMetric method takes an {@link Instance} and a String as inputs. It returns the dot product of given Instance
+ * The calculateMetric method takes an Instance and a String as inputs. It returns the dot product of given Instance
  * and w0 plus w1.
  *
- * @param instance {@link Instance} input.
+ * @param instance Instance input.
  * @param Ci       String input.
  * @return The dot product of given Instance and w0 plus w1.
  */

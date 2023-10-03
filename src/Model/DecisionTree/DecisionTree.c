@@ -42,16 +42,16 @@ char *predict_tree(const void *model, const Instance *instance) {
 }
 
 /**
- * The prune method takes an {@link InstanceList} and  performs pruning to the root node.
+ * The prune method takes an InstanceList and  performs pruning to the root node.
  *
- * @param pruneSet {@link InstanceList} to perform pruning.
+ * @param pruneSet InstanceList to perform pruning.
  */
 void prune(Decision_tree_ptr decision_tree, const Instance_list *prune_set) {
     prune_node(decision_tree, decision_tree->root, prune_set);
 }
 
 /**
- * The prune method takes a {@link DecisionNode} and an {@link InstanceList} as inputs. It checks the classification performance
+ * The prune method takes a DecisionNode and an InstanceList as inputs. It checks the classification performance
  * of given InstanceList before pruning, i.e making a node leaf, and after pruning. If the after performance is better than the
  * before performance it prune the given InstanceList from the tree.
  *

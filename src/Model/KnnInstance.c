@@ -8,7 +8,7 @@
 /**
  * The constructor that sets the instance and distance value.
  *
- * @param instance {@link Instance} input.
+ * @param instance Instance input.
  * @param distance Double distance value.
  */
 Knn_instance_ptr create_knn_instance(Instance_ptr instance, double distance) {

@@ -7,7 +7,7 @@
 #include "DataDefinition.h"
 
 /**
- * Constructor for creating a new {@link DataDefinition}.
+ * Constructor for creating a new DataDefinition.
  */
 Data_definition_ptr create_data_definition() {
     Data_definition_ptr result = malloc(sizeof(Data_definition));
@@ -25,7 +25,7 @@ void free_data_definition(Data_definition_ptr data_definition) {
 }
 
 /**
- * Constructor for creating a new {@link DataDefinition} with given attribute types.
+ * Constructor for creating a new DataDefinition with given attribute types.
  *
  * @param attributeTypes Attribute types of the data definition.
  */
@@ -37,7 +37,7 @@ Data_definition_ptr create_data_definition2(Array_list_ptr attribute_types) {
 }
 
 /**
- * Constructor for creating a new {@link DataDefinition} with given attribute types.
+ * Constructor for creating a new DataDefinition with given attribute types.
  *
  * @param attributeTypes Attribute types of the data definition.
  * @param attributeValueList Array of array of strings to represent all possible values of discrete features.
@@ -146,7 +146,7 @@ int feature_value_index(const Data_definition *data_definition, int index, const
 /**
  * Generates new subset of attribute types by using given feature subset.
  *
- * @param featureSubSet {@link FeatureSubSet} input.
+ * @param featureSubSet FeatureSubSet input.
  * @return DataDefinition with new subset of attribute types.
  */
 Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definition *data_definition,

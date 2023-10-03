@@ -11,7 +11,7 @@
 #include "Performance.h"
 
 /**
- * A constructor which creates a new {@link ArrayList} of {@link Performance} as results.
+ * A constructor which creates a new ArrayList of Performance as results.
  */
 Experiment_performance_ptr create_experiment_performance() {
     Experiment_performance_ptr result = malloc(sizeof(Experiment_performance));
@@ -22,7 +22,7 @@ Experiment_performance_ptr create_experiment_performance() {
 
 /**
  * A constructor that takes a file name as an input and takes the inputs from that file assigns these inputs to the errorRate
- * and adds them to the results {@link ArrayList} as a new {@link Performance}.
+ * and adds them to the results ArrayList as a new Performance.
  *
  * @param fileName String input.
  */
@@ -43,9 +43,9 @@ Experiment_performance_ptr create_experiment_performance2(const char *file_name)
 }
 
 /**
- * The add method takes a {@link Performance} as an input and adds it to the results {@link ArrayList}.
+ * The add method takes a Performance as an input and adds it to the results ArrayList.
  *
- * @param performance {@link Performance} input.
+ * @param performance Performance input.
  */
 void add_performance(Experiment_performance_ptr experiment_performance, Performance_ptr performance) {
     array_list_add(experiment_performance->results, performance);
@@ -59,19 +59,19 @@ void add_detailed_performance(Experiment_performance_ptr experiment_performance,
 }
 
 /**
- * The numberOfExperiments method returns the size of the results {@link vector}.
+ * The numberOfExperiments method returns the size of the results vector.
  *
- * @return The results {@link vector}.
+ * @return The results vector.
  */
 int number_of_experiments(const Experiment_performance* experiment_performance) {
     return experiment_performance->results->size;
 }
 
 /**
- * The getErrorRate method takes an index as an input and returns the errorRate at given index of results {@link vector}.
+ * The getErrorRate method takes an index as an input and returns the errorRate at given index of results vector.
  *
- * @param index Index of results {@link vector} to retrieve.
- * @return The errorRate at given index of results {@link vector}.
+ * @param index Index of results vector to retrieve.
+ * @return The errorRate at given index of results vector.
  */
 double get_error_rate(const Experiment_performance* experiment_performance, int index) {
     if (!experiment_performance->contains_details){
@@ -84,10 +84,10 @@ double get_error_rate(const Experiment_performance* experiment_performance, int 
 }
 
 /**
- * The meanPerformance method loops through the performances of results {@link ArrayList} and sums up the errorRates of each then
- * returns a new {@link Performance} with the mean of that summation.
+ * The meanPerformance method loops through the performances of results ArrayList and sums up the errorRates of each then
+ * returns a new Performance with the mean of that summation.
  *
- * @return A new {@link Performance} with the mean of the summation of errorRates.
+ * @return A new Performance with the mean of the summation of errorRates.
  */
 Performance_ptr mean_performance(const Experiment_performance *experiment_performance) {
     double sum_error = 0;
@@ -104,7 +104,7 @@ Performance_ptr mean_performance(const Experiment_performance *experiment_perfor
 }
 
 /**
- * The standardDeviationPerformance method loops through the {@link Performance}s of results {@link ArrayList} and returns
+ * The standardDeviationPerformance method loops through the Performances of results ArrayList and returns
  * a new Performance with the standard deviation.
  *
  * @return A new Performance with the standard deviation.

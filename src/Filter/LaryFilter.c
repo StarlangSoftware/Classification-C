@@ -22,7 +22,7 @@ void free_lary_filter(Lary_filter_ptr lary_filter) {
 }
 
 /**
- * The removeDiscreteAttributes method takes an {@link Instance} as an input, and removes the discrete attributes from
+ * The removeDiscreteAttributes method takes an Instance as an input, and removes the discrete attributes from
  * given instance.
  *
  * @param instance Instance to removes attributes from.

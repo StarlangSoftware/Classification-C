@@ -165,9 +165,9 @@ Bootstrap_ptr bootstrap_instance_list(Instance_list_ptr instance_list, int seed)
 }
 
 /**
- * Extracts the class labels of each instance in the instance list and returns them in an array of {@link String}.
+ * Extracts the class labels of each instance in the instance list and returns them in an array of String.
  *
- * @return A {@link vector} of class labels.
+ * @return A vector of class labels.
  */
 Array_list_ptr get_class_labels(const Instance_list *instance_list) {
     Array_list_ptr class_labels = create_array_list();
@@ -181,7 +181,7 @@ Array_list_ptr get_class_labels(const Instance_list *instance_list) {
 /**
  * Extracts the class labels of each instance in the instance list and returns them as a set.
  *
- * @return A {@link vector} of distinct class labels.
+ * @return A vector of distinct class labels.
  */
 Array_list_ptr get_distinct_class_labels(const Instance_list *instance_list) {
     Array_list_ptr class_labels = create_array_list();
@@ -545,10 +545,10 @@ Array_list_ptr continuous_attribute_standard_deviation2(const Instance_list *ins
 }
 
 /**
- * Calculates a covariance {@link Matrix} by using an average {@link Vector}.
+ * Calculates a covariance Matrix by using an average Vector.
  *
  * @param average Vector input.
- * @return Covariance {@link Matrix}.
+ * @return Covariance Matrix.
  */
 Matrix_ptr covariance(const Instance_list *instance_list, const Vector* average) {
     double mi, mj, xi, xj;

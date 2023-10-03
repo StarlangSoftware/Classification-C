@@ -8,7 +8,7 @@
 /**
  * A constructor that sets the initial subset with given input.
  *
- * @param initialSubSet {@link FeatureSubSet} input.
+ * @param initialSubSet FeatureSubSet input.
  */
 Sub_set_selection_ptr create_sub_set_selection(Feature_sub_set_ptr initial_sub_set) {
     Sub_set_selection_ptr result = malloc(sizeof(Sub_set_selection));
@@ -98,7 +98,7 @@ backward_selection(Sub_set_selection_ptr sub_set_selection, const Feature_sub_se
 /**
  * The operator method calls forward and backward methods.
  *
- * @param current          {@link FeatureSubSet} input.
+ * @param current          FeatureSubSet input.
  * @param numberOfFeatures Indicates the indices of indexList.
  * @return ArrayList of FeatureSubSet.
  */

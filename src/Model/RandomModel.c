@@ -38,7 +38,7 @@ Random_model_ptr create_random_model2(const char *file_name) {
  * The predict method gets an Instance as an input and retrieves the possible class labels as an ArrayList. Then selects a
  * random number as an index and returns the class label at this selected index.
  *
- * @param instance {@link Instance} to make prediction.
+ * @param instance Instance to make prediction.
  * @return The class label at the randomly selected index.
  */
 char *predict_random(const void* model, const Instance* instance) {

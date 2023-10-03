@@ -12,9 +12,9 @@
 /**
  * A constructor that sets the priorDistribution, classMeans and classDeviations.
  *
- * @param priorDistribution {@link DiscreteDistribution} input.
- * @param classMeans        A {@link HashMap} of String and {@link Vector}.
- * @param classDeviations   A {@link HashMap} of String and {@link Vector}.
+ * @param priorDistribution DiscreteDistribution input.
+ * @param classMeans        A HashMap of String and Vector.
+ * @param classDeviations   A HashMap of String and Vector.
  */
 Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr class_means,
                                                Hash_map_ptr class_deviations) {
@@ -47,13 +47,13 @@ Naive_bayes_model_ptr create_naive_bayes_model2(const char *file_name) {
 }
 
 /**
- * The logLikelihoodContinuous method takes an {@link Instance} and a class label as inputs. First it gets the logarithm
+ * The logLikelihoodContinuous method takes an Instance and a class label as inputs. First it gets the logarithm
  * of given class label's probability via prior distribution as logLikelihood. Then it loops times of given instance attribute size, and accumulates the
  * logLikelihood by calculating -0.5 * ((xi - mi) / si )** 2).
  *
  * @param classLabel String input class label.
- * @param instance   {@link Instance} input.
- * @return The log likelihood of given class label and {@link Instance}.
+ * @param instance   Instance input.
+ * @return The log likelihood of given class label and Instance.
  */
 double log_likelihood_continuous(const Naive_bayes_model* model, const char *class_label, const Instance *instance) {
     double xi, mi, si;

@@ -9,7 +9,7 @@
 #include "DataSet.h"
 
 /**
- * Constructor for generating a new {@link DataSet}.
+ * Constructor for generating a new DataSet.
  */
 Data_set_ptr create_data_set() {
     Data_set_ptr result = malloc(sizeof(Data_set));
@@ -19,7 +19,7 @@ Data_set_ptr create_data_set() {
 }
 
 /**
- * Constructor for generating a new {@link DataSet} with given {@link DataDefinition}.
+ * Constructor for generating a new DataSet with given DataDefinition.
  *
  * @param definition Data definition of the data set.
  */
@@ -31,9 +31,9 @@ Data_set_ptr create_data_set2(Data_definition_ptr data_definition) {
 }
 
 /**
- * Constructor for generating a new {@link DataSet} from given {@link ifstream}.
+ * Constructor for generating a new DataSet from given ifstream.
  *
- * @param file {@link ifstream} to generate {@link DataSet} from.
+ * @param file ifstream to generate DataSet from.
  */
 Data_set_ptr create_data_set3(char *file_name) {
     FILE* input_file;
@@ -85,7 +85,7 @@ Data_set_ptr create_data_set3(char *file_name) {
 }
 
 /**
- * Constructor for generating a new {@link DataSet} with a {@link DataDefinition}, from a {@link File} by using a separator.
+ * Constructor for generating a new DataSet with a DataDefinition, from a File by using a separator.
  *
  * @param definition Data definition of the data set.
  * @param separator  Separator character which separates the attribute values in the data file.
@@ -103,8 +103,8 @@ Data_set_ptr create_data_set4(Data_definition_ptr data_definition, const char* s
  * and the attribute type of the corresponding item of the data definition is also a Binary attribute, it then
  * returns true, and false otherwise.
  *
- * @param instance {@link Instance} to checks the attribute type.
- * @return true if attribute types of given {@link Instance} and data definition matches.
+ * @param instance Instance to checks the attribute type.
+ * @return true if attribute types of given Instance and data definition matches.
  */
 bool check_definition(const Data_set* data_set, const Instance* instance) {
     for (int i = 0; i < attribute_size(instance); i++){
@@ -136,10 +136,10 @@ bool check_definition(const Data_set* data_set, const Instance* instance) {
 }
 
 /**
- * Adds the attribute types according to given {@link Instance}. For instance, if the attribute type of given {@link Instance}
+ * Adds the attribute types according to given Instance. For instance, if the attribute type of given Instance
  * is a Discrete type, it than adds a discrete attribute type to the list of attribute types.
  *
- * @param instance {@link Instance} input.
+ * @param instance Instance input.
  */
 void set_definition(Data_set_ptr data_set, const Instance *instance) {
     Attribute_type *type;
@@ -170,54 +170,54 @@ void set_definition(Data_set_ptr data_set, const Instance *instance) {
 }
 
 /**
- * Returns the size of the {@link InstanceList}.
+ * Returns the size of the InstanceList.
  *
- * @return Size of the {@link InstanceList}.
+ * @return Size of the InstanceList.
  */
 int sample_size(const Data_set* data_set) {
     return data_set->instances->list->size;
 }
 
 /**
- * Returns the size of the class label distribution of {@link InstanceList}.
+ * Returns the size of the class label distribution of InstanceList.
  *
- * @return Size of the class label distribution of {@link InstanceList}.
+ * @return Size of the class label distribution of InstanceList.
  */
 int class_count(const Data_set* data_set) {
     return class_distribution(data_set->instances)->map->hash_map->count;
 }
 
 /**
- * Returns the number of attribute types at {@link DataDefinition} list.
+ * Returns the number of attribute types at DataDefinition list.
  *
- * @return The number of attribute types at {@link DataDefinition} list.
+ * @return The number of attribute types at DataDefinition list.
  */
 int attribute_count_of_data_set(const Data_set *data_set) {
     return attribute_count(data_set->definition);
 }
 
 /**
- * Returns the number of discrete attribute types at {@link DataDefinition} list.
+ * Returns the number of discrete attribute types at DataDefinition list.
  *
- * @return The number of discrete attribute types at {@link DataDefinition} list.
+ * @return The number of discrete attribute types at DataDefinition list.
  */
 int discrete_attribute_count_of_data_set(const Data_set *data_set) {
     return discrete_attribute_count(data_set->definition);
 }
 
 /**
- * Returns the number of continuous attribute types at {@link DataDefinition} list.
+ * Returns the number of continuous attribute types at DataDefinition list.
  *
- * @return The number of continuous attribute types at {@link DataDefinition} list.
+ * @return The number of continuous attribute types at DataDefinition list.
  */
 int continuous_attribute_count_of_data_set(const Data_set *data_set) {
     return continuous_attribute_count(data_set->definition);
 }
 
 /**
- * Adds a new instance to the {@link InstanceList}.
+ * Adds a new instance to the InstanceList.
  *
- * @param current {@link Instance} to add.
+ * @param current Instance to add.
  */
 void add_instance_to_data_set(Data_set_ptr data_set, Instance_ptr current) {
     if (attribute_count(data_set->definition) == 0){
@@ -231,9 +231,9 @@ void add_instance_to_data_set(Data_set_ptr data_set, Instance_ptr current) {
 }
 
 /**
- * Adds all the instances of given instance list to the {@link InstanceList}.
+ * Adds all the instances of given instance list to the InstanceList.
  *
- * @param instanceList {@link InstanceList} to add instances from.
+ * @param instanceList InstanceList to add instances from.
  */
 void add_instance_list(Data_set_ptr data_set, Array_list_ptr instance_list) {
     for (int i = 0; i < instance_list->size; i++){
@@ -243,9 +243,9 @@ void add_instance_list(Data_set_ptr data_set, Array_list_ptr instance_list) {
 }
 
 /**
- * Returns the instances of {@link InstanceList}.
+ * Returns the instances of InstanceList.
  *
- * @return The instances of {@link InstanceList}.
+ * @return The instances of InstanceList.
  */
 Array_list_ptr get_instances_of_data_set(const Data_set *data_set) {
     return get_instances(data_set->instances);
@@ -277,10 +277,10 @@ void free_data_set(Data_set_ptr data_set) {
 }
 
 /**
- * Return a subset generated via the given {@link FeatureSubSet}.
+ * Return a subset generated via the given FeatureSubSet.
  *
- * @param featureSubSet {@link FeatureSubSet} input.
- * @return Subset generated via the given {@link FeatureSubSet}.
+ * @param featureSubSet FeatureSubSet input.
+ * @return Subset generated via the given FeatureSubSet.
  */
 Data_set_ptr get_sub_set_of_features_data_set(const Data_set *data_set, const Feature_sub_set *feature_sub_set) {
     Data_definition_ptr data_definition = get_sub_set_of_features_data_definition(data_definition, feature_sub_set);

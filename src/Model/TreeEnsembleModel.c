@@ -7,9 +7,9 @@
 #include "DecisionTree/DecisionTree.h"
 
 /**
- * A constructor which sets the {@link vector} of {@link DecisionTree} with given input.
+ * A constructor which sets the vector of DecisionTree with given input.
  *
- * @param forest An {@link vector} of {@link DecisionTree}.
+ * @param forest An vector of DecisionTree.
  */
 Tree_ensemble_model_ptr create_tree_ensemble_model(Array_list_ptr forest) {
     Tree_ensemble_model_ptr result = malloc(sizeof(Tree_ensemble_model));
@@ -37,7 +37,7 @@ void free_tree_ensemble_model(Tree_ensemble_model_ptr model) {
 }
 
 /**
- * The predict method takes an {@link Instance} as an input and loops through the {@link ArrayList} of {@link DecisionTree}s.
+ * The predict method takes an Instance as an input and loops through the ArrayList of DecisionTrees.
  * Makes prediction for the items of that ArrayList and returns the maximum item of that ArrayList.
  *
  * @param instance Instance to make prediction.

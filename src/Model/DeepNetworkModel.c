@@ -9,11 +9,11 @@
 #include "../Classifier/DeepNetwork.h"
 
 /**
- * The allocateWeights method takes {@link DeepNetworkParameter}s as an input. First it adds random weights to the {@link ArrayList}
- * of {@link Matrix} weights' first layer. Then it loops through the layers and adds random weights till the last layer.
+ * The allocateWeights method takes DeepNetworkParameters as an input. First it adds random weights to the ArrayList
+ * of Matrix weights' first layer. Then it loops through the layers and adds random weights till the last layer.
  * At the end it adds random weights to the last layer and also sets the hiddenLayerSize value.
  *
- * @param parameters {@link DeepNetworkParameter} input.
+ * @param parameters DeepNetworkParameter input.
  */
 void allocate_deep_network_weights(Deep_network_model_ptr deep_network, Deep_network_parameter_ptr deep_network_parameter) {
     array_list_add(deep_network->weights, allocate_layer_weights(get_hidden_nodes(deep_network_parameter, 0), deep_network->model->d + 1, deep_network_parameter->seed));
@@ -133,10 +133,10 @@ Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, In
 }
 
 /**
- * The setBestWeights method creates an {@link vector} of Matrix as bestWeights and clones the values of weights {@link ArrayList}
- * into this newly created {@link vector}.
+ * The setBestWeights method creates an vector of Matrix as bestWeights and clones the values of weights ArrayList
+ * into this newly created vector.
  *
- * @return An {@link vector} clones from the weights ArrayList.
+ * @return An vector clones from the weights ArrayList.
  */
 Array_list_ptr set_best_weights(Deep_network_model_ptr deep_network) {
     Array_list_ptr best_weights = create_array_list();
