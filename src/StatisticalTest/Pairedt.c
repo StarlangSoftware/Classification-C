@@ -2,14 +2,12 @@
 // Created by Olcay Taner YILDIZ on 15.07.2023.
 //
 
-#include <stdlib.h>
 #include <math.h>
 #include <Distribution.h>
 #include "Pairedt.h"
 
 double test_statistic_paired_t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
-    double* difference;
-    difference = malloc(number_of_experiments(classifier1) * sizeof(double));
+    double difference[number_of_experiments(classifier1)];
     double sum = 0.0;
     for (int i = 0; i < number_of_experiments(classifier1); i++){
         difference[i] = get_error_rate(classifier1, i) - get_error_rate(classifier2, i);
@@ -20,7 +18,6 @@ double test_statistic_paired_t(const Experiment_performance *classifier1, const 
     for (int i = 0; i < number_of_experiments(classifier1); i++){
         sum += (difference[i] - mean) * (difference[i] - mean);
     }
-    free(difference);
     double standardDeviation = sqrt(sum / (number_of_experiments(classifier1) - 1));
     return sqrt(number_of_experiments(classifier1)) * mean / standardDeviation;
 }

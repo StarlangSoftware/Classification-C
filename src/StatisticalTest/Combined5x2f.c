@@ -2,14 +2,12 @@
 // Created by Olcay Taner YILDIZ on 15.07.2023.
 //
 
-#include <stdlib.h>
 #include <Distribution.h>
 #include "Combined5x2f.h"
 
 double
 test_statistic_combined_5x2f(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
-    double* difference;
-    difference = malloc(number_of_experiments(classifier1) * sizeof(double));
+    double difference[number_of_experiments(classifier1)];
     double numerator = 0;
     for (int i = 0; i < number_of_experiments(classifier1); i++){
         difference[i] = get_error_rate(classifier1, i) - get_error_rate(classifier2, i);
@@ -21,7 +19,6 @@ test_statistic_combined_5x2f(const Experiment_performance *classifier1, const Ex
         double variance = (difference[2 * i] - mean) * (difference[2 * i] - mean) + (difference[2 * i + 1] - mean) * (difference[2 * i + 1] - mean);
         denominator += variance;
     }
-    free(difference);
     denominator *= 2;
     return numerator / denominator;
 }
