@@ -21,10 +21,10 @@ Attribute_ptr create_binary_attribute(bool value) {
 Attribute_ptr create_binary_attribute2(const char *value) {
     Attribute_ptr result = malloc(sizeof(Attribute));
     result->attribute_type = BINARY;
-    if (strcmp(value, "true") == 0 || strcmp(value, "True") == 0 || strcmp(value, "TRUE") == 0){
+    if (string_in_list(value, (char*[]){"true", "True", "TRUE"}, 3)){
         result->bool_value = true;
     } else {
-        if (strcmp(value, "false") == 0 || strcmp(value, "False") == 0 || strcmp(value, "FALSE") == 0){
+        if (string_in_list(value, (char*[]){"false", "False", "FALSE"}, 3)){
             result->bool_value = false;
         } else {
             result->bool_value = false;
