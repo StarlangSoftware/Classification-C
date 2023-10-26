@@ -27,18 +27,13 @@ Experiment_performance_ptr create_experiment_performance() {
  * @param fileName String input.
  */
 Experiment_performance_ptr create_experiment_performance2(const char *file_name) {
-    FILE* input_file;
     Experiment_performance_ptr result = malloc(sizeof(Experiment_performance));
     result->results = create_array_list();
-    char line[MAX_LINE_LENGTH];
-    input_file = fopen(file_name, "r");
-    char* input = fgets(line, MAX_LINE_LENGTH, input_file);
-    while (input != NULL){
-        line[strcspn(line, "\n")] = 0;
-        array_list_add(result->results, create_performance(atof(line)));
-        input = fgets(line, MAX_LINE_LENGTH, input_file);
+    Array_list_ptr lines = read_lines(file_name);
+    for (int i = 0; i < lines->size; i++){
+        array_list_add(result->results, create_performance(atof(array_list_get(lines, i))));
     }
-    fclose(input_file);
+    free_array_list(lines, free);
     return result;
 }
 

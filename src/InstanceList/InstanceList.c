@@ -46,15 +46,11 @@ void free_instance_list(Instance_list_ptr instance_list) {
  */
 Instance_list_ptr
 create_instance_list2(const Data_definition *definition, const char *separators, const char *file_name) {
-    FILE* input_file;
-    char line[MAX_LINE_LENGTH];
     Instance_list_ptr result = malloc(sizeof(Instance_list));
     result->list =  create_array_list();
-    input_file = fopen(file_name, "r");
-    char* input = fgets(line, MAX_LINE_LENGTH, input_file);
-    while (input != NULL){
-        line[strcspn(line, "\n")] = 0;
-        Array_list_ptr attribute_list = split_with_char(line, separators);
+    Array_list_ptr lines = read_lines(file_name);
+    for (int i = 0; i < lines->size; i++){
+        Array_list_ptr attribute_list = split_with_char(array_list_get(lines, i), separators);
         if (attribute_list->size == attribute_count(definition) + 1){
             String_ptr attribute = array_list_get(attribute_list, attribute_list->size - 1);
             Instance_ptr current = create_instance2(attribute->s);
@@ -78,10 +74,8 @@ create_instance_list2(const Data_definition *definition, const char *separators,
             }
             array_list_add(result->list, current);
         }
-        input = fgets(line, MAX_LINE_LENGTH, input_file);
     }
-    fclose(input_file);
-
+    free_array_list(lines, free);
     return result;
 }
 

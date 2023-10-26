@@ -36,16 +36,13 @@ Data_set_ptr create_data_set2(Data_definition_ptr data_definition) {
  * @param file ifstream to generate DataSet from.
  */
 Data_set_ptr create_data_set3(char *file_name) {
-    FILE* input_file;
-    char line[MAX_LINE_LENGTH];
     Data_set_ptr result = malloc(sizeof(Data_set));
     result->instances = create_instance_list();
     result->definition = create_data_definition();
-    input_file = fopen(file_name, "r");
-    char* input = fgets(line, MAX_LINE_LENGTH, input_file);
+    Array_list_ptr lines = read_lines(file_name);
     int i = 0;
-    while (input != NULL){
-        line[strcspn(line, "\n")] = 0;
+    while (i < lines->size){
+        char* line = array_list_get(lines, i);
         Array_list_ptr attributes = str_split(line, ',');
         if (i == 0){
             for (int j = 0; j < attributes->size - 1; j++){
@@ -78,9 +75,8 @@ Data_set_ptr create_data_set3(char *file_name) {
             add_instance(result->instances, instance);
         }
         i++;
-        input = fgets(line, MAX_LINE_LENGTH, input_file);
     }
-    fclose(input_file);
+    free_array_list(lines, free);
     return result;
 }
 
