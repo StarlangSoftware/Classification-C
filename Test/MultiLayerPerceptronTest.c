@@ -14,6 +14,7 @@ void test_deep_network_classifier(Data_set_ptr data_set, double error_rate, int 
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in multi layer perceptron test %d %f\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_multi_layer_perceptron(multi_layer_perceptron);
 }
 
@@ -28,4 +29,5 @@ int main(){
     parameter = create_multi_layer_perceptron_parameter_ptr(1, 0.01, 0.99, 0.2, 100, 20, SIGMOID);
     test_deep_network_classifier(dermatology, 1.91, 3, parameter);
     free_multi_layer_perceptron_parameter_ptr(parameter);
+    free_datasets();
 }

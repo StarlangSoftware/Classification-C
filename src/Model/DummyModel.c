@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "DummyModel.h"
 
 /**
@@ -11,18 +12,18 @@
  * @param trainSet InstanceList which is used to get the class distribution.
  */
 Dummy_model_ptr create_dummy_model(Instance_list_ptr train_set) {
-    Dummy_model_ptr result = malloc(sizeof(Dummy_model));
+    Dummy_model_ptr result = malloc_(sizeof(Dummy_model), "create_dummy_model");
     result->distribution = class_distribution(train_set);
     return result;
 }
 
 void free_dummy_model(Dummy_model_ptr dummy_model) {
     free_discrete_distribution(dummy_model->distribution);
-    free(dummy_model);
+    free_(dummy_model);
 }
 
 Dummy_model_ptr create_dummy_model2(const char *file_name) {
-    Dummy_model_ptr result = malloc(sizeof(Dummy_model));
+    Dummy_model_ptr result = malloc_(sizeof(Dummy_model), "create_dummy_model2");
     FILE* input_file = fopen(file_name, "r");
     result->distribution = create_discrete_distribution2(input_file);
     fclose(input_file);

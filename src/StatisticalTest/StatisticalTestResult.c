@@ -3,10 +3,11 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "StatisticalTestResult.h"
 
 Statistical_test_result_ptr create_statistical_test_result(double p_value, bool only_two_tailed) {
-    Statistical_test_result_ptr result = malloc(sizeof(Statistical_test_result));
+    Statistical_test_result_ptr result = malloc_(sizeof(Statistical_test_result), "create_statistical_test_result");
     result->p_value = p_value;
     result->only_two_tailed = only_two_tailed;
     return result;

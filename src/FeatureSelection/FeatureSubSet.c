@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <HashMap/HashMap.h>
+#include <Memory/Memory.h>
 #include "FeatureSubSet.h"
 
 /**
@@ -12,7 +13,7 @@
  * @param numberOfFeatures Indicates the indices of indexList.
  */
 Feature_sub_set_ptr create_feature_sub_set(int number_of_features) {
-    Feature_sub_set_ptr result = malloc(sizeof(Feature_sub_set));
+    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set), "create_feature_sub_set");
     result->index_list = create_array_list();
     for (int i = 0; i < number_of_features; i++){
         array_list_add_int(result->index_list, i);
@@ -26,7 +27,7 @@ Feature_sub_set_ptr create_feature_sub_set(int number_of_features) {
  * @param indexList A vector consists of integer indices.
  */
 Feature_sub_set_ptr create_feature_sub_set2(Array_list_ptr index_list) {
-    Feature_sub_set_ptr result = malloc(sizeof(Feature_sub_set));
+    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set), "create_feature_sub_set2");
     result->index_list = index_list;
     return result;
 }
@@ -35,7 +36,7 @@ Feature_sub_set_ptr create_feature_sub_set2(Array_list_ptr index_list) {
  * A constructor that creates a new vector for indexList.
  */
 Feature_sub_set_ptr create_feature_sub_set3() {
-    Feature_sub_set_ptr result = malloc(sizeof(Feature_sub_set));
+    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set), "create_feature_sub_set3");
     result->index_list = create_array_list();
     return result;
 }
@@ -71,8 +72,8 @@ bool contains_feature(const Feature_sub_set* feature_sub_set, int feature_no) {
 }
 
 void free_feature_sub_set(Feature_sub_set_ptr feature_sub_set) {
-    free_array_list(feature_sub_set->index_list, free);
-    free(feature_sub_set);
+    free_array_list(feature_sub_set->index_list, free_);
+    free_(feature_sub_set);
 }
 
 /**
@@ -90,7 +91,7 @@ void add_feature(Feature_sub_set_ptr feature_sub_set, int feature_no) {
  * @param index Index of the item that will be removed.
  */
 void remove_feature(Feature_sub_set_ptr feature_sub_set, int index) {
-    array_list_remove(feature_sub_set->index_list, index, free);
+    array_list_remove(feature_sub_set->index_list, index, free_);
 }
 
 /**

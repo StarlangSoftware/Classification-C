@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "LinearPerceptronParameter.h"
 
 /**
@@ -20,7 +21,7 @@ create_linear_perceptron_parameter(int seed,
                                    double eta_decrease,
                                    double cross_validation_ratio,
                                    int epoch) {
-    Linear_perceptron_parameter_ptr result = malloc(sizeof(Linear_perceptron_parameter));
+    Linear_perceptron_parameter_ptr result = malloc_(sizeof(Linear_perceptron_parameter), "create_linear_perceptron_parameter");
     result->seed = seed;
     result->learning_rate = learning_rate;
     result->eta_decrease = eta_decrease;
@@ -30,5 +31,5 @@ create_linear_perceptron_parameter(int seed,
 }
 
 void free_linear_perceptron_parameter(Linear_perceptron_parameter_ptr linear_perceptron_parameter) {
-    free(linear_perceptron_parameter);
+    free_(linear_perceptron_parameter);
 }

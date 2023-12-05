@@ -2,11 +2,11 @@
 // Created by Olcay Taner YILDIZ on 22.06.2023.
 //
 
-#include <stdlib.h>
 #include <float.h>
 #include <string.h>
 #include "KMeansModel.h"
 #include "../DistanceMetric/EuclidianDistance.h"
+#include "Memory/Memory.h"
 
 /**
  * The constructor that sets the classMeans, priorDistribution and distanceMetric according to given inputs.
@@ -17,7 +17,7 @@
  */
 K_means_model_ptr create_k_means_model(Discrete_distribution_ptr prior_distribution, Instance_list_ptr class_means,
                                        double (*distance_metric)(const Instance *, const Instance *, const void *)) {
-    K_means_model_ptr result = malloc(sizeof(K_means_model));
+    K_means_model_ptr result = malloc_(sizeof(K_means_model), "create_k_means_model");
     result->prior_distribution = prior_distribution;
     result->class_means = class_means;
     result->distance_metric = distance_metric;
@@ -27,11 +27,11 @@ K_means_model_ptr create_k_means_model(Discrete_distribution_ptr prior_distribut
 void free_k_means_model(K_means_model_ptr k_means_model) {
     free_discrete_distribution(k_means_model->prior_distribution);
     free_instance_list(k_means_model->class_means);
-    free(k_means_model);
+    free_(k_means_model);
 }
 
 K_means_model_ptr create_k_means_model2(const char *file_name) {
-    K_means_model_ptr result = malloc(sizeof(K_means_model));
+    K_means_model_ptr result = malloc_(sizeof(K_means_model), "create_k_means_model2");
     FILE* input_file = fopen(file_name, "r");
     result->prior_distribution = create_discrete_distribution2(input_file);
     result->distance_metric = euclidian_distance;
@@ -56,6 +56,7 @@ char *predict_k_means(const void *model, const Instance* instance) {
             }
         }
     }
+    free_array_list(possible_labels, NULL);
     return predicted_class;
 }
 

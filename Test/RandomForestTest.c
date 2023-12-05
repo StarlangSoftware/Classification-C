@@ -15,6 +15,7 @@ void test_random_forest_classifier(Data_set_ptr data_set, double error_rate, int
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in random forest test %d %f\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_random_forest(random_forest);
 }
 
@@ -27,4 +28,5 @@ int main(){
     test_random_forest_classifier(car, 0.00, 4, parameter);
     test_random_forest_classifier(tictactoe, 0.00, 5, parameter);
     free_random_forest_parameter(parameter);
+    free_datasets();
 }

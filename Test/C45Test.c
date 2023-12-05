@@ -15,6 +15,7 @@ void test_c45_classifier(Data_set_ptr data_set, double error_rate, int index, C4
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in validation_c45 test %d %f\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_c45(c45);
 }
 
@@ -24,6 +25,8 @@ int main(){
     test_c45_classifier(iris, 4.00, 1, parameter);
     test_c45_classifier(bupa, 22.61, 2, parameter);
     test_c45_classifier(dermatology, 2.46, 3, parameter);
-    test_c45_classifier(car, 6.66, 4, parameter);
+    test_c45_classifier(car, 6.42, 4, parameter);
     test_c45_classifier(tictactoe, 10.97, 5, parameter);
+    free_c45_parameter(parameter);
+    free_datasets();
 }

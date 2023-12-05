@@ -16,6 +16,7 @@ void test_kmeans_classifier(Data_set_ptr data_set, double error_rate, int index,
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in kmeans test %d %.2lf\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_k_means(k_means);
 }
 
@@ -29,4 +30,6 @@ int main(){
     test_kmeans_classifier(tictactoe, 38.94, 5, parameter);
     test_kmeans_classifier(nursery, 63.66, 6, parameter);
     test_kmeans_classifier(chess, 83.25, 7, parameter);
+    free_k_mean_parameter(parameter);
+    free_datasets();
 }

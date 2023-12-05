@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "CreateDataSets.h"
 
@@ -55,27 +56,41 @@ void test_class_count(){
 }
 
 void test_get_classes(){
-    if (!string_equals2(get_classes(iris), "Iris-setosa;Iris-versicolor;Iris-virginica")){
+    String_ptr s = get_classes(iris);
+    if (!string_equals2(s, "Iris-setosa;Iris-versicolor;Iris-virginica")){
         printf("Error in get classes 1");
     }
-    if (!string_equals2(get_classes(bupa), "1;2")){
+    free_string_ptr(s);
+    s = get_classes(bupa);
+    if (!string_equals2(s, "1;2")){
         printf("Error in get classes 2");
     }
-    if (!string_equals2(get_classes(dermatology), "2;1;3;5;4;6")){
+    free_string_ptr(s);
+    s = get_classes(dermatology);
+    if (!string_equals2(s, "2;1;3;5;4;6")){
         printf("Error in get classes 3");
     }
-    if (!string_equals2(get_classes(car), "unacc;acc;vgood;good")){
+    free_string_ptr(s);
+    s = get_classes(car);
+    if (!string_equals2(s, "unacc;acc;vgood;good")){
         printf("Error in get classes 4");
     }
-    if (!string_equals2(get_classes(tictactoe), "positive;negative")){
+    free_string_ptr(s);
+    s = get_classes(tictactoe);
+    if (!string_equals2(s, "positive;negative")){
         printf("Error in get classes 5");
     }
-    if (!string_equals2(get_classes(nursery), "recommend;priority;not_recom;very_recom;spec_prior")){
+    free_string_ptr(s);
+    s = get_classes(nursery);
+    if (!string_equals2(s, "recommend;priority;not_recom;very_recom;spec_prior")){
         printf("Error in get classes 6");
     }
-    if (!string_equals2(get_classes(chess), "draw;zero;one;two;three;four;five;six;seven;eight;nine;ten;eleven;twelve;thirteen;fourteen;fifteen;sixteen")){
+    free_string_ptr(s);
+    s = get_classes(chess);
+    if (!string_equals2(s, "draw;zero;one;two;three;four;five;six;seven;eight;nine;ten;eleven;twelve;thirteen;fourteen;fifteen;sixteen")){
         printf("Error in get classes 7");
     }
+    free_string_ptr(s);
 }
 
 int main(){
@@ -83,11 +98,5 @@ int main(){
     test_sample_size();
     test_class_count();
     test_get_classes();
-    free_data_set(iris);
-    free_data_set(bupa);
-    free_data_set(dermatology);
-    free_data_set(car);
-    free_data_set(tictactoe);
-    free_data_set(nursery);
-    free_data_set(chess);
+    free_datasets();
 }

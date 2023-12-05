@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "ClassificationPerformance.h"
 
 /**
@@ -11,7 +12,7 @@
  * @param accuracy Double value input.
  */
 Classification_performance_ptr create_classification_performance(double accuracy) {
-    Classification_performance_ptr result = malloc(sizeof(Classification_performance));
+    Classification_performance_ptr result = malloc_(sizeof(Classification_performance), "create_classification_performance");
     result->accuracy = accuracy;
     return result;
 }

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <FileUtils.h>
 #include <string.h>
+#include <Memory/Memory.h>
 #include "DecisionCondition.h"
 
 /**
@@ -14,7 +15,7 @@
  * @param value          The value of the Attribute.
  */
 Decision_condition_ptr create_decision_condition(int attribute_index, Attribute_ptr value) {
-    Decision_condition_ptr result = malloc(sizeof(Decision_condition));
+    Decision_condition_ptr result = malloc_(sizeof(Decision_condition), "create_decision_condition");
     result->attribute_index = attribute_index;
     result->comparison = '=';
     result->value = value;
@@ -29,7 +30,7 @@ Decision_condition_ptr create_decision_condition(int attribute_index, Attribute_
  * @param comparison     Comparison character.
  */
 Decision_condition_ptr create_decision_condition2(int attribute_index, char comparison, Attribute_ptr value) {
-    Decision_condition_ptr result = malloc(sizeof(Decision_condition));
+    Decision_condition_ptr result = malloc_(sizeof(Decision_condition), "create_decision_condition2");
     result->attribute_index = attribute_index;
     result->comparison = comparison;
     result->value = value;
@@ -38,7 +39,7 @@ Decision_condition_ptr create_decision_condition2(int attribute_index, char comp
 
 Decision_condition_ptr create_decision_condition3(FILE *input_file) {
     char type[MAX_LINE_LENGTH];
-    Decision_condition_ptr result = malloc(sizeof(Decision_condition));
+    Decision_condition_ptr result = malloc_(sizeof(Decision_condition), "create_decision_condition3");
     fscanf(input_file, "%d %c %s", &(result->attribute_index), &(result->comparison), type);
     if (result->attribute_index != -1){
         if (result->comparison == '='){
@@ -61,7 +62,7 @@ void free_decision_condition(Decision_condition_ptr decision_condition) {
     if (decision_condition->value != NULL){
         free_attribute(decision_condition->value);
     }
-    free(decision_condition);
+    free_(decision_condition);
 }
 
 /**
@@ -107,7 +108,7 @@ bool satisfy(Decision_condition_ptr decision_condition, const Instance *instance
 }
 
 Decision_condition_ptr create_decision_condition4() {
-    Decision_condition_ptr result = malloc(sizeof(Decision_condition));
+    Decision_condition_ptr result = malloc_(sizeof(Decision_condition), "create_decision_condition4");
     result->attribute_index = -1;
     result->comparison = ' ';
     result->value = NULL;

@@ -2,11 +2,11 @@
 // Created by Olcay Taner YILDIZ on 23.07.2023.
 //
 
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "Experiment.h"
 
 Experiment_ptr create_experiment(Classifier_ptr classifier, void *parameter, Data_set_ptr data_set, int seed) {
-    Experiment_ptr result = malloc(sizeof(Experiment));
+    Experiment_ptr result = malloc_(sizeof(Experiment), "create_experiment");
     result->classifier = classifier;
     result->parameter = parameter;
     result->data_set = data_set;
@@ -15,7 +15,7 @@ Experiment_ptr create_experiment(Classifier_ptr classifier, void *parameter, Dat
 }
 
 void free_experiment(Experiment_ptr experiment) {
-    free(experiment);
+    free_(experiment);
 }
 
 Experiment_ptr feature_selected_experiment(const Experiment *experiment, const Feature_sub_set *feature_sub_set) {

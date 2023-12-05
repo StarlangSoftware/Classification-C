@@ -4,10 +4,11 @@
 
 #include <stdlib.h>
 #include <CounterHashMap.h>
+#include <Memory/Memory.h>
 #include "ConfusionMatrix.h"
 
 Confusion_matrix_ptr create_confusion_matrix() {
-    Confusion_matrix_ptr result = malloc(sizeof(Confusion_matrix));
+    Confusion_matrix_ptr result = malloc_(sizeof(Confusion_matrix), "create_confusion_matrix");
     result->matrix = create_string_hash_map();
     result->class_labels = create_array_list();
     return result;
@@ -19,7 +20,7 @@ Confusion_matrix_ptr create_confusion_matrix() {
  * @param class_labels ArrayList of String.
  */
 Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
-    Confusion_matrix_ptr result = malloc(sizeof(Confusion_matrix));
+    Confusion_matrix_ptr result = malloc_(sizeof(Confusion_matrix), "create_confusion_matrix2");
     result->matrix = create_string_hash_map();
     result->class_labels = class_labels;
     return result;
@@ -28,7 +29,7 @@ Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
 void free_confusion_matrix(Confusion_matrix_ptr confusion_matrix) {
     free_hash_map_of_counter_hash_map(confusion_matrix->matrix);
     free_array_list(confusion_matrix->class_labels, NULL);
-    free(confusion_matrix);
+    free_(confusion_matrix);
 }
 
 /**
@@ -44,12 +45,13 @@ void classify(Confusion_matrix_ptr confusion_matrix, char *actual_class, char *p
     Counter_hash_map_ptr counter_hash_map;
     if (hash_map_contains(confusion_matrix->matrix, actual_class)){
         counter_hash_map = hash_map_get(confusion_matrix->matrix, actual_class);
+        put_counter_hash_map(counter_hash_map, predicted_class);
     } else {
         counter_hash_map = create_counter_hash_map((unsigned int (*)(const void *, int)) hash_function_string,
                                                    (int (*)(const void *, const void *)) compare_string);
+        put_counter_hash_map(counter_hash_map, predicted_class);
+        hash_map_insert(confusion_matrix->matrix, actual_class, counter_hash_map);
     }
-    put_counter_hash_map(counter_hash_map, predicted_class);
-    hash_map_insert(confusion_matrix->matrix, actual_class, counter_hash_map);
 }
 
 /**
@@ -148,7 +150,7 @@ double get_accuracy(const Confusion_matrix* confusion_matrix) {
  * @return The result of TP/FP+TP.
  */
 double *precision(const Confusion_matrix* confusion_matrix) {
-    double* result = calloc(confusion_matrix->class_labels->size, sizeof(double));
+    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double), "precision");
     for (int i = 0; i < confusion_matrix->class_labels->size; i++){
         char* actual_class = array_list_get(confusion_matrix->class_labels, i);
         if (hash_map_contains(confusion_matrix->matrix, actual_class)){
@@ -166,7 +168,7 @@ double *precision(const Confusion_matrix* confusion_matrix) {
  * @return The result of TP/FN+TP.
  */
 double *recall(const Confusion_matrix* confusion_matrix) {
-    double* result = calloc(confusion_matrix->class_labels->size, sizeof(double));
+    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double), "recall");
     for (int i = 0; i < confusion_matrix->class_labels->size; i++){
         char* actual_class = array_list_get(confusion_matrix->class_labels, i);
         if (hash_map_contains(confusion_matrix->matrix, actual_class)){
@@ -186,12 +188,12 @@ double *recall(const Confusion_matrix* confusion_matrix) {
 double *f_measure(const Confusion_matrix *confusion_matrix) {
     double* precision_values = precision(confusion_matrix);
     double* recall_values = recall(confusion_matrix);
-    double* result = calloc(confusion_matrix->class_labels->size, sizeof(double));
+    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double), "f_measure");
     for (int i = 0; i < confusion_matrix->class_labels->size; i++){
         result[i] = 2 / (1 / precision_values[i] + 1 / recall_values[i]);
     }
-    free(precision_values);
-    free(recall_values);
+    free_(precision_values);
+    free_(recall_values);
     return result;
 }
 

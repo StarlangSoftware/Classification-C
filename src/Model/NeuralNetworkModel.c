@@ -6,6 +6,7 @@
 #include <math.h>
 #include <FileUtils.h>
 #include <string.h>
+#include <Memory/Memory.h>
 #include "NeuralNetworkModel.h"
 
 /**
@@ -14,7 +15,7 @@
  * @param trainSet InstanceList to use as train set.
  */
 Neural_network_model_ptr create_neural_network_model(const Instance_list *train_set) {
-    Neural_network_model_ptr result = malloc(sizeof(Neural_network_model));
+    Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model), "create_neural_network_model");
     result->class_labels = get_distinct_class_labels(train_set);
     result->K = result->class_labels->size;
     result->d = instance_continuous_attribute_size(get_instance(train_set, 0));
@@ -93,11 +94,11 @@ Matrix_ptr allocate_layer_weights(int row, int column, int seed) {
 
 void free_neural_network_model(Neural_network_model_ptr neural_network) {
     free_array_list(neural_network->class_labels, NULL);
-    free(neural_network);
+    free_(neural_network);
 }
 
 Neural_network_model_ptr create_neural_network_model2(FILE *input_file) {
-    Neural_network_model_ptr result = malloc(sizeof(Neural_network_model));
+    Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model), "create_neural_network_model2");
     fscanf(input_file, "%d%d", &(result->K), &(result->d));
     result->class_labels = create_array_list();
     for (int i = 0; i < result->K; i++){
@@ -188,7 +189,7 @@ predict_probability_neural_network(Neural_network_model_ptr neural_network_model
     calculate_output(meta_model);
     Hash_map_ptr result = create_string_hash_map();
     for (int i = 0; i < neural_network_model->class_labels->size; i++){
-        double *probability = malloc(sizeof(double));
+        double *probability = malloc_(sizeof(double), "predict_probability_neural_network");
         *probability = get_value(neural_network_model->y, i);
         hash_map_insert(result, array_list_get(neural_network_model->class_labels, i), probability);
     }

@@ -3,6 +3,7 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/Dummy.h"
@@ -14,6 +15,7 @@ void test_dummy_classifier(Data_set_ptr data_set, double error_rate, int index){
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in dummy test %d\n", index);
     }
+    free_detailed_classification_performance(performance);
     free_dummy(dummy);
 }
 
@@ -26,4 +28,5 @@ int main(){
     test_dummy_classifier(tictactoe, 34.66, 5);
     test_dummy_classifier(nursery, 66.67, 6);
     test_dummy_classifier(chess, 83.77, 7);
+    free_datasets();
 }

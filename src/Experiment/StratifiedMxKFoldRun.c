@@ -2,8 +2,8 @@
 // Created by Olcay Taner YILDIZ on 23.07.2023.
 //
 
-#include <stdlib.h>
 #include <StratifiedKFoldCrossValidation.h>
+#include <Memory/Memory.h>
 #include "StratifiedMxKFoldRun.h"
 
 /**
@@ -24,8 +24,8 @@ Experiment_performance_ptr execute_stratified_m_x_k_fold_run(const Experiment *e
             Instance_list_ptr test_set = create_instance_list3(get_test_fold_stratified(cross_validation, i));
             experiment->classifier->train(train_set, experiment->parameter);
             add_detailed_performance(result, test_classifier(experiment->classifier, test_set));
-            free(train_set);
-            free(test_set);
+            free_(train_set);
+            free_(test_set);
         }
         free_stratified_k_fold_cross_validation(cross_validation);
         free_partition(partition);

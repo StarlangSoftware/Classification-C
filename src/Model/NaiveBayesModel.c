@@ -2,11 +2,11 @@
 // Created by Olcay Taner YILDIZ on 4.07.2023.
 //
 
-#include <stdlib.h>
 #include <FileUtils.h>
 #include <Vector.h>
 #include <math.h>
 #include <float.h>
+#include <Memory/Memory.h>
 #include "NaiveBayesModel.h"
 
 /**
@@ -18,7 +18,7 @@
  */
 Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr class_means,
                                                Hash_map_ptr class_deviations) {
-    Naive_bayes_model_ptr result = malloc(sizeof(Naive_bayes_model));
+    Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model), "create_naive_bayes_model");
     result->prior_distribution = prior_distribution;
     result->class_means = class_means;
     result->class_deviations = class_deviations;
@@ -27,7 +27,7 @@ Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_d
 
 Naive_bayes_model_ptr create_naive_bayes_model2(const char *file_name) {
     char class_label[MAX_LINE_LENGTH];
-    Naive_bayes_model_ptr result = malloc(sizeof(Naive_bayes_model));
+    Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model), "create_naive_bayes_model2");
     FILE* input_file = fopen(file_name, "r");
     result->prior_distribution = create_discrete_distribution2(input_file);
     result->class_means = create_string_hash_map();
@@ -85,11 +85,13 @@ char *predict_naive_bayes(const void *model, const Instance *instance) {
             }
         }
     }
+    free_array_list(possible_labels, NULL);
     return predicted_class;
 }
 
 void free_naive_bayes_model(Naive_bayes_model_ptr model) {
-    free_hash_map(model->class_means, free);
-    free_hash_map(model->class_deviations, free);
-    free(model);
+    free_discrete_distribution(model->prior_distribution);
+    free_hash_map(model->class_means, (void (*)(void *)) free_vector);
+    free_hash_map(model->class_deviations, (void (*)(void *)) free_vector);
+    free_(model);
 }

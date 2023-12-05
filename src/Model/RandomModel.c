@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "RandomModel.h"
 #include <FileUtils.h>
+#include <Memory/Memory.h>
 
 /**
  * A constructor that sets the class labels.
@@ -13,13 +14,13 @@
  * @param classLabels An ArrayList of class labels.
  */
 Random_model_ptr create_random_model(Array_list_ptr class_labels) {
-    Random_model_ptr result = malloc(sizeof(Random_model));
+    Random_model_ptr result = malloc_(sizeof(Random_model), "create_random_model");
     result->class_labels = class_labels;
     return result;
 }
 
 Random_model_ptr create_random_model2(const char *file_name) {
-    Random_model_ptr result = malloc(sizeof(Random_model));
+    Random_model_ptr result = malloc_(sizeof(Random_model), "create_random_model2");
     result->class_labels = create_array_list();
     FILE* input_file = fopen(file_name, "r");
     fscanf(input_file, "%d", &(result->seed));
@@ -53,7 +54,7 @@ Hash_map_ptr predict_probability_random(const void* model, const Instance* insta
     Hash_map_ptr result = create_string_hash_map();
     for (int i = 0; i < random_model->class_labels->size; i++){
         char* class_label = array_list_get(random_model->class_labels, i);
-        double* p = malloc(sizeof(double));
+        double* p = malloc_(sizeof(double), "predict_probability_random");
         *p = 1.0 / random_model->class_labels->size;
         hash_map_insert(result, class_label, p);
     }
@@ -61,6 +62,6 @@ Hash_map_ptr predict_probability_random(const void* model, const Instance* insta
 }
 
 void free_random_model(Random_model_ptr random_model) {
-    free_array_list(random_model->class_labels, free);
-    free(random_model);
+    free_array_list(random_model->class_labels, NULL);
+    free_(random_model);
 }

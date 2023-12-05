@@ -2,7 +2,7 @@
 // Created by Olcay Taner YILDIZ on 10.07.2023.
 //
 
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "C45Stump.h"
 #include "../Model/DecisionTree/DecisionTree.h"
 #include "C45.h"
@@ -14,7 +14,7 @@
  * @param parameters -
  */
 Classifier_ptr train_c45_stump(Instance_list_ptr train_set, const void *parameter) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "train_c45_stump");
     result->model = create_decision_tree(create_decision_node(train_set, create_decision_condition4(), NULL, true));
     result->train = train_c45_stump;
     result->predict_probability = predict_probability_tree;

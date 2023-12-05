@@ -8,8 +8,8 @@
 #include <string.h>
 #include <HashMap/HashMap.h>
 #include <math.h>
+#include <Memory/Memory.h>
 #include "InstanceList.h"
-#include "../Instance/Instance.h"
 #include "Dictionary/Word.h"
 #include "../Classifier/Classifier.h"
 
@@ -17,14 +17,19 @@
  * Empty constructor for an instance list. Initializes the instance list with zero instances.
  */
 Instance_list_ptr create_instance_list() {
-    Instance_list_ptr result = malloc(sizeof(Instance_list));
+    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list");
     result->list =  create_array_list();
     return result;
 }
 
 void free_instance_list(Instance_list_ptr instance_list) {
     free_array_list(instance_list->list, (void (*)(void *)) free_instance);
-    free(instance_list);
+    free_(instance_list);
+}
+
+void free_instance_list2(Instance_list_ptr instance_list) {
+    free_array_list(instance_list->list, NULL);
+    free_(instance_list);
 }
 
 /**
@@ -46,7 +51,7 @@ void free_instance_list(Instance_list_ptr instance_list) {
  */
 Instance_list_ptr
 create_instance_list2(const Data_definition *definition, const char *separators, const char *file_name) {
-    Instance_list_ptr result = malloc(sizeof(Instance_list));
+    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list2");
     result->list =  create_array_list();
     Array_list_ptr lines = read_lines(file_name);
     for (int i = 0; i < lines->size; i++){
@@ -74,8 +79,9 @@ create_instance_list2(const Data_definition *definition, const char *separators,
             }
             array_list_add(result->list, current);
         }
+        free_array_list(attribute_list, (void (*)(void *)) free_string_ptr);
     }
-    free_array_list(lines, free);
+    free_array_list(lines, free_);
     return result;
 }
 
@@ -85,7 +91,7 @@ create_instance_list2(const Data_definition *definition, const char *separators,
  * @param list New list for the list variable.
  */
 Instance_list_ptr create_instance_list3(Array_list_ptr list) {
-    Instance_list_ptr result = malloc(sizeof(Instance_list));
+    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list3");
     result->list =  list;
     return result;
 }
@@ -361,7 +367,7 @@ Array_list_ptr continuous_attribute_standard_deviation(const Instance_list *inst
                 }
             }
         }
-        free_array_list(averages, free);
+        free_array_list(averages, free_);
         for (int i = 0; i < max_index_size; i++){
             value = array_list_get(values, i);
             (*value) = sqrt((*value) / (instance_list->list->size - 1));
@@ -431,6 +437,7 @@ Array_list_ptr attribute_class_distribution(const Instance_list *instance_list, 
         Discrete_distribution_ptr distribution = array_list_get(distributions, index);
         add_item(distribution, instance->class_label);
     }
+    free_array_list(value_list, NULL);
     return distributions;
 }
 
@@ -507,6 +514,7 @@ Array_list_ptr continuous_attribute_average2(const Instance_list *instance_list)
     for (int i = 0; i < attribute_size(get_instance(instance_list, 0)); i++){
         Array_list_ptr added = continuous_attribute_average(instance_list, i);
         array_list_add_all(result, added);
+        free_array_list(added, NULL);
     }
     return result;
 }
@@ -534,6 +542,7 @@ Array_list_ptr continuous_attribute_standard_deviation2(const Instance_list *ins
     for (int i = 0; i < attribute_size(get_instance(instance_list, 0)); i++){
         Array_list_ptr added = continuous_attribute_standard_deviation(instance_list, i);
         array_list_add_all(result, added);
+        free_array_list(added, NULL);
     }
     return result;
 }
@@ -546,19 +555,21 @@ Array_list_ptr continuous_attribute_standard_deviation2(const Instance_list *ins
  */
 Matrix_ptr covariance(const Instance_list *instance_list, const Vector* average) {
     double mi, mj, xi, xj;
-    Matrix_ptr result = create_matrix(instance_continuous_attribute_size(get_instance(instance_list, 0)), instance_continuous_attribute_size(get_instance(instance_list, 0)));
+    int size = average->size;
+    Matrix_ptr result = create_matrix(size, size);
     for (int k = 0; k < instance_list->list->size; k++) {
         Instance_ptr instance = get_instance(instance_list, k);
         Array_list_ptr continuous_attributes = instance_continuous_attributes(instance);
-        for (int i = 0; i < instance_continuous_attribute_size(instance); i++){
-            xi = *(double*) array_list_get(continuous_attributes, i);
+        for (int i = 0; i < size; i++){
+            xi = array_list_get_double(continuous_attributes, i);
             mi = get_value(average, i);
-            for (int j = 0; j < instance_continuous_attribute_size(instance); j++){
-                xj = *(double*) array_list_get(continuous_attributes, j);
+            for (int j = 0; j < size; j++){
+                xj = array_list_get_double(continuous_attributes, j);
                 mj = get_value(average, j);
                 add_value_to_matrix(result, i, j, (xi - mi) * (xj - mj));
             }
         }
+        free_array_list(continuous_attributes, free_);
     }
     divide_by_constant(result, instance_list->list->size - 1);
     return result;
@@ -570,7 +581,7 @@ void clear(Instance_list_ptr instance_list) {
 
 Instance_list_ptr create_instance_list4(FILE *input_file) {
     char line[MAX_LINE_LENGTH];
-    Instance_list_ptr result = malloc(sizeof(Instance_list));
+    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list4");
     result->list =  create_array_list();
     fgets(line, MAX_LINE_LENGTH, input_file);
     line[strcspn(line, "\n")] = 0;
@@ -594,11 +605,11 @@ Instance_list_ptr create_instance_list4(FILE *input_file) {
             }
         }
         String_ptr class_label = array_list_get(attribute_values, attribute_types->size);
-        free_array_list(attribute_values, free);
+        free_array_list(attribute_values, free_);
         Instance_ptr current = create_instance(class_label->s, attribute_list);
         array_list_add(result->list, current);
     }
-    free_array_list(attribute_types, free);
+    free_array_list(attribute_types, free_);
     return result;
 }
 

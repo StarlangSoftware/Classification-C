@@ -1,7 +1,7 @@
 //
 // Created by Olcay Taner YILDIZ on 22.07.2023.
 //
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "LaryFilter.h"
 
 /**
@@ -10,7 +10,7 @@
  * @param dataSet DataSet that will bu used.
  */
 Lary_filter_ptr create_lary_filter(Data_set_ptr data_set) {
-    Lary_filter_ptr result = malloc(sizeof(Lary_filter));
+    Lary_filter_ptr result = malloc_(sizeof(Lary_filter), "create_lary_filter");
     result->data_set = data_set;
     result->attribute_distributions = all_attributes_distribution(data_set->instances);
     return result;
@@ -18,7 +18,7 @@ Lary_filter_ptr create_lary_filter(Data_set_ptr data_set) {
 
 void free_lary_filter(Lary_filter_ptr lary_filter) {
     free_array_list(lary_filter->attribute_distributions, (void (*)(void *)) free_discrete_distribution);
-    free(lary_filter);
+    free_(lary_filter);
 }
 
 /**

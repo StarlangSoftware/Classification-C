@@ -2,11 +2,10 @@
 // Created by Olcay Taner YILDIZ on 5.06.2023.
 //
 
-#include <stdlib.h>
 #include <StringUtils.h>
 #include <HashMap/HashMap.h>
+#include <Memory/Memory.h>
 #include "Instance.h"
-#include "../Attribute/Attribute.h"
 
 /**
  * Constructor for a single instance. Given the attributes and class label, it generates a new instance.
@@ -15,16 +14,16 @@
  * @param attributes Attributes of the instance.
  */
 Instance_ptr create_instance(const char *class_label, Array_list_ptr attributes) {
-    Instance_ptr result = malloc(sizeof(Instance));
+    Instance_ptr result = malloc_(sizeof(Instance), "create_instance");
     result->class_label = str_copy(result->class_label, class_label);
     result->attributes = attributes;
     return result;
 }
 
 void free_instance(Instance_ptr instance) {
-    free(instance->class_label);
+    free_(instance->class_label);
     free_array_list(instance->attributes, (void (*)(void *)) free_attribute);
-    free(instance);
+    free_(instance);
 }
 
 /**
@@ -34,7 +33,7 @@ void free_instance(Instance_ptr instance) {
  * @param class_label Class label of the instance.
  */
 Instance_ptr create_instance2(const char *class_label) {
-    Instance_ptr result = malloc(sizeof(Instance));
+    Instance_ptr result = malloc_(sizeof(Instance), "create_instance2");
     result->class_label = str_copy(result->class_label, class_label);
     result->attributes = create_array_list();
     return result;
@@ -137,6 +136,7 @@ Array_list_ptr instance_continuous_attributes(const Instance* instance) {
     for (int i = 0; i < instance->attributes->size; i++) {
         Array_list_ptr inserted = continuous_attributes(array_list_get(instance->attributes, i));
         array_list_add_all(result, inserted);
+        free_array_list(inserted, NULL);
     }
     return result;
 }
@@ -151,6 +151,7 @@ Vector_ptr to_vector(const Instance* instance) {
     for (int i = 0; i < instance->attributes->size; i++) {
         Array_list_ptr inserted = continuous_attributes(array_list_get(instance->attributes, i));
         array_list_add_all(values, inserted);
+        free_array_list(inserted, NULL);
     }
     return create_vector(values);
 }

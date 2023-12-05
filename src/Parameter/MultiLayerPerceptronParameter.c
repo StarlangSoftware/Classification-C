@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "MultiLayerPerceptronParameter.h"
 
 /**
@@ -24,7 +25,7 @@ create_multi_layer_perceptron_parameter_ptr(int seed,
                                             int epoch,
                                             int hidden_nodes,
                                             Activation_function activation_function) {
-    Multi_layer_perceptron_parameter_ptr result = malloc(sizeof(Multi_layer_perceptron_parameter));
+    Multi_layer_perceptron_parameter_ptr result = malloc_(sizeof(Multi_layer_perceptron_parameter), "create_multi_layer_perceptron_parameter_ptr");
     result->seed = seed;
     result->learning_rate = learning_rate;
     result->eta_decrease = eta_decrease;
@@ -37,5 +38,5 @@ create_multi_layer_perceptron_parameter_ptr(int seed,
 
 void
 free_multi_layer_perceptron_parameter_ptr(Multi_layer_perceptron_parameter_ptr multi_layer_perceptron_parameter) {
-    free(multi_layer_perceptron_parameter);
+    free_(multi_layer_perceptron_parameter);
 }

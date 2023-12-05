@@ -6,6 +6,7 @@
 #include <FileUtils.h>
 #include <Vector.h>
 #include <float.h>
+#include <Memory/Memory.h>
 #include "LdaModel.h"
 
 /**
@@ -16,7 +17,7 @@
  * @param w0                HashMap of String and Double.
  */
 Lda_model_ptr create_lda_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr w, Hash_map_ptr w0) {
-    Lda_model_ptr result = malloc(sizeof(Lda_model));
+    Lda_model_ptr result = malloc_(sizeof(Lda_model), "create_lda_model");
     result->prior_distribution = prior_distribution;
     result->w = w;
     result->w0 = w0;
@@ -24,14 +25,14 @@ Lda_model_ptr create_lda_model(Discrete_distribution_ptr prior_distribution, Has
 }
 
 Lda_model_ptr create_lda_model2(const char *file_name) {
-    Lda_model_ptr result = malloc(sizeof(Lda_model));
+    Lda_model_ptr result = malloc_(sizeof(Lda_model), "create_lda_model2");
     FILE* input_file = fopen(file_name, "r");
     result->w = create_string_hash_map();
     result->w0 = create_string_hash_map();
     result->prior_distribution = create_discrete_distribution2(input_file);
     for (int i = 0; i < size_of_distribution(result->prior_distribution); i++){
         char class_label[MAX_LINE_LENGTH];
-        double* weight = malloc(sizeof(double));
+        double* weight = malloc_(sizeof(double), "create_lda_model2");
         fscanf(input_file, "%s %lf", class_label, weight);
         hash_map_insert(result->w0, class_label, weight);
     }
@@ -58,14 +59,16 @@ double calculate_metric_lda(const Lda_model *lda_model, const Instance *instance
     Vector_ptr xi = to_vector(instance);
     Vector_ptr wi = hash_map_get(lda_model->w, C_i);
     w0i = *(double*)hash_map_get(lda_model->w0, C_i);
-    return dot_product(wi, xi) + w0i;
+    double result = dot_product(wi, xi) + w0i;
+    free_vector(xi);
+    return result;
 }
 
 void free_lda_model(Lda_model_ptr lda_model) {
     free_discrete_distribution(lda_model->prior_distribution);
-    free_hash_map(lda_model->w, free);
-    free_hash_map(lda_model->w0, free);
-    free(lda_model);
+    free_hash_map(lda_model->w, (void (*)(void *)) free_vector);
+    free_hash_map(lda_model->w0, free_);
+    free_(lda_model);
 }
 
 char *predict_lda(const void *model, const Instance *instance) {
@@ -84,5 +87,6 @@ char *predict_lda(const void *model, const Instance *instance) {
             }
         }
     }
+    free_array_list(possible_labels, NULL);
     return predicted_class;
 }

@@ -3,6 +3,7 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/RandomClassifier.h"
@@ -14,10 +15,12 @@ void test_random_classifier(Data_set_ptr data_set, double error_rate, int index)
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in random test %d\n", index);
     }
+    free_detailed_classification_performance(performance);
     free_random(dummy);
 }
 
 int main(){
+    start_medium_memory_check();
     create_datasets();
     test_random_classifier(iris, 69.33, 1);
     test_random_classifier(bupa, 49.27, 2);
@@ -26,4 +29,6 @@ int main(){
     test_random_classifier(tictactoe, 46.76, 5);
     test_random_classifier(nursery, 79.99, 6);
     test_random_classifier(chess, 94.31, 7);
+    free_datasets();
+    end_memory_check();
 }

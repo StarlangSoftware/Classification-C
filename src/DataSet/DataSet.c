@@ -3,16 +3,15 @@
 //
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <FileUtils.h>
-#include <string.h>
+#include <Memory/Memory.h>
 #include "DataSet.h"
 
 /**
  * Constructor for generating a new DataSet.
  */
 Data_set_ptr create_data_set() {
-    Data_set_ptr result = malloc(sizeof(Data_set));
+    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set");
     result->instances = create_instance_list();
     result->definition = NULL;
     return result;
@@ -24,7 +23,7 @@ Data_set_ptr create_data_set() {
  * @param definition Data definition of the data set.
  */
 Data_set_ptr create_data_set2(Data_definition_ptr data_definition) {
-    Data_set_ptr result = malloc(sizeof(Data_set));
+    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set2");
     result->instances = create_instance_list();
     result->definition = data_definition;
     return result;
@@ -36,7 +35,7 @@ Data_set_ptr create_data_set2(Data_definition_ptr data_definition) {
  * @param file ifstream to generate DataSet from.
  */
 Data_set_ptr create_data_set3(char *file_name) {
-    Data_set_ptr result = malloc(sizeof(Data_set));
+    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set3");
     result->instances = create_instance_list();
     result->definition = create_data_definition();
     Array_list_ptr lines = read_lines(file_name);
@@ -76,7 +75,7 @@ Data_set_ptr create_data_set3(char *file_name) {
         }
         i++;
     }
-    free_array_list(lines, free);
+    free_array_list(lines, free_);
     return result;
 }
 
@@ -88,7 +87,7 @@ Data_set_ptr create_data_set3(char *file_name) {
  * @param fileName   Name of the data set file.
  */
 Data_set_ptr create_data_set4(Data_definition_ptr data_definition, const char* separators, const char *file_name) {
-    Data_set_ptr result = malloc(sizeof(Data_set));
+    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set4");
     result->instances = create_instance_list2(data_definition, separators, file_name);
     result->definition = data_definition;
     return result;
@@ -141,7 +140,7 @@ void set_definition(Data_set_ptr data_set, const Instance *instance) {
     Attribute_type *type;
     Array_list_ptr attribute_types = create_array_list();
     for (int i = 0; i < attribute_size(instance); i++){
-        type = malloc(sizeof(Attribute_type));
+        type = malloc_(sizeof(Attribute_type), "set_definition");
         if (get_attribute(instance, i)->attribute_type == BINARY){
             *type = BINARY;
             array_list_add(attribute_types, type);
@@ -180,7 +179,11 @@ int sample_size(const Data_set* data_set) {
  * @return Size of the class label distribution of InstanceList.
  */
 int class_count(const Data_set* data_set) {
-    return class_distribution(data_set->instances)->map->hash_map->count;
+    int result;
+    Discrete_distribution_ptr distribution = class_distribution(data_set->instances);
+    result = distribution->map->hash_map->count;
+    free_discrete_distribution(distribution);
+    return result;
 }
 
 /**
@@ -263,13 +266,14 @@ String_ptr get_classes(const Data_set *data_set) {
         string_append(result, ";");
         string_append(result, array_list_get(class_labels, i));
     }
+    free_array_list(class_labels, NULL);
     return result;
 }
 
 void free_data_set(Data_set_ptr data_set) {
     free_instance_list(data_set->instances);
     free_data_definition(data_set->definition);
-    free(data_set);
+    free_(data_set);
 }
 
 /**

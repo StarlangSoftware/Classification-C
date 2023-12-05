@@ -2,16 +2,16 @@
 // Created by Olcay Taner YILDIZ on 16.06.2023.
 //
 
-#include <stdlib.h>
 #include <CounterHashMap.h>
 #include <RandomArray.h>
+#include <Memory/Memory.h>
 #include "Partition.h"
 
 /**
  * Constructor for generating a partition.
  */
 Partition_ptr create_partition() {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition");
     result->multi_list = create_array_list();
     return result;
 }
@@ -22,7 +22,7 @@ Partition_ptr create_partition() {
  * @param list Instance list to add.
  */
 Partition_ptr create_partition2(Instance_list_ptr list) {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition2");
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, list);
     return result;
@@ -53,7 +53,7 @@ Instance_list_ptr get_instance_list(const Partition *partition, int index) {
  * @return Instances of the items at the list of instance lists.
  */
 Array_list_ptr *get_lists(const Partition *partition) {
-    Array_list_ptr* result = malloc(partition->multi_list->size * sizeof(Array_list_ptr));
+    Array_list_ptr* result = malloc_(partition->multi_list->size * sizeof(Array_list_ptr), "get_lists");
     for (int i = 0; i < partition->multi_list->size; i++){
         Instance_list_ptr instance_list = array_list_get(partition->multi_list, i);
         result[i] = get_instances(instance_list);
@@ -68,7 +68,7 @@ Array_list_ptr *get_lists(const Partition *partition) {
  * @return Groups of instances according to their class labels.
  */
 Partition_ptr create_partition3(const Instance_list* instance_list) {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition3");
     result->multi_list = create_array_list();
     Array_list_ptr class_labels = get_distinct_class_labels(instance_list);
     for (int i = 0; i < class_labels->size; i++){
@@ -80,6 +80,7 @@ Partition_ptr create_partition3(const Instance_list* instance_list) {
                                         (int (*)(const void *, const void *)) compare_string);
         add_instance(get_instance_list(result, index), instance);
     }
+    free_array_list(class_labels, NULL);
     return result;
 }
 
@@ -95,7 +96,7 @@ Partition_ptr create_partition3(const Instance_list* instance_list) {
  * @return 2 group stratified partition of the instances in this instance list.
  */
 Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, int seed, bool stratified) {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition4");
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, create_instance_list());
     array_list_add(result->multi_list, create_instance_list());
@@ -119,7 +120,7 @@ Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, i
         }
         free_discrete_distribution(distribution);
         free_counter_hash_map(counts);
-        free_array_list(random_array, free);
+        free_array_list(random_array, free_);
     } else {
         shuffle_instance_list(instance_list, seed);
         for (int i = 0; i < size_of_instance_list(instance_list); i++) {
@@ -144,7 +145,7 @@ Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, i
  * attributeIndex.
  */
 Partition_ptr create_partition5(const Instance_list *instance_list, int attribute_index) {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition5");
     result->multi_list = create_array_list();
     Array_list_ptr value_list = get_attribute_value_list(instance_list, attribute_index);
     for (int i = 0; i < value_list->size; i++){
@@ -157,6 +158,7 @@ Partition_ptr create_partition5(const Instance_list *instance_list, int attribut
                                         (int (*)(const void *, const void *)) compare_string);
         add_instance(get_instance_list(result, index), instance);
     }
+    free_array_list(value_list, NULL);
     return result;
 }
 
@@ -169,7 +171,7 @@ Partition_ptr create_partition5(const Instance_list *instance_list, int attribut
  * attributeIndex and value attributeValue.
  */
 Partition_ptr create_partition6(const Instance_list *instance_list, int attribute_index, int attribute_value) {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition6");
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, create_instance_list());
     array_list_add(result->multi_list, create_instance_list());
@@ -186,7 +188,7 @@ Partition_ptr create_partition6(const Instance_list *instance_list, int attribut
 }
 
 Partition_ptr create_partition7(const Instance_list *instance_list, int attribute_index, double split_value) {
-    Partition_ptr result = malloc(sizeof(Partition));
+    Partition_ptr result = malloc_(sizeof(Partition), "create_partition7");
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, create_instance_list());
     array_list_add(result->multi_list, create_instance_list());
@@ -203,6 +205,11 @@ Partition_ptr create_partition7(const Instance_list *instance_list, int attribut
 }
 
 void free_partition(Partition_ptr partition) {
+    for (int i = 0; i < partition->multi_list->size; i++){
+        Instance_list_ptr  list = get_instance_list(partition, i);
+        free_array_list(list->list, NULL);
+        free_(list);
+    }
     free_array_list(partition->multi_list, NULL);
-    free(partition);
+    free_(partition);
 }

@@ -46,4 +46,6 @@ int feature_value_index(const Data_definition* data_definition, int index, const
 
 Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definition* data_definition, const Feature_sub_set* feature_sub_set);
 
+Array_list_ptr construct_attribute_type_list(Attribute_type attribute_type, int count);
+
 #endif //CLASSIFICATION_DATADEFINITION_H

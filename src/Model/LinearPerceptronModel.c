@@ -2,9 +2,8 @@
 // Created by Olcay Taner YILDIZ on 17.07.2023.
 //
 
-#include <stdlib.h>
-#include <math.h>
 #include <FileUtils.h>
+#include <Memory/Memory.h>
 #include "LinearPerceptronModel.h"
 #include "../Classifier/Classifier.h"
 #include "../Classifier/LinearPerceptron.h"
@@ -22,7 +21,7 @@
 Linear_perceptron_model_ptr
 create_linear_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                Linear_perceptron_parameter_ptr parameter) {
-    Linear_perceptron_model_ptr result = malloc(sizeof(Linear_perceptron_model));
+    Linear_perceptron_model_ptr result = malloc_(sizeof(Linear_perceptron_model), "create_linear_perceptron_model");
     result->model = create_neural_network_model(train_set);
     result->W = allocate_layer_weights(result->model->K, result->model->d + 1, parameter->seed);
     Matrix_ptr best_W = clone(result->W);
@@ -53,9 +52,10 @@ create_linear_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr va
         } else {
             free_detailed_classification_performance(current_classification_performance);
         }
-        free(validation);
+        free_(validation);
         learning_rate *= parameter->eta_decrease;
     }
+    free_detailed_classification_performance(best_classification_performance);
     free_matrix(result->W);
     result->W = best_W;
     return result;
@@ -90,11 +90,11 @@ void calculate_output_linear_perceptron(const Linear_perceptron_model* linear_pe
 void free_linear_perceptron_model(Linear_perceptron_model_ptr linear_perceptron) {
     free_matrix(linear_perceptron->W);
     free_neural_network_model(linear_perceptron->model);
-    free(linear_perceptron);
+    free_(linear_perceptron);
 }
 
 Linear_perceptron_model_ptr create_linear_perceptron_model2(const char *file_name) {
-    Linear_perceptron_model_ptr result = malloc(sizeof(Linear_perceptron_model));
+    Linear_perceptron_model_ptr result = malloc_(sizeof(Linear_perceptron_model), "create_linear_perceptron_model2");
     FILE* input_file = fopen(file_name, "r");
     result->model = create_neural_network_model2(input_file);
     result->W = create_matrix5(input_file);

@@ -2,9 +2,8 @@
 // Created by Olcay Taner YILDIZ on 4.07.2023.
 //
 
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "NaiveBayes.h"
-#include "../InstanceList/Partition.h"
 #include "../Model/NaiveBayesModel.h"
 
 /**
@@ -14,10 +13,11 @@
  * @param parameters -
  */
 Classifier_ptr train_naive_bayes(Instance_list_ptr train_set, const void *parameter) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "train_naive_bayes");
     Discrete_distribution_ptr prior_distribution = class_distribution(train_set);
     Partition_ptr class_lists = create_partition3(train_set);
     train_continuous_version(result, prior_distribution, class_lists);
+    free_partition(class_lists);
     result->train = train_naive_bayes;
     result->predict_probability = NULL;
     result->predict = predict_naive_bayes;
@@ -46,7 +46,7 @@ void train_continuous_version(Classifier_ptr classifier, Discrete_distribution_p
 }
 
 Classifier_ptr load_naive_bayes(const char *file_name) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "load_naive_bayes");
     result->model = create_naive_bayes_model2(file_name);
     result->train = train_naive_bayes;
     result->predict = predict_naive_bayes;
@@ -56,5 +56,5 @@ Classifier_ptr load_naive_bayes(const char *file_name) {
 
 void free_naive_bayes(Classifier_ptr naive_bayes) {
     free_naive_bayes_model(naive_bayes->model);
-    free(naive_bayes);
+    free_(naive_bayes);
 }

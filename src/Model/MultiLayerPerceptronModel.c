@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "MultiLayerPerceptronModel.h"
 #include "../Performance/DetailedClassificationPerformance.h"
 #include "../Classifier/Classifier.h"
@@ -11,7 +12,7 @@
 Multi_layer_perceptron_model_ptr
 create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                     Multi_layer_perceptron_parameter_ptr parameter) {
-    Multi_layer_perceptron_model_ptr result = malloc(sizeof(Multi_layer_perceptron_model));
+    Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model), "create_multi_layer_perceptron_model");
     result->model = create_neural_network_model(train_set);
     Matrix_ptr best_W = NULL, best_V = NULL;
     Vector_ptr activation_derivative = NULL, one_minus_hidden = NULL, one = NULL;
@@ -83,9 +84,10 @@ create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_p
         } else {
             free_detailed_classification_performance(current_classification_performance);
         }
-        free(validation);
+        free_(validation);
         learning_rate *= parameter->eta_decrease;
     }
+    free_detailed_classification_performance(best_classification_performance);
     free_matrix(result->W);
     result->W = best_W;
     free_matrix(result->V);
@@ -107,7 +109,7 @@ void free_multi_layer_perceptron_model(Multi_layer_perceptron_model_ptr multi_la
     free_neural_network_model(multi_layer_perceptron->model);
     free_matrix(multi_layer_perceptron->V);
     free_matrix(multi_layer_perceptron->W);
-    free(multi_layer_perceptron);
+    free_(multi_layer_perceptron);
 }
 
 /**
@@ -130,7 +132,7 @@ Hash_map_ptr predict_probability_multi_layer_perceptron(const void *model, const
 }
 
 Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model2(const char *file_name) {
-    Multi_layer_perceptron_model_ptr result = malloc(sizeof(Multi_layer_perceptron_model));
+    Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model), "create_multi_layer_perceptron_model2");
     FILE* input_file = fopen(file_name, "r");
     result->model = create_neural_network_model2(input_file);
     result->W = create_matrix5(input_file);

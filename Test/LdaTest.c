@@ -3,6 +3,7 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/Lda.h"
@@ -15,12 +16,14 @@ void test_lda_classifier(Data_set_ptr data_set, double error_rate, int index){
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in lda test %d %.2lf\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_lda(lda);
 }
 
 int main(){
     create_datasets();
     test_lda_classifier(iris, 2.00, 1);
-    test_lda_classifier(bupa, 36.81, 2);
+    test_lda_classifier(bupa, 29.57, 2);
     test_lda_classifier(dermatology, 1.91, 3);
+    free_datasets();
 }

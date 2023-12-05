@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "SubSetSelection.h"
 
 /**
@@ -11,26 +12,26 @@
  * @param initialSubSet FeatureSubSet input.
  */
 Sub_set_selection_ptr create_sub_set_selection(Feature_sub_set_ptr initial_sub_set) {
-    Sub_set_selection_ptr result = malloc(sizeof(Sub_set_selection));
+    Sub_set_selection_ptr result = malloc_(sizeof(Sub_set_selection), "create_sub_set_selection");
     result->initial_sub_set = initial_sub_set;
     return result;
 }
 
 Sub_set_selection_ptr create_sub_set_selection2(int number_of_features) {
-    Sub_set_selection_ptr result = malloc(sizeof(Sub_set_selection));
+    Sub_set_selection_ptr result = malloc_(sizeof(Sub_set_selection), "create_sub_set_selection2");
     result->initial_sub_set = create_feature_sub_set(number_of_features);
     return result;
 }
 
 Sub_set_selection_ptr create_sub_set_selection3() {
-    Sub_set_selection_ptr result = malloc(sizeof(Sub_set_selection));
+    Sub_set_selection_ptr result = malloc_(sizeof(Sub_set_selection), "create_sub_set_selection3");
     result->initial_sub_set = create_feature_sub_set3();
     return result;
 }
 
 void free_sub_set_selection(Sub_set_selection_ptr sub_set_selection) {
     free_feature_sub_set(sub_set_selection->initial_sub_set);
-    free(sub_set_selection);
+    free_(sub_set_selection);
 }
 
 /**

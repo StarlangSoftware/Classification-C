@@ -2,8 +2,8 @@
 // Created by Olcay Taner YILDIZ on 2.07.2023.
 //
 
-#include <stdlib.h>
 #include <math.h>
+#include <Memory/Memory.h>
 #include "Qda.h"
 #include "../InstanceList/Partition.h"
 #include "../Model/QdaModel.h"
@@ -15,7 +15,7 @@
  * @param parameters -
  */
 Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "train_qda_1");
     Partition_ptr class_lists = create_partition3(train_set);
     Discrete_distribution_ptr priorDistribution = class_distribution(train_set);
     Hash_map_ptr w = create_string_hash_map();
@@ -34,7 +34,7 @@ Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
         Vector_ptr wi = multiply_with_vector_from_left(class_covariance, average_vector);
         free_matrix(class_covariance);
         hash_map_insert(w, C_i, wi);
-        double* w0i = malloc(sizeof(double));
+        double* w0i = malloc_(sizeof(double), "train_qda_2");
         *w0i = -0.5 * (dot_product(wi, average_vector) + log(det)) + log(get_probability(priorDistribution, C_i));
         hash_map_insert(w0, C_i, w0i);
         free_vector(average_vector);
@@ -48,7 +48,7 @@ Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
 }
 
 Classifier_ptr load_qda(const char *file_name) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "load_qda");
     result->model = create_qda_model2(file_name);
     result->train = train_qda;
     result->predict = predict_qda;
@@ -58,5 +58,5 @@ Classifier_ptr load_qda(const char *file_name) {
 
 void free_qda(Classifier_ptr qda) {
     free_qda_model(qda->model);
-    free(qda);
+    free_(qda);
 }

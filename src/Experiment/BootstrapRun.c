@@ -1,7 +1,7 @@
 //
 // Created by Olcay Taner YILDIZ on 23.07.2023.
 //
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "BootstrapRun.h"
 
 /**
@@ -18,7 +18,7 @@ Experiment_performance_ptr execute_bootstrap(const Experiment *experiment, int n
         experiment->classifier->train(bootstrap_sample, experiment->parameter);
         add_detailed_performance(result, test_classifier(experiment->classifier, experiment->data_set->instances));
         free_bootstrap(bootstrap, NULL);
-        free(bootstrap_sample);
+        free_(bootstrap_sample);
     }
     return result;
 }

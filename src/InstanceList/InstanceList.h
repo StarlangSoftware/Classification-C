@@ -30,6 +30,8 @@ Instance_list_ptr create_instance_list4(FILE* input_file);
 
 void free_instance_list(Instance_list_ptr instance_list);
 
+void free_instance_list2(Instance_list_ptr instance_list);
+
 void add_instance(Instance_list_ptr instance_list, Instance_ptr instance);
 
 void add_all_instances(Instance_list_ptr instance_list, const Array_list* instances_added);

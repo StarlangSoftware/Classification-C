@@ -3,6 +3,7 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/Knn.h"
@@ -16,6 +17,7 @@ void test_knn_classifier(Data_set_ptr data_set, double error_rate, int index, Kn
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in knn test %d %.2lf\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_knn(knn);
 }
 
@@ -27,4 +29,6 @@ int main(){
     test_knn_classifier(dermatology, 3.83, 3, parameter);
     test_knn_classifier(car, 20.31, 4, parameter);
     test_knn_classifier(tictactoe, 32.57, 5, parameter);
+    free_datasets();
+    free_knn_parameter(parameter);
 }

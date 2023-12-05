@@ -3,9 +3,7 @@
 //
 
 #include <math.h>
-#include <stdlib.h>
-#include <time.h>
-#include <sys/time.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/DeepNetwork.h"
@@ -17,6 +15,7 @@ void test_deep_network_classifier(Data_set_ptr data_set, double error_rate, int 
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in deep network test %d %f\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_deep_network(deep_network);
 }
 
@@ -39,4 +38,5 @@ int main(){
     parameter = create_deep_network_parameter(1, 0.01, 0.99, 0.2, 100, hidden_nodes, SIGMOID);
     test_deep_network_classifier(dermatology, 1.91, 3, parameter);
     free_deep_network_parameter(parameter);
+    free_datasets();
 }

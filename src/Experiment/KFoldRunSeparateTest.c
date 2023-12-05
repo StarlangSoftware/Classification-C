@@ -3,7 +3,7 @@
 //
 
 #include <KFoldCrossValidation.h>
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "KFoldRunSeparateTest.h"
 
 /**
@@ -20,7 +20,7 @@ Experiment_performance_ptr execute_k_fold_run_separate_test(const Experiment *ex
         Instance_list_ptr train_set = create_instance_list3(get_train_fold_k_fold(cross_validation, i));
         experiment->classifier->train(train_set, experiment->parameter);
         add_detailed_performance(result, test_classifier(experiment->classifier, get_instance_list(partition, 0)));
-        free(train_set);
+        free_(train_set);
     }
     free_k_fold_cross_validation(cross_validation);
     free_partition(partition);

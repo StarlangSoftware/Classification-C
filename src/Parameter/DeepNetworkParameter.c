@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "DeepNetworkParameter.h"
 
 /**
@@ -24,7 +25,7 @@ create_deep_network_parameter(int seed,
                               int epoch,
                               Array_list_ptr hidden_layers,
                               Activation_function activation_function) {
-    Deep_network_parameter_ptr result = malloc(sizeof(Deep_network_parameter));
+    Deep_network_parameter_ptr result = malloc_(sizeof(Deep_network_parameter), "create_deep_network_parameter");
     result->seed = seed;
     result->learning_rate = learning_rate;
     result->eta_decrease = eta_decrease;
@@ -36,8 +37,8 @@ create_deep_network_parameter(int seed,
 }
 
 void free_deep_network_parameter(Deep_network_parameter_ptr deep_network_parameter) {
-    free_array_list(deep_network_parameter->hidden_layers, free);
-    free(deep_network_parameter);
+    free_array_list(deep_network_parameter->hidden_layers, free_);
+    free_(deep_network_parameter);
 }
 
 /**

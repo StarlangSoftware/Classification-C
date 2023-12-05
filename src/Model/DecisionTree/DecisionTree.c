@@ -2,7 +2,7 @@
 // Created by Olcay Taner YILDIZ on 9.07.2023.
 //
 
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "DecisionTree.h"
 #include "../../Classifier/Classifier.h"
 #include "../../Classifier/C45.h"
@@ -13,20 +13,20 @@
  * @param root DecisionNode type input.
  */
 Decision_tree_ptr create_decision_tree(Decision_node_ptr root) {
-    Decision_tree_ptr result = malloc(sizeof(Decision_tree));
+    Decision_tree_ptr result = malloc_(sizeof(Decision_tree), "create_decision_tree");
     result->root = root;
     return result;
 }
 
 Decision_tree_ptr create_decision_tree2(FILE *input_file) {
-    Decision_tree_ptr result = malloc(sizeof(Decision_tree));
+    Decision_tree_ptr result = malloc_(sizeof(Decision_tree), "create_decision_tree2");
     result->root = create_decision_node2(input_file);
     return result;
 }
 
 void free_decision_tree(Decision_tree_ptr decision_tree) {
     free_decision_node(decision_tree->root);
-    free(decision_tree);
+    free_(decision_tree);
 }
 
 /**
@@ -82,7 +82,7 @@ void prune_node(Decision_tree_ptr decision_tree, Decision_node_ptr node, const I
     }
     free_detailed_classification_performance(before);
     free_detailed_classification_performance(after);
-    free(classifier);
+    free_(classifier);
 }
 
 Hash_map_ptr predict_probability_tree(const void *model, const Instance *instance) {

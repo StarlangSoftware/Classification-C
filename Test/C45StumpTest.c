@@ -3,6 +3,7 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
 #include "../src/Classifier/Classifier.h"
 #include "../src/Classifier/C45Stump.h"
@@ -14,6 +15,7 @@ void test_c45_stump_classifier(Data_set_ptr data_set, double error_rate, int ind
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in validation_c45 stump test %d %f\n", index, 100 * performance->error_rate);
     }
+    free_detailed_classification_performance(performance);
     free_c45_stump(c45);
 }
 
@@ -21,7 +23,8 @@ int main(){
     create_datasets();
     test_c45_stump_classifier(iris, 33.33, 1);
     test_c45_stump_classifier(bupa, 36.81, 2);
-    test_c45_stump_classifier(dermatology, 49.73, 3);
     test_c45_stump_classifier(car, 29.98, 4);
+    test_c45_stump_classifier(dermatology, 49.73, 3);
     test_c45_stump_classifier(tictactoe, 30.06, 5);
+    free_datasets();
 }

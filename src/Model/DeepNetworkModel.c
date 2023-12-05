@@ -3,6 +3,7 @@
 //
 
 #include <stdlib.h>
+#include <Memory/Memory.h>
 #include "DeepNetworkModel.h"
 #include "../Performance/DetailedClassificationPerformance.h"
 #include "../Classifier/Classifier.h"
@@ -27,7 +28,7 @@ void allocate_deep_network_weights(Deep_network_model_ptr deep_network, Deep_net
 Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                                  Deep_network_parameter_ptr parameter) {
     Vector_ptr tmp_hidden;
-    Deep_network_model_ptr result = malloc(sizeof(Deep_network_model));
+    Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model), "create_deep_network_model");
     result->model = create_neural_network_model(train_set);
     result->activation_function = parameter->activation_function;
     result->weights = create_array_list();
@@ -118,7 +119,7 @@ Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, In
         } else {
             free_detailed_classification_performance(current_classification_performance);
         }
-        free(validation);
+        free_(validation);
         learning_rate *= parameter->eta_decrease;
     }
     free_array_list(hidden, (void (*)(void *)) free_vector);
@@ -129,6 +130,7 @@ Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, In
         array_list_add(result->weights, array_list_get(best_weights, i));
     }
     free_array_list(best_weights, NULL);
+    free_detailed_classification_performance(best_classification_performance);
     return result;
 }
 
@@ -149,11 +151,11 @@ Array_list_ptr set_best_weights(Deep_network_model_ptr deep_network) {
 void free_deep_network_model(Deep_network_model_ptr deep_network) {
     free_neural_network_model(deep_network->model);
     free_array_list(deep_network->weights, (void (*)(void *)) free_matrix);
-    free(deep_network);
+    free_(deep_network);
 }
 
 Deep_network_model_ptr create_deep_network_model2(const char *file_name) {
-    Deep_network_model_ptr result = malloc(sizeof(Deep_network_model));
+    Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model), "create_deep_network_model2");
     FILE* input_file = fopen(file_name, "r");
     result->model = create_neural_network_model2(input_file);
     fscanf(input_file, "%d", &(result->hidden_layer_size));

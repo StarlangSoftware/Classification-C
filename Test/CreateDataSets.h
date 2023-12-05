@@ -11,4 +11,6 @@ Data_set_ptr iris, car, chess, bupa, tictactoe, dermatology, nursery;
 
 void create_datasets();
 
+void free_datasets();
+
 #endif //CLASSIFICATION_CREATEDATASETS_H

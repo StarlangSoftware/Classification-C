@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <Memory/Memory.h>
 #include "ExperimentPerformance.h"
 #include "Performance.h"
 
@@ -14,7 +15,7 @@
  * A constructor which creates a new ArrayList of Performance as results.
  */
 Experiment_performance_ptr create_experiment_performance() {
-    Experiment_performance_ptr result = malloc(sizeof(Experiment_performance));
+    Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance), "create_experiment_performance");
     result->results = create_array_list();
     result->contains_details = false;
     return result;
@@ -27,13 +28,13 @@ Experiment_performance_ptr create_experiment_performance() {
  * @param fileName String input.
  */
 Experiment_performance_ptr create_experiment_performance2(const char *file_name) {
-    Experiment_performance_ptr result = malloc(sizeof(Experiment_performance));
+    Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance), "create_experiment_performance2");
     result->results = create_array_list();
     Array_list_ptr lines = read_lines(file_name);
     for (int i = 0; i < lines->size; i++){
         array_list_add(result->results, create_performance(atof(array_list_get(lines, i))));
     }
-    free_array_list(lines, free);
+    free_array_list(lines, free_);
     return result;
 }
 

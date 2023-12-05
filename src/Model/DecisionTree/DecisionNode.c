@@ -2,11 +2,10 @@
 // Created by Olcay Taner YILDIZ on 8.07.2023.
 //
 
-#include <stdlib.h>
 #include <RandomArray.h>
 #include <float.h>
 #include <FileUtils.h>
-#include <string.h>
+#include <Memory/Memory.h>
 #include "DecisionNode.h"
 #include "../../Classifier/Classifier.h"
 #include "../../InstanceList/Partition.h"
@@ -40,7 +39,7 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
                                        bool is_stump) {
     int best_attribute = -1;
     double best_split_value = 0;
-    Decision_node_ptr result = malloc(sizeof(Decision_node));
+    Decision_node_ptr result = malloc_(sizeof(Decision_node), "create_decision_node");
     result->condition = condition;
     result->class_labels_distribution = create_discrete_distribution();
     result->children = create_array_list();
@@ -49,8 +48,8 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
         add_item(result->class_labels_distribution, array_list_get(labels, i));
     }
     result->class_label = get_maximum(labels);
-    result->leaf = true;
     free_array_list(labels, NULL);
+    result->leaf = true;
     Array_list_ptr class_labels = get_distinct_class_labels(data);
     if (class_labels->size == 1) {
         free_array_list(class_labels, NULL);
@@ -149,13 +148,13 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
         }
     }
     free_discrete_distribution(class_dist);
-    free_array_list(index_list, free);
+    free_array_list(index_list, free_);
     return result;
 }
 
 Decision_node_ptr create_decision_node2(FILE *input_file) {
     int size;
-    Decision_node_ptr result = malloc(sizeof(Decision_node));
+    Decision_node_ptr result = malloc_(sizeof(Decision_node), "create_decision_node2");
     result->condition = create_decision_condition3(input_file);
     result->children = create_array_list();
     fscanf(input_file, "%d", &size);
@@ -320,5 +319,5 @@ void free_decision_node(Decision_node_ptr node) {
         }
         free_array_list(node->children, NULL);
     }
-    free(node);
+    free_(node);
 }

@@ -2,8 +2,8 @@
 // Created by Olcay Taner YILDIZ on 26.06.2023.
 //
 
-#include <stdlib.h>
 #include <math.h>
+#include <Memory/Memory.h>
 #include "Lda.h"
 #include "../Model/LdaModel.h"
 #include "../InstanceList/Partition.h"
@@ -15,7 +15,7 @@
  * @param parameters -
  */
 Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "train_lda_1");
     result->train = train_lda;
     Discrete_distribution_ptr priorDistribution = class_distribution(train_set);
     Partition_ptr class_lists = create_partition3(train_set);
@@ -26,6 +26,7 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
     for (int i = 0; i < size_of_partition(class_lists); i++){
         Vector_ptr average_vector = create_vector(continuous_attribute_average2(get_instance_list(class_lists, i)));
         Matrix_ptr class_covariance = covariance(get_instance_list(class_lists, i), average_vector);
+        multiply_with_constant(class_covariance, get_instance_list(class_lists, i)->list->size - 1);
         add_matrix(all_covariance, class_covariance);
         free_vector(average_vector);
         free_matrix(class_covariance);
@@ -38,7 +39,7 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
         Vector_ptr average_vector = create_vector(continuous_attribute_average2(class_list));
         Vector_ptr wi = multiply_with_vector_from_left(all_covariance, average_vector);
         hash_map_insert(w, C_i, wi);
-        double* w0i = malloc(sizeof(double));
+        double* w0i = malloc_(sizeof(double), "train_lda_2");
         *w0i = -0.5 * dot_product(wi, average_vector) + log(get_probability(priorDistribution, C_i));
         hash_map_insert(w0, C_i, w0i);
         free_vector(average_vector);
@@ -52,7 +53,7 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
 }
 
 Classifier_ptr load_lda(const char *file_name) {
-    Classifier_ptr result = malloc(sizeof(Classifier));
+    Classifier_ptr result = malloc_(sizeof(Classifier), "load_lda");
     result->model = create_lda_model2(file_name);
     result->train = train_lda;
     result->predict = predict_lda;
@@ -62,5 +63,5 @@ Classifier_ptr load_lda(const char *file_name) {
 
 void free_lda(Classifier_ptr lda) {
     free_lda_model(lda->model);
-    free(lda);
+    free_(lda);
 }

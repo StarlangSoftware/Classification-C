@@ -2,7 +2,7 @@
 // Created by Olcay Taner YILDIZ on 24.06.2023.
 //
 
-#include <stdlib.h>
+#include <Memory/Memory.h>
 #include "KnnModel.h"
 #include "KnnInstance.h"
 #include "../Classifier/Classifier.h"
@@ -17,7 +17,7 @@
  */
 Knn_model_ptr create_knn_model(Instance_list_ptr data, int k,
                                double (*distance_metric)(const Instance *, const Instance *, const void *)) {
-    Knn_model_ptr result = malloc(sizeof(Knn_model));
+    Knn_model_ptr result = malloc_(sizeof(Knn_model), "create_knn_model");
     result->data = data;
     result->k = k;
     result->distance_metric = distance_metric;
@@ -25,7 +25,7 @@ Knn_model_ptr create_knn_model(Instance_list_ptr data, int k,
 }
 
 void free_knn_model(Knn_model_ptr knn_model) {
-    free(knn_model);
+    free_(knn_model);
 }
 
 /**
@@ -49,7 +49,7 @@ Instance_list_ptr nearest_neighbors(const Knn_model* knn_model, const Instance *
         Knn_instance_ptr knn_instance = array_list_get(all_instances, i);
         add_instance(sub_list, knn_instance->instance);
     }
-    free_array_list(all_instances, NULL);
+    free_array_list(all_instances, (void (*)(void *)) free_knn_instance);
     return sub_list;
 }
 
@@ -63,8 +63,10 @@ Instance_list_ptr nearest_neighbors(const Knn_model* knn_model, const Instance *
 char *predict_knn(const void *model, const Instance *instance) {
     Knn_model_ptr knn_model = (Knn_model_ptr) model;
     Instance_list_ptr neighbors = nearest_neighbors(knn_model, instance);
-    char* predicted_class = get_maximum(get_class_labels(neighbors));
-    free(neighbors);
+    Array_list_ptr class_labels = get_class_labels(neighbors);
+    char* predicted_class = get_maximum(class_labels);
+    free_array_list(class_labels, NULL);
+    free_instance_list2(neighbors);
     return predicted_class;
 }
 
@@ -74,13 +76,13 @@ Hash_map_ptr predict_probability_knn(const void *model, const Instance *instance
     Instance_list_ptr neighbors = nearest_neighbors(knn_model, instance);
     Discrete_distribution_ptr discrete_distribution = class_distribution(neighbors);
     result = get_probability_distribution(discrete_distribution);
-    free(discrete_distribution);
-    free(neighbors);
+    free_discrete_distribution(discrete_distribution);
+    free_instance_list2(neighbors);
     return result;
 }
 
 Knn_model_ptr create_knn_model2(const char *file_name) {
-    Knn_model_ptr result = malloc(sizeof(Knn_model));
+    Knn_model_ptr result = malloc_(sizeof(Knn_model), "create_knn_model2");
     FILE* input_file = fopen(file_name, "r");
     fscanf(input_file, "%d", &(result->k));
     result->data = create_instance_list4(input_file);
