@@ -16,6 +16,10 @@ Lary_filter_ptr create_lary_filter(Data_set_ptr data_set) {
     return result;
 }
 
+/**
+ * Frees memory allocated l-ary filter.
+ * @param lary_filter L-ary filter
+ */
 void free_lary_filter(Lary_filter_ptr lary_filter) {
     free_array_list(lary_filter->attribute_distributions, (void (*)(void *)) free_discrete_distribution);
     free_(lary_filter);

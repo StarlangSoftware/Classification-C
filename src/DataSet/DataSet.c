@@ -259,6 +259,11 @@ Partition_ptr get_class_instances(const Data_set *data_set) {
     return create_partition2(data_set->instances);
 }
 
+/**
+ * Returns the accumulated {@link String} of class labels of the {@link InstanceList}.
+ *
+ * @return The accumulated {@link String} of class labels of the {@link InstanceList}.
+ */
 String_ptr get_classes(const Data_set *data_set) {
     Array_list_ptr class_labels = get_distinct_class_labels(data_set->instances);
     String_ptr result = create_string2(array_list_get(class_labels, 0));
@@ -270,6 +275,10 @@ String_ptr get_classes(const Data_set *data_set) {
     return result;
 }
 
+/**
+ * Frees memory allocated for the dataset.
+ * @param data_set Data set.
+ */
 void free_data_set(Data_set_ptr data_set) {
     free_instance_list(data_set->instances);
     free_data_definition(data_set->definition);

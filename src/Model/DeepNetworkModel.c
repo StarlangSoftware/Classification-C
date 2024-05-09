@@ -25,6 +25,19 @@ void allocate_deep_network_weights(Deep_network_model_ptr deep_network, Deep_net
     deep_network->hidden_layer_size = layer_size(deep_network_parameter);
 }
 
+/**
+ * Constructor that takes two {@link InstanceList} train set and validation set and {@link DeepNetworkParameter} as inputs.
+ * First it sets the class labels, their sizes as K and the size of the continuous attributes as d of given train set and
+ * allocates weights and sets the best weights. At each epoch, it shuffles the train set and loops through the each item of that train set,
+ * it multiplies the weights Matrix with input Vector than applies the sigmoid function and stores the result as hidden and add bias.
+ * Then updates weights and at the end it compares the performance of these weights with validation set. It updates the bestClassificationPerformance and
+ * bestWeights according to the current situation. At the end it updates the learning rate via etaDecrease value and finishes
+ * with clearing the weights.
+ *
+ * @param train_set      InstanceList to be used as trainSet.
+ * @param validation_set InstanceList to be used as validationSet.
+ * @param parameters    DeepNetworkParameter input.
+ */
 Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                                  Deep_network_parameter_ptr parameter) {
     Vector_ptr tmp_hidden;
@@ -148,12 +161,20 @@ Array_list_ptr set_best_weights(Deep_network_model_ptr deep_network) {
     return best_weights;
 }
 
+/**
+ * Frees memory allocated for deep network
+ * @param deep_network Deep network
+ */
 void free_deep_network_model(Deep_network_model_ptr deep_network) {
     free_neural_network_model(deep_network->model);
     free_array_list(deep_network->weights, (void (*)(void *)) free_matrix);
     free_(deep_network);
 }
 
+/**
+ * Loads a deep network model from an input model file.
+ * @param file_name Model file name.
+ */
 Deep_network_model_ptr create_deep_network_model2(const char *file_name) {
     Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model), "create_deep_network_model2");
     FILE* input_file = fopen(file_name, "r");
@@ -173,6 +194,11 @@ char *predict_deep_network(const void *model, const Instance *instance) {
                                   (void (*)(const void *)) calculate_output_deep_network);
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to deep network model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr predict_probability_deep_network(const void *model, const Instance *instance) {
     Deep_network_model_ptr deep_network = (Deep_network_model_ptr) model;
     return predict_probability_neural_network(deep_network->model, instance, model,

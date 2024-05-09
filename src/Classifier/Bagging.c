@@ -36,6 +36,10 @@ Classifier_ptr train_bagging(Instance_list_ptr train_set, const void *parameter)
     return result;
 }
 
+/**
+ * Loads the Bagging ensemble model from an input file.
+ * @param file_name File name of the decision tree model.
+ */
 Classifier_ptr load_bagging(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_bagging");
     result->model = create_tree_ensemble_model2(file_name);
@@ -45,6 +49,10 @@ Classifier_ptr load_bagging(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for the bagging model
+ * @param bagging Bagging model
+ */
 void free_bagging(Classifier_ptr bagging) {
     free_tree_ensemble_model(bagging->model);
     free_(bagging);

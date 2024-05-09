@@ -22,12 +22,20 @@ Classifier_ptr train_c45_stump(Instance_list_ptr train_set, const void *paramete
     return result;
 }
 
+/**
+ * Loads the decision tree model from an input file.
+ * @param fileName File name of the decision tree model.
+ */
 Classifier_ptr load_c45_stump(const char *file_name) {
     Classifier_ptr result = load_c45(file_name);
     result->train = train_c45_stump;
     return result;
 }
 
+/**
+ * Frees memory allocated for the decision tree model
+ * @param c45_stump Decision tree model
+ */
 void free_c45_stump(Classifier_ptr c45_stump) {
     free_c45(c45_stump);
 }

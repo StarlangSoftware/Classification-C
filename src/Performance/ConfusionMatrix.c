@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 7.06.2023.
 //
 
-#include <stdlib.h>
 #include <CounterHashMap.h>
 #include <Memory/Memory.h>
 #include "ConfusionMatrix.h"
@@ -26,6 +25,10 @@ Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
     return result;
 }
 
+/**
+ * Frees memory allocated for confusion matrix.
+ * @param confusion_matrix Confusion matrix
+ */
 void free_confusion_matrix(Confusion_matrix_ptr confusion_matrix) {
     free_hash_map_of_counter_hash_map(confusion_matrix->matrix);
     free_array_list(confusion_matrix->class_labels, NULL);

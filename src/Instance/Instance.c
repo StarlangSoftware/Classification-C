@@ -20,6 +20,10 @@ Instance_ptr create_instance(const char *class_label, Array_list_ptr attributes)
     return result;
 }
 
+/**
+ * Frees memory allocated for the instance
+ * @param instance Instance
+ */
 void free_instance(Instance_ptr instance) {
     free_(instance->class_label);
     free_array_list(instance->attributes, (void (*)(void *)) free_attribute);

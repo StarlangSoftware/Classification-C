@@ -25,6 +25,10 @@ Classifier_ptr train_deep_network(Instance_list_ptr train_set, const void *param
     return result;
 }
 
+/**
+ * Loads the deep network model from an input file.
+ * @param file_name File name of the deep network model.
+ */
 Classifier_ptr load_deep_network(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_deep_network");
     result->model = create_deep_network_model2(file_name);
@@ -43,6 +47,10 @@ Classifier_ptr validation_deep_network(Deep_network_model_ptr deep_network) {
     return result;
 }
 
+/**
+ * Frees memory allocated for deep network model
+ * @param deep_network Deep network model
+ */
 void free_deep_network(Classifier_ptr deep_network) {
     free_deep_network_model(deep_network->model);
     free_(deep_network);

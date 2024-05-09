@@ -17,18 +17,30 @@ Sub_set_selection_ptr create_sub_set_selection(Feature_sub_set_ptr initial_sub_s
     return result;
 }
 
+/**
+ * Constructor that creates a new feature subset and initializes indexList with given number of features.
+ *
+ * @param number_of_features Indicates the indices of indexList.
+ */
 Sub_set_selection_ptr create_sub_set_selection2(int number_of_features) {
     Sub_set_selection_ptr result = malloc_(sizeof(Sub_set_selection), "create_sub_set_selection2");
     result->initial_sub_set = create_feature_sub_set(number_of_features);
     return result;
 }
 
+/**
+ * Constructor that creates a new feature subset selection.
+ */
 Sub_set_selection_ptr create_sub_set_selection3() {
     Sub_set_selection_ptr result = malloc_(sizeof(Sub_set_selection), "create_sub_set_selection3");
     result->initial_sub_set = create_feature_sub_set3();
     return result;
 }
 
+/**
+ * Frees memory allocated for sub set selection.
+ * @param sub_set_selection
+ */
 void free_sub_set_selection(Sub_set_selection_ptr sub_set_selection) {
     free_feature_sub_set(sub_set_selection->initial_sub_set);
     free_(sub_set_selection);

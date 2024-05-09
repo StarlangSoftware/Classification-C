@@ -2,13 +2,22 @@
 // Created by Olcay Taner YILDIZ on 19.07.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "MultiLayerPerceptronModel.h"
 #include "../Performance/DetailedClassificationPerformance.h"
 #include "../Classifier/Classifier.h"
 #include "../Classifier/MultiLayerPerceptron.h"
 
+/**
+ * A constructor that takes {@link InstanceList}s as trainsSet and validationSet. It  sets the {@link NeuralNetworkModel}
+ * nodes with given {@link InstanceList} then creates an input vector by using given trainSet and finds error.
+ * Via the validationSet it finds the classification performance and reassigns the allocated weight Matrix with the matrix
+ * that has the best accuracy and the Matrix V with the best Vector input.
+ *
+ * @param train_set      InstanceList that is used to train.
+ * @param validation_set InstanceList that is used to validate.
+ * @param parameters    Multi layer perceptron parameters; seed, learningRate, etaDecrease, crossValidationRatio, epoch, hiddenNodes.
+ */
 Multi_layer_perceptron_model_ptr
 create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                     Multi_layer_perceptron_parameter_ptr parameter) {
@@ -105,6 +114,10 @@ void allocate_weights(Multi_layer_perceptron_model_ptr multi_layer_perceptron, i
     multi_layer_perceptron->V = allocate_layer_weights(multi_layer_perceptron->model->K, H + 1, seed);
 }
 
+/**
+ * Frees memory allocated for multi layer perceptron model
+ * @param multi_layer_perceptron Multi layer perceptron model
+ */
 void free_multi_layer_perceptron_model(Multi_layer_perceptron_model_ptr multi_layer_perceptron) {
     free_neural_network_model(multi_layer_perceptron->model);
     free_matrix(multi_layer_perceptron->V);
@@ -125,12 +138,21 @@ char *predict_multi_layer_perceptron(const void *model, const Instance *instance
                                   (void (*)(const void *)) calculate_output_multi_layer_perceptron);
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to multi layer neural network model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr predict_probability_multi_layer_perceptron(const void *model, const Instance *instance) {
     Multi_layer_perceptron_model_ptr multi_layer_perceptron = (Multi_layer_perceptron_model_ptr) model;
     return predict_probability_neural_network(multi_layer_perceptron->model, instance, model,
                                               (void (*)(const void *)) calculate_output_multi_layer_perceptron);
 }
 
+/**
+ * Loads a multi-layer perceptron model from an input model file.
+ * @param file_name Model file name.
+ */
 Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model2(const char *file_name) {
     Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model), "create_multi_layer_perceptron_model2");
     FILE* input_file = fopen(file_name, "r");

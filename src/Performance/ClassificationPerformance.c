@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 7.06.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "ClassificationPerformance.h"
 

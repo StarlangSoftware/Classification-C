@@ -74,6 +74,11 @@ char *predict_linear_perceptron(const void *model, const Instance *instance) {
                                   (void (*)(const void *)) calculate_output_linear_perceptron);
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to linear perceptron model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr predict_probability_linear_perceptron(const void *model, const Instance *instance) {
     Linear_perceptron_model_ptr linear_perceptron = (Linear_perceptron_model_ptr) model;
     return predict_probability_neural_network(linear_perceptron->model, instance, model,
@@ -87,12 +92,20 @@ void calculate_output_linear_perceptron(const Linear_perceptron_model* linear_pe
     linear_perceptron->model->y = multiply_with_vector_from_right(linear_perceptron->W, linear_perceptron->model->x);
 }
 
+/**
+ * Frees memory allocate linear perceptron model
+ * @param linear_perceptron Linear perceptron model
+ */
 void free_linear_perceptron_model(Linear_perceptron_model_ptr linear_perceptron) {
     free_matrix(linear_perceptron->W);
     free_neural_network_model(linear_perceptron->model);
     free_(linear_perceptron);
 }
 
+/**
+ * Loads a linear perceptron model from an input model file.
+ * @param file_name Model file name.
+ */
 Linear_perceptron_model_ptr create_linear_perceptron_model2(const char *file_name) {
     Linear_perceptron_model_ptr result = malloc_(sizeof(Linear_perceptron_model), "create_linear_perceptron_model2");
     FILE* input_file = fopen(file_name, "r");

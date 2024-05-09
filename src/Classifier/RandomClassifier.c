@@ -25,6 +25,10 @@ Classifier_ptr train_random(Instance_list_ptr train_set, const void *parameter) 
     return result;
 }
 
+/**
+ * Loads the random classifier model from an input file.
+ * @param file_name File name of the random classifier model.
+ */
 Classifier_ptr load_random(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_random");
     result->model = create_random_model2(file_name);
@@ -34,6 +38,10 @@ Classifier_ptr load_random(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for random classifier model
+ * @param random Random model
+ */
 void free_random(Classifier_ptr random) {
     free_random_model(random->model);
     free_(random);

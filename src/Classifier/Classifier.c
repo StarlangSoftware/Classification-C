@@ -4,6 +4,13 @@
 #include "Classifier.h"
 #include "CounterHashMap.h"
 
+/**
+ * TestClassification an instance list with the current model.
+ *
+ * @param classifier Classifier
+ * @param test_set Test data (list of instances) to be tested.
+ * @return The accuracy (and error) of the model as an instance of Performance class.
+ */
 Detailed_classification_performance_ptr test_classifier(const Classifier* classifier, const Instance_list* test_set) {
     Array_list_ptr class_labels = get_distinct_class_labels(test_set);
     Confusion_matrix_ptr confusion = create_confusion_matrix2(class_labels);

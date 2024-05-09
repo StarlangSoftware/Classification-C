@@ -24,12 +24,20 @@ K_means_model_ptr create_k_means_model(Discrete_distribution_ptr prior_distribut
     return result;
 }
 
+/**
+ * Frees memory allocated for k-means model
+ * @param k_means_model K-means model
+ */
 void free_k_means_model(K_means_model_ptr k_means_model) {
     free_discrete_distribution(k_means_model->prior_distribution);
     free_instance_list(k_means_model->class_means);
     free_(k_means_model);
 }
 
+/**
+ * Loads a K-means model from an input model file.
+ * @param file_name Model file name.
+ */
 K_means_model_ptr create_k_means_model2(const char *file_name) {
     K_means_model_ptr result = malloc_(sizeof(K_means_model), "create_k_means_model2");
     FILE* input_file = fopen(file_name, "r");

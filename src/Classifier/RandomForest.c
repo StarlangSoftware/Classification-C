@@ -35,12 +35,20 @@ Classifier_ptr train_random_forest(Instance_list_ptr train_set, const void *para
     return result;
 }
 
+/**
+ * Loads the random forest model from an input file.
+ * @param fileName File name of the random forest model.
+ */
 Classifier_ptr load_random_forest(const char *file_name) {
     Classifier_ptr result = load_bagging(file_name);
     result->train = train_random_forest;
     return result;
 }
 
+/**
+ * Frees memory allocated for random forest model.
+ * @param random_forest Random forest model
+ */
 void free_random_forest(Classifier_ptr random_forest) {
     free_tree_ensemble_model(random_forest->model);
     free_(random_forest);

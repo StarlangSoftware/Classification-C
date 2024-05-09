@@ -22,11 +22,19 @@ Instance_list_ptr create_instance_list() {
     return result;
 }
 
+/**
+ * Frees memory allocated to instance list
+ * @param instance_list Instance list
+ */
 void free_instance_list(Instance_list_ptr instance_list) {
     free_array_list(instance_list->list, (void (*)(void *)) free_instance);
     free_(instance_list);
 }
 
+/**
+ * Frees memory allocated to instance list
+ * @param instance_list Instance list
+ */
 void free_instance_list2(Instance_list_ptr instance_list) {
     free_array_list(instance_list->list, NULL);
     free_(instance_list);
@@ -579,6 +587,11 @@ void clear(Instance_list_ptr instance_list) {
     array_list_clear(instance_list->list, (void (*)(void *)) free_instance);
 }
 
+/**
+ * Reads instance list from input file
+ * @param input_file Input file
+ * @return New instance list
+ */
 Instance_list_ptr create_instance_list4(FILE *input_file) {
     char line[MAX_LINE_LENGTH];
     Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list4");

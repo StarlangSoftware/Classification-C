@@ -37,6 +37,11 @@ Decision_condition_ptr create_decision_condition2(int attribute_index, char comp
     return result;
 }
 
+/**
+ * Reads decision condition from input file
+ * @param input_file Input file
+ * @return New decision condition
+ */
 Decision_condition_ptr create_decision_condition3(FILE *input_file) {
     char type[MAX_LINE_LENGTH];
     Decision_condition_ptr result = malloc_(sizeof(Decision_condition), "create_decision_condition3");
@@ -58,6 +63,10 @@ Decision_condition_ptr create_decision_condition3(FILE *input_file) {
     return result;
 }
 
+/**
+ * Frees memory allocated for decision condition
+ * @param decision_condition Decision condition
+ */
 void free_decision_condition(Decision_condition_ptr decision_condition) {
     if (decision_condition->value != NULL){
         free_attribute(decision_condition->value);

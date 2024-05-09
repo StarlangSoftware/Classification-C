@@ -19,6 +19,10 @@ Random_model_ptr create_random_model(Array_list_ptr class_labels) {
     return result;
 }
 
+/**
+ * Loads a random classifier model from an input model file.
+ * @param file_name Model file name.
+ */
 Random_model_ptr create_random_model2(const char *file_name) {
     Random_model_ptr result = malloc_(sizeof(Random_model), "create_random_model2");
     result->class_labels = create_array_list();
@@ -49,6 +53,11 @@ char *predict_random(const void* model, const Instance* instance) {
     return array_list_get(random_model->class_labels, index);
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to random model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr predict_probability_random(const void* model, const Instance* instance) {
     Random_model_ptr random_model = (Random_model_ptr) model;
     Hash_map_ptr result = create_string_hash_map();
@@ -61,6 +70,10 @@ Hash_map_ptr predict_probability_random(const void* model, const Instance* insta
     return result;
 }
 
+/**
+ * Frees memory allocated for random model
+ * @param random_model Random model
+ */
 void free_random_model(Random_model_ptr random_model) {
     free_array_list(random_model->class_labels, NULL);
     free_(random_model);

@@ -5,6 +5,11 @@
 #include <math.h>
 #include "Sign.h"
 
+/**
+ * Calculates n!.
+ * @param n n is n!
+ * @return n!.
+ */
 int factorial(int n) {
     int i, result = 1;
     for (i = 2; i <= n; i++){
@@ -13,6 +18,12 @@ int factorial(int n) {
     return result;
 }
 
+/**
+ * Calculates m of n that is C(n, m)
+ * @param m m in C(m, n)
+ * @param n n in C(m, n)
+ * @return C(m, n)
+ */
 int binomial(int m, int n) {
     if (n == 0 || m == n){
         return 1;
@@ -22,6 +33,12 @@ int binomial(int m, int n) {
     }
 }
 
+/**
+ * Compares two classification algorithms based on their performances (accuracy or error rate) using sign test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Statistical test result of the comparison.
+ */
 Statistical_test_result_ptr
 compare_sign(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     int plus = 0, minus = 0;

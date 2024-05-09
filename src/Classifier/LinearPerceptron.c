@@ -35,6 +35,10 @@ Classifier_ptr train_linear_perceptron(Instance_list_ptr train_set, const void *
     return result;
 }
 
+/**
+ * Loads the linear perceptron model from an input file.
+ * @param file_name File name of the linear perceptron model.
+ */
 Classifier_ptr load_linear_perceptron(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_linear_perceptron");
     result->model = create_linear_perceptron_model2(file_name);
@@ -44,6 +48,10 @@ Classifier_ptr load_linear_perceptron(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for linear perceptron model
+ * @param linear_perceptron Linear perceptron model
+ */
 void free_linear_perceptron(Classifier_ptr linear_perceptron) {
     free_linear_perceptron_model(linear_perceptron->model);
     free_(linear_perceptron);

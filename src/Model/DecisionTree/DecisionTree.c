@@ -18,12 +18,20 @@ Decision_tree_ptr create_decision_tree(Decision_node_ptr root) {
     return result;
 }
 
+/**
+ * Loads a decision tree model from an input model file.
+ * @param input_file Model file.
+ */
 Decision_tree_ptr create_decision_tree2(FILE *input_file) {
     Decision_tree_ptr result = malloc_(sizeof(Decision_tree), "create_decision_tree2");
     result->root = create_decision_node2(input_file);
     return result;
 }
 
+/**
+ * Frees memory allocated for decision tree
+ * @param decision_tree Decision tree
+ */
 void free_decision_tree(Decision_tree_ptr decision_tree) {
     free_decision_node(decision_tree->root);
     free_(decision_tree);
@@ -85,6 +93,11 @@ void prune_node(Decision_tree_ptr decision_tree, Decision_node_ptr node, const I
     free_(classifier);
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to Decision tree model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr predict_probability_tree(const void *model, const Instance *instance) {
     Decision_tree_ptr decision_tree = (Decision_tree_ptr) model;
     return predict_probability_node(decision_tree->root, instance);

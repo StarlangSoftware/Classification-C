@@ -26,6 +26,10 @@ Classifier_ptr train_multi_layer_perceptron(Instance_list_ptr train_set, const v
     return result;
 }
 
+/**
+ * Loads the multi-layer perceptron model from an input file.
+ * @param file_name File name of the multi-layer perceptron model.
+ */
 Classifier_ptr load_multi_layer_perceptron(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_multi_layer_perceptron");
     result->model = create_multi_layer_perceptron_model2(file_name);
@@ -45,6 +49,10 @@ Classifier_ptr validation_multi_layer_perceptron(Multi_layer_perceptron_model_pt
     return result;
 }
 
+/**
+ * Frees memory allocated for multilayer perceptron model
+ * @param multi_layer_perceptron Multilayer perceptron model
+ */
 void free_multi_layer_perceptron(Classifier_ptr multi_layer_perceptron) {
     free_multi_layer_perceptron_model(multi_layer_perceptron->model);
     free_(multi_layer_perceptron);

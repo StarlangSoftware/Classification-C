@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 13.06.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "DetailedClassificationPerformance.h"
 
@@ -20,6 +19,10 @@ create_detailed_classification_performance(Confusion_matrix_ptr confusion_matrix
     return result;
 }
 
+/**
+ * Frees memory allocated for detailed classification performance
+ * @param detailed_classification_performance Detailed classification performance
+ */
 void
 free_detailed_classification_performance(Detailed_classification_performance_ptr detailed_classification_performance) {
     free_confusion_matrix(detailed_classification_performance->confusion_matrix);

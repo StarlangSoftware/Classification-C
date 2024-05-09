@@ -6,6 +6,12 @@
 #include <Distribution.h>
 #include "Pairedt.h"
 
+/**
+ * Calculates the test statistic of the paired t test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Given the performances of two classifiers, the test statistic of the paired t test.
+ */
 double test_statistic_paired_t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     double difference[number_of_experiments(classifier1)];
     double sum = 0.0;
@@ -22,6 +28,12 @@ double test_statistic_paired_t(const Experiment_performance *classifier1, const 
     return sqrt(number_of_experiments(classifier1)) * mean / standardDeviation;
 }
 
+/**
+ * Compares two classification algorithms based on their performances (accuracy or error rate) using paired t test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Statistical test result of the comparison.
+ */
 Statistical_test_result_ptr
 compare_paired_t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     double statistic = test_statistic_paired_t(classifier1, classifier2);

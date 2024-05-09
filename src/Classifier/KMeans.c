@@ -30,6 +30,10 @@ Classifier_ptr train_k_means(Instance_list_ptr train_set, const void *parameter)
     return result;
 }
 
+/**
+ * Loads the K-means model from an input file.
+ * @param file_name File name of the K-means model.
+ */
 Classifier_ptr load_k_means(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_k_means");
     result->model = create_k_means_model2(file_name);
@@ -39,6 +43,10 @@ Classifier_ptr load_k_means(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocate for K-means model.
+ * @param k_means K-means model
+ */
 void free_k_means(Classifier_ptr k_means) {
     free_k_means_model(k_means->model);
     free_(k_means);

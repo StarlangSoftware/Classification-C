@@ -5,6 +5,12 @@
 #include <Distribution.h>
 #include "Combined5x2t.h"
 
+/**
+ * Calculates the test statistic of the combined 5x2 cv t test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Given the performances of two classifiers, the test statistic of the combined 5x2 cv t test.
+ */
 double
 test_statistic_combined_5x2t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     double difference[number_of_experiments(classifier1)];
@@ -24,6 +30,13 @@ test_statistic_combined_5x2t(const Experiment_performance *classifier1, const Ex
     return numerator / denominator;
 }
 
+/**
+ * Compares two classification algorithms based on their performances (accuracy or error rate) using combined 5x2
+ * cv t test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Statistical test result of the comparison.
+ */
 Statistical_test_result_ptr
 compare_combined_5x2t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     double statistic = test_statistic_combined_5x2t(classifier1, classifier2);

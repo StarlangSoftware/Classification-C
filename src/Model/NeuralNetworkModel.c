@@ -22,6 +22,10 @@ Neural_network_model_ptr create_neural_network_model(const Instance_list *train_
     return result;
 }
 
+/**
+ * Frees memory allocated for neural network vectors.
+ * @param neural_network Neural network
+ */
 void free_temporary_input_output_vectors(Neural_network_model_ptr neural_network) {
     free_vector(neural_network->x);
     free_vector(neural_network->y);
@@ -92,11 +96,20 @@ Matrix_ptr allocate_layer_weights(int row, int column, int seed) {
     return create_matrix2(row, column, -0.01, +0.01, seed);
 }
 
+/**
+ * Frees neural network model
+ * @param neural_network Neural network model
+ */
 void free_neural_network_model(Neural_network_model_ptr neural_network) {
     free_array_list(neural_network->class_labels, NULL);
     free_(neural_network);
 }
 
+/**
+ * Loads neural network model from input file
+ * @param input_file Input file
+ * @return Neural network model
+ */
 Neural_network_model_ptr create_neural_network_model2(FILE *input_file) {
     Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model), "create_neural_network_model2");
     fscanf(input_file, "%d%d", &(result->K), &(result->d));
@@ -182,6 +195,11 @@ char *predict_neural_network(Neural_network_model_ptr neural_network_model, cons
     return class_label;
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to neural network model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr
 predict_probability_neural_network(Neural_network_model_ptr neural_network_model, const Instance *instance, const void *meta_model,
                                    void (*calculate_output)(const void *)) {
@@ -198,6 +216,11 @@ predict_probability_neural_network(Neural_network_model_ptr neural_network_model
     return result;
 }
 
+/**
+ * Reads activation function from input file
+ * @param input_file Input file
+ * @return Activation function
+ */
 Activation_function get_activation_function(FILE *input_file) {
     char line[MAX_LINE_LENGTH];
     fscanf(input_file, "%s", line);

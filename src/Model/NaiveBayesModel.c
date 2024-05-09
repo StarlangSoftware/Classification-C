@@ -25,6 +25,10 @@ Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_d
     return result;
 }
 
+/**
+ * Loads a naive Bayes model from an input model file.
+ * @param file_name Model file name.
+ */
 Naive_bayes_model_ptr create_naive_bayes_model2(const char *file_name) {
     char class_label[MAX_LINE_LENGTH];
     Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model), "create_naive_bayes_model2");
@@ -89,6 +93,10 @@ char *predict_naive_bayes(const void *model, const Instance *instance) {
     return predicted_class;
 }
 
+/**
+ * Frees memory allocated for naive Bayes model.
+ * @param model Naive Bayes model.
+ */
 void free_naive_bayes_model(Naive_bayes_model_ptr model) {
     free_discrete_distribution(model->prior_distribution);
     free_hash_map(model->class_means, (void (*)(void *)) free_vector);

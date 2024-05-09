@@ -7,6 +7,13 @@
 #include "../Parameter/C45Parameter.h"
 #include "../InstanceList/Partition.h"
 
+/**
+ * Training algorithm for C4.5 univariate decision tree classifier. 20 percent of the data are left aside for pruning
+ * 80 percent of the data is used for constructing the tree.
+ *
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter -
+ */
 Classifier_ptr train_c45(Instance_list_ptr train_set, const void *parameter) {
     Decision_tree_ptr tree;
     Classifier_ptr result = malloc_(sizeof(Classifier), "train_c45");
@@ -26,6 +33,10 @@ Classifier_ptr train_c45(Instance_list_ptr train_set, const void *parameter) {
     return result;
 }
 
+/**
+ * Loads the decision tree model from an input file.
+ * @param file_name File name of the decision tree model.
+ */
 Classifier_ptr load_c45(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_c45");
     FILE* input_file = fopen(file_name, "r");
@@ -37,6 +48,10 @@ Classifier_ptr load_c45(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated to decision tree model
+ * @param c45 Decision tree model
+ */
 void free_c45(Classifier_ptr c45) {
     free_decision_tree(c45->model);
     free_(c45);

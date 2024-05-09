@@ -187,6 +187,14 @@ Partition_ptr create_partition6(const Instance_list *instance_list, int attribut
     return result;
 }
 
+/**
+ * Creates a two group partition depending on the values of a continuous attribute. If the value of the attribute is
+ * less than splitValue, the instance is forwarded to the first group, else it is forwarded to the second group.
+ *
+ * @param instance_list Instance list for which partition will be created.
+ * @param attribute_index Index of the continuous attribute
+ * @param split_value     Threshold to divide instances
+ */
 Partition_ptr create_partition7(const Instance_list *instance_list, int attribute_index, double split_value) {
     Partition_ptr result = malloc_(sizeof(Partition), "create_partition7");
     result->multi_list = create_array_list();
@@ -204,6 +212,10 @@ Partition_ptr create_partition7(const Instance_list *instance_list, int attribut
     return result;
 }
 
+/**
+ * Frees memory allocated for partition.
+ * @param partition Partiiton
+ */
 void free_partition(Partition_ptr partition) {
     for (int i = 0; i < partition->multi_list->size; i++){
         Instance_list_ptr  list = get_instance_list(partition, i);

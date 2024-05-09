@@ -24,6 +24,10 @@ Knn_model_ptr create_knn_model(Instance_list_ptr data, int k,
     return result;
 }
 
+/**
+ * Frees memory allocated for K-nearest neighbor model.
+ * @param knn_model K-nearest neighbor model.
+ */
 void free_knn_model(Knn_model_ptr knn_model) {
     free_(knn_model);
 }
@@ -70,6 +74,11 @@ char *predict_knn(const void *model, const Instance *instance) {
     return predicted_class;
 }
 
+/**
+ * Calculates the posterior probability distribution for the given instance according to K-means model.
+ * @param instance Instance for which posterior probability distribution is calculated.
+ * @return Posterior probability distribution for the given instance.
+ */
 Hash_map_ptr predict_probability_knn(const void *model, const Instance *instance) {
     Knn_model_ptr knn_model = (Knn_model_ptr) model;
     Hash_map_ptr result;
@@ -81,6 +90,10 @@ Hash_map_ptr predict_probability_knn(const void *model, const Instance *instance
     return result;
 }
 
+/**
+ * Loads a K-nearest neighbor model from an input model file.
+ * @param file_name Model file name.
+ */
 Knn_model_ptr create_knn_model2(const char *file_name) {
     Knn_model_ptr result = malloc_(sizeof(Knn_model), "create_knn_model2");
     FILE* input_file = fopen(file_name, "r");

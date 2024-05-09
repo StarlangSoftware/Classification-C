@@ -16,6 +16,10 @@ Data_definition_ptr create_data_definition() {
     return result;
 }
 
+/**
+ * Frees memory allocated for the data definition.
+ * @param data_definition Data definition
+ */
 void free_data_definition(Data_definition_ptr data_definition) {
     if (data_definition->attribute_value_list != NULL){
         free_array_list(data_definition->attribute_value_list, (void (*)(void *)) free_array_list);
@@ -128,11 +132,22 @@ void remove_all_attributes(Data_definition_ptr data_definition) {
     array_list_clear(data_definition->attribute_types, free_);
 }
 
+/**
+ * Returns number of distinct values for a given discrete attribute with index attributeIndex.
+ * @param index Index of the discrete attribute.
+ * @return Number of distinct values for a given discrete attribute
+ */
 int number_of_values(const Data_definition *data_definition, int index) {
     Array_list_ptr list = array_list_get(data_definition->attribute_value_list, index);
     return list->size;
 }
 
+/**
+ * Returns the index of the given value in the values list of the attributeIndex'th discrete attribute.
+ * @param attributeIndex Index of the discrete attribute.
+ * @param value Value of the discrete attribute
+ * @return Index of the given value in the values list of the discrete attribute.
+ */
 int feature_value_index(const Data_definition *data_definition, int index, const char *value) {
     Array_list_ptr list = array_list_get(data_definition->attribute_value_list, index);
     for (int i = 0; i < list->size; i++){

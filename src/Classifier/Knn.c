@@ -7,11 +7,6 @@
 #include "../Model/KnnModel.h"
 #include "../Parameter/KnnParameter.h"
 
-void free_knn(Classifier_ptr knn) {
-    free_knn_model(knn->model);
-    free_(knn);
-}
-
 /**
  * Training algorithm for K-nearest neighbor classifier.
  *
@@ -28,6 +23,10 @@ Classifier_ptr train_knn(Instance_list_ptr train_set, const void *parameter) {
     return result;
 }
 
+/**
+ * Loads the K-nearest neighbor model from an input file.
+ * @param file_name File name of the K-nearest neighbor model.
+ */
 Classifier_ptr load_knn(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_knn");
     result->model = create_knn_model2(file_name);
@@ -35,4 +34,13 @@ Classifier_ptr load_knn(const char *file_name) {
     result->predict = predict_knn;
     result->predict_probability = predict_probability_knn;
     return result;
+}
+
+/**
+ * Frees memory allocated for K-nearest neighbor model
+ * @param knn K-nearest neighbor model
+ */
+void free_knn(Classifier_ptr knn) {
+    free_knn_model(knn->model);
+    free_(knn);
 }

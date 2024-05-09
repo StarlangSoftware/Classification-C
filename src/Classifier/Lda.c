@@ -52,6 +52,10 @@ Classifier_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
     return result;
 }
 
+/**
+ * Loads the Lda model from an input file.
+ * @param file_name File name of the Lda model.
+ */
 Classifier_ptr load_lda(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_lda");
     result->model = create_lda_model2(file_name);
@@ -61,6 +65,10 @@ Classifier_ptr load_lda(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for Lda model.
+ * @param lda Lda model.
+ */
 void free_lda(Classifier_ptr lda) {
     free_lda_model(lda->model);
     free_(lda);

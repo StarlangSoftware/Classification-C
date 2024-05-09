@@ -4,8 +4,6 @@
 
 #include <stdlib.h>
 #include <FileUtils.h>
-#include <stdio.h>
-#include <string.h>
 #include <math.h>
 #include <Memory/Memory.h>
 #include "ExperimentPerformance.h"

@@ -24,6 +24,10 @@ Lda_model_ptr create_lda_model(Discrete_distribution_ptr prior_distribution, Has
     return result;
 }
 
+/**
+ * Loads a Linear Discriminant Analysis model from an input model file.
+ * @param file_name Model file name.
+ */
 Lda_model_ptr create_lda_model2(const char *file_name) {
     Lda_model_ptr result = malloc_(sizeof(Lda_model), "create_lda_model2");
     FILE* input_file = fopen(file_name, "r");
@@ -64,6 +68,10 @@ double calculate_metric_lda(const Lda_model *lda_model, const Instance *instance
     return result;
 }
 
+/**
+ * Frees memory allocated for Lda model.
+ * @param lda_model Lda model.
+ */
 void free_lda_model(Lda_model_ptr lda_model) {
     free_discrete_distribution(lda_model->prior_distribution);
     free_hash_map(lda_model->w, (void (*)(void *)) free_vector);

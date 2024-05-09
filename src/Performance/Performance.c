@@ -17,6 +17,10 @@ Performance_ptr create_performance(double error_rate) {
     return result;
 }
 
+/**
+ * Frees memory allocated for performance
+ * @param performance Performance
+ */
 void free_performance(Performance_ptr performance) {
     free_(performance);
 }

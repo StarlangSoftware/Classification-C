@@ -28,6 +28,10 @@ create_qda_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr W, H
     return result;
 }
 
+/**
+ * Loads a quadratic discriminant analysis model from an input model file.
+ * @param file_name Model file name.
+ */
 Qda_model_ptr create_qda_model2(const char *file_name) {
     Qda_model_ptr result = malloc_(sizeof(Qda_model), "create_qda_model2");
     FILE* input_file = fopen(file_name, "r");
@@ -56,6 +60,10 @@ Qda_model_ptr create_qda_model2(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for Qda model
+ * @param qda_model Qda model
+ */
 void free_qda_model(Qda_model_ptr qda_model) {
     free_discrete_distribution(qda_model->prior_distribution);
     free_hash_map(qda_model->W, (void (*)(void *)) free_matrix);

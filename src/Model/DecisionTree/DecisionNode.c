@@ -152,6 +152,11 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
     return result;
 }
 
+/**
+ * Reads decision condition from input file
+ * @param input_file Input file
+ * @return New decision condition
+ */
 Decision_node_ptr create_decision_node2(FILE *input_file) {
     int size;
     Decision_node_ptr result = malloc_(sizeof(Decision_node), "create_decision_node2");
@@ -296,6 +301,13 @@ char *predict_node(const Decision_node* node, const Instance *instance) {
     }
 }
 
+/**
+ * Recursive method that returns the posterior probability distribution of a given instance. If the node is a leaf
+ * node, it returns the class label distribution, otherwise it checks in which direction (child node) this instance
+ * is forwarded.
+ * @param instance Instance for which the posterior probability distribution is calculated.
+ * @return Posterior probability distribution for this instance.
+ */
 Hash_map_ptr predict_probability_node(const Decision_node *node, const Instance *instance) {
     if (node->leaf){
         return get_probability_distribution(node->class_labels_distribution);
@@ -310,6 +322,10 @@ Hash_map_ptr predict_probability_node(const Decision_node *node, const Instance 
     }
 }
 
+/**
+ * Frees memory allocated for decision node
+ * @param node Decision node
+ */
 void free_decision_node(Decision_node_ptr node) {
     free_discrete_distribution(node->class_labels_distribution);
     free_decision_condition(node->condition);

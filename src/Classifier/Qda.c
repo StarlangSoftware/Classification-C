@@ -47,6 +47,10 @@ Classifier_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
     return result;
 }
 
+/**
+ * Loads the Qda model from an input file.
+ * @param file_name File name of the Qda model.
+ */
 Classifier_ptr load_qda(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_qda");
     result->model = create_qda_model2(file_name);
@@ -56,6 +60,10 @@ Classifier_ptr load_qda(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for Qda model.
+ * @param qda Qda model.
+ */
 void free_qda(Classifier_ptr qda) {
     free_qda_model(qda->model);
     free_(qda);

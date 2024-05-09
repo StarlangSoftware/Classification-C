@@ -6,6 +6,12 @@
 #include <Distribution.h>
 #include "Paired5x2t.h"
 
+/**
+ * Calculates the test statistic of the 5x2 t test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Given the performances of two classifiers, the test statistic of the 5x2 t test.
+ */
 double
 test_statistic_paired_5x2t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     double difference[number_of_experiments(classifier1)];
@@ -23,6 +29,12 @@ test_statistic_paired_5x2t(const Experiment_performance *classifier1, const Expe
     return result;
 }
 
+/**
+ * Compares two classification algorithms based on their performances (accuracy or error rate) using 5x2 t test.
+ * @param classifier1 Performance (error rate or accuracy) results of the first classifier.
+ * @param classifier2 Performance (error rate or accuracy) results of the second classifier.
+ * @return Statistical test result of the comparison.
+ */
 Statistical_test_result_ptr
 compare_paired_5x2t(const Experiment_performance *classifier1, const Experiment_performance *classifier2) {
     double statistic = test_statistic_paired_5x2t(classifier1, classifier2);

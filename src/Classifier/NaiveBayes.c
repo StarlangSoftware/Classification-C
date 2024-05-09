@@ -45,6 +45,10 @@ void train_continuous_version(Classifier_ptr classifier, Discrete_distribution_p
     classifier->model = create_naive_bayes_model(prior_distribution, class_means, class_deviations);
 }
 
+/**
+ * Loads the naive Bayes model from an input file.
+ * @param fileName File name of the naive Bayes model.
+ */
 Classifier_ptr load_naive_bayes(const char *file_name) {
     Classifier_ptr result = malloc_(sizeof(Classifier), "load_naive_bayes");
     result->model = create_naive_bayes_model2(file_name);
@@ -54,6 +58,10 @@ Classifier_ptr load_naive_bayes(const char *file_name) {
     return result;
 }
 
+/**
+ * Frees memory allocated for naive Bayes model
+ * @param naive_bayes Naive Bayes model
+ */
 void free_naive_bayes(Classifier_ptr naive_bayes) {
     free_naive_bayes_model(naive_bayes->model);
     free_(naive_bayes);
