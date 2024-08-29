@@ -20,8 +20,8 @@ Experiment_performance_ptr execute_stratified_k_fold_run_separate_test(const Exp
                                                                                                         size_of_partition(class_partition), K, experiment->seed);
     for (int i = 0; i < K; i++) {
         Instance_list_ptr train_set = create_instance_list3(get_train_fold_stratified(cross_validation, i));
-        experiment->classifier->train(train_set, experiment->parameter);
-        add_detailed_performance(result, test_classifier(experiment->classifier, get_instance_list(partition, 0)));
+        experiment->model->train(train_set, experiment->parameter);
+        add_detailed_performance(result, test_classifier(experiment->model, get_instance_list(partition, 0)));
         free_(train_set);
     }
     free_stratified_k_fold_cross_validation(cross_validation);

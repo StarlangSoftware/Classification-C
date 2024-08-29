@@ -13,9 +13,9 @@
  * @param seed Seed of the random number generator
  * @return Allocated experiment.
  */
-Experiment_ptr create_experiment(Classifier_ptr classifier, void *parameter, Data_set_ptr data_set, int seed) {
+Experiment_ptr create_experiment(Model_ptr model, void *parameter, Data_set_ptr data_set, int seed) {
     Experiment_ptr result = malloc_(sizeof(Experiment), "create_experiment");
-    result->classifier = classifier;
+    result->model = model;
     result->parameter = parameter;
     result->data_set = data_set;
     result->seed = seed;
@@ -37,5 +37,5 @@ void free_experiment(Experiment_ptr experiment) {
  */
 Experiment_ptr feature_selected_experiment(const Experiment *experiment, const Feature_sub_set *feature_sub_set) {
     Data_set_ptr new_data_set = get_sub_set_of_features_data_set(experiment->data_set, feature_sub_set);
-    return create_experiment(experiment->classifier, experiment->parameter, new_data_set, experiment->seed);
+    return create_experiment(experiment->model, experiment->parameter, new_data_set, experiment->seed);
 }

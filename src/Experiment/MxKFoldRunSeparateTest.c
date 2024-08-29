@@ -19,8 +19,8 @@ Experiment_performance_ptr execute_m_x_k_fold_run_separate_test(const Experiment
         K_fold_cross_validation_ptr cross_validation = create_k_fold_cross_validation(get_instances(get_instance_list(partition, 1)), K, experiment->seed);
         for (int i = 0; i < K; i++) {
             Instance_list_ptr train_set = create_instance_list3(get_train_fold_k_fold(cross_validation, i));
-            experiment->classifier->train(train_set, experiment->parameter);
-            add_detailed_performance(result, test_classifier(experiment->classifier, get_instance_list(partition, 0)));
+            experiment->model->train(train_set, experiment->parameter);
+            add_detailed_performance(result, test_classifier(experiment->model, get_instance_list(partition, 0)));
             free_(train_set);
         }
         free_k_fold_cross_validation(cross_validation);

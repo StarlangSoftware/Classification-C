@@ -5,12 +5,12 @@
 #include <math.h>
 #include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
-#include "../src/Classifier/Classifier.h"
-#include "../src/Classifier/DeepNetwork.h"
 #include "CreateDataSets.h"
+#include "../src/Model/Model.h"
+#include "../src/Model/NeuralNetwork/DeepNetworkModel.h"
 
 void test_deep_network_classifier(Data_set_ptr data_set, double error_rate, int index, Deep_network_parameter_ptr parameter){
-    Classifier_ptr deep_network = train_deep_network(data_set->instances, parameter);
+    Model_ptr deep_network = train_deep_network(data_set->instances, parameter);
     Detailed_classification_performance_ptr performance = test_classifier(deep_network, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in deep network test %d %f\n", index, 100 * performance->error_rate);

@@ -78,3 +78,43 @@ void free_random_model(Random_model_ptr random_model) {
     free_array_list(random_model->class_labels, NULL);
     free_(random_model);
 }
+
+/**
+ * Training algorithm for random classifier.
+ *
+ * @param trainSet   Training data given to the algorithm.
+ * @param parameters -
+ */
+Model_ptr train_random(Instance_list_ptr train_set, const void *parameter) {
+    Model_ptr result = malloc_(sizeof(Model), "train_random");
+    Discrete_distribution_ptr distribution = class_distribution(train_set);
+    Array_list_ptr items = get_items(distribution);
+    free_discrete_distribution(distribution);
+    result->model = create_random_model(items);
+    result->train = train_random;
+    result->predict = predict_random;
+    result->predict_probability = predict_probability_random;
+    return result;
+}
+
+/**
+ * Loads the random classifier model from an input file.
+ * @param file_name File name of the random classifier model.
+ */
+Model_ptr load_random(const char *file_name) {
+    Model_ptr result = malloc_(sizeof(Model), "load_random");
+    result->model = create_random_model2(file_name);
+    result->train = train_random;
+    result->predict = predict_random;
+    result->predict_probability = predict_probability_random;
+    return result;
+}
+
+/**
+ * Frees memory allocated for random classifier model
+ * @param random Random model
+ */
+void free_random(Model_ptr random) {
+    free_random_model(random->model);
+    free_(random);
+}

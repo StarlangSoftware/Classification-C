@@ -11,7 +11,7 @@
 #include <Memory/Memory.h>
 #include "InstanceList.h"
 #include "Dictionary/Word.h"
-#include "../Classifier/Classifier.h"
+#include "../Model/Model.h"
 
 /**
  * Empty constructor for an instance list. Initializes the instance list with zero instances.

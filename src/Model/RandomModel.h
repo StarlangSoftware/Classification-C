@@ -8,6 +8,8 @@
 #include <ArrayList.h>
 #include <HashMap/HashMap.h>
 #include "../Instance/Instance.h"
+#include "Model.h"
+#include "../InstanceList/InstanceList.h"
 
 struct random_model{
     int seed;
@@ -27,5 +29,11 @@ char* predict_random(const void* model, const Instance* instance);
 Hash_map_ptr predict_probability_random(const void* model, const Instance* instance);
 
 void free_random_model(Random_model_ptr random_model);
+
+Model_ptr train_random(Instance_list_ptr train_set, const void* parameter);
+
+Model_ptr load_random(const char* file_name);
+
+void free_random(Model_ptr random);
 
 #endif //CLASSIFICATION_RANDOMMODEL_H

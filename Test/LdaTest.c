@@ -5,13 +5,13 @@
 #include <math.h>
 #include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
-#include "../src/Classifier/Classifier.h"
-#include "../src/Classifier/Lda.h"
 #include "CreateDataSets.h"
+#include "../src/Performance/DetailedClassificationPerformance.h"
+#include "../src/Model/Parametric/LdaModel.h"
 
 void test_lda_classifier(Data_set_ptr data_set, double error_rate, int index){
 
-    Classifier_ptr lda = train_lda(data_set->instances, NULL);
+    Model_ptr lda = train_lda(data_set->instances, NULL);
     Detailed_classification_performance_ptr performance = test_classifier(lda, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in lda test %d %.2lf\n", index, 100 * performance->error_rate);

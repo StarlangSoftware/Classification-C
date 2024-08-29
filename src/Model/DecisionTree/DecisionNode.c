@@ -7,8 +7,8 @@
 #include <FileUtils.h>
 #include <Memory/Memory.h>
 #include "DecisionNode.h"
-#include "../../Classifier/Classifier.h"
 #include "../../InstanceList/Partition.h"
+#include "../Model.h"
 
 /**
  * The DecisionNode method takes InstanceList data as input and then it sets the class label parameter by finding

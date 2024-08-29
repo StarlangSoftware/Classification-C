@@ -3,14 +3,12 @@
 //
 
 #include <math.h>
-#include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
-#include "../src/Classifier/Classifier.h"
-#include "../src/Classifier/LinearPerceptron.h"
 #include "CreateDataSets.h"
+#include "../src/Model/NeuralNetwork/LinearPerceptronModel.h"
 
 void test_linear_perceptron_classifier(Data_set_ptr data_set, double error_rate, int index, Linear_perceptron_parameter_ptr parameter){
-    Classifier_ptr linear_perceptron = train_linear_perceptron(data_set->instances, parameter);
+    Model_ptr linear_perceptron = train_linear_perceptron(data_set->instances, parameter);
     Detailed_classification_performance_ptr performance = test_classifier(linear_perceptron, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in linear perceptron test %d %f\n", index, 100 * performance->error_rate);

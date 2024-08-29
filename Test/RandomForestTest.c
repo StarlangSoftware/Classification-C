@@ -4,13 +4,12 @@
 
 #include <math.h>
 #include "../src/DataSet/DataSet.h"
-#include "../src/Classifier/Classifier.h"
 #include "CreateDataSets.h"
-#include "../src/Classifier/RandomForest.h"
 #include "../src/Parameter/RandomForestParameter.h"
+#include "../src/Model/Ensemble/RandomForestModel.h"
 
 void test_random_forest_classifier(Data_set_ptr data_set, double error_rate, int index, Random_forest_parameter_ptr parameter){
-    Classifier_ptr random_forest = train_random_forest(data_set->instances, parameter);
+    Model_ptr random_forest = train_random_forest(data_set->instances, parameter);
     Detailed_classification_performance_ptr performance = test_classifier(random_forest, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in random forest test %d %f\n", index, 100 * performance->error_rate);

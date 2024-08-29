@@ -18,8 +18,8 @@ Experiment_performance_ptr execute_k_fold_run(const Experiment *experiment, int 
     for (int i = 0; i < K; i++) {
         Instance_list_ptr train_set = create_instance_list3(get_train_fold_k_fold(cross_validation, i));
         Instance_list_ptr test_set = create_instance_list3(get_test_fold_k_fold(cross_validation, i));
-        experiment->classifier->train(train_set, experiment->parameter);
-        add_detailed_performance(result, test_classifier(experiment->classifier, test_set));
+        experiment->model->train(train_set, experiment->parameter);
+        add_detailed_performance(result, test_classifier(experiment->model, test_set));
         free_(train_set);
         free_(test_set);
     }

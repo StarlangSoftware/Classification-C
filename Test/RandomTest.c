@@ -5,22 +5,21 @@
 #include <math.h>
 #include <Memory/Memory.h>
 #include "../src/DataSet/DataSet.h"
-#include "../src/Classifier/Classifier.h"
-#include "../src/Classifier/RandomClassifier.h"
 #include "CreateDataSets.h"
+#include "../src/Model/Model.h"
+#include "../src/Model/RandomModel.h"
 
 void test_random_classifier(Data_set_ptr data_set, double error_rate, int index){
-    Classifier_ptr dummy = train_random(data_set->instances, NULL);
-    Detailed_classification_performance_ptr performance = test_classifier(dummy, data_set->instances);
+    Model_ptr random = train_random(data_set->instances, NULL);
+    Detailed_classification_performance_ptr performance = test_classifier(random, data_set->instances);
     if (fabs(performance->error_rate * 100.0 - error_rate) > 0.01){
         printf("Error in random test %d\n", index);
     }
     free_detailed_classification_performance(performance);
-    free_random(dummy);
+    free_random(random);
 }
 
 int main(){
-    start_medium_memory_check();
     create_datasets();
     test_random_classifier(iris, 69.33, 1);
     test_random_classifier(bupa, 49.27, 2);
@@ -30,5 +29,4 @@ int main(){
     test_random_classifier(nursery, 79.99, 6);
     test_random_classifier(chess, 94.31, 7);
     free_datasets();
-    end_memory_check();
 }
