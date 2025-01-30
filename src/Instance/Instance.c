@@ -46,6 +46,7 @@ Instance_ptr create_instance2(const char *class_label) {
 /**
  * Adds a discrete attribute with the given String value.
  *
+ * @param instance Instance
  * @param value Value of the discrete attribute.
  */
 void add_discrete_attribute(Instance_ptr instance, const char *value) {
@@ -55,6 +56,7 @@ void add_discrete_attribute(Instance_ptr instance, const char *value) {
 /**
  * Adds a continuous attribute with the given double value.
  *
+ * @param instance Instance
  * @param value Value of the continuous attribute.
  */
 void add_continuous_attribute(Instance_ptr instance, double value) {
@@ -64,6 +66,7 @@ void add_continuous_attribute(Instance_ptr instance, double value) {
 /**
  * Adds a new attribute.
  *
+ * @param instance Instance
  * @param attribute Attribute to be added.
  */
 void add_attribute_to_instance(Instance_ptr instance, Attribute_ptr attribute) {
@@ -73,6 +76,7 @@ void add_attribute_to_instance(Instance_ptr instance, Attribute_ptr attribute) {
 /**
  * Adds a Vector of continuous attributes.
  *
+ * @param instance Instance
  * @param vector Vector that has the continuous attributes.
  */
 void add_vector_attribute(Instance_ptr instance, Vector_ptr vector) {
@@ -84,6 +88,7 @@ void add_vector_attribute(Instance_ptr instance, Vector_ptr vector) {
 /**
  * Removes attribute with the given index from the attributes list.
  *
+ * @param instance Instance
  * @param index Index of the attribute to be removed.
  */
 void remove_attribute_from_instance(Instance_ptr instance, int index) {
@@ -92,6 +97,7 @@ void remove_attribute_from_instance(Instance_ptr instance, int index) {
 
 /**
  * Removes all the attributes from the attributes list.
+ * @param instance Instance
  */
 void remove_all_attributes_from_instance(Instance_ptr instance) {
     array_list_clear(instance->attributes, (void (*)(void *)) free_attribute);
@@ -100,6 +106,7 @@ void remove_all_attributes_from_instance(Instance_ptr instance) {
 /**
  * Accessor for a single attribute.
  *
+ * @param instance Instance
  * @param index Index of the attribute to be accessed.
  * @return Attribute with index 'index'.
  */
@@ -110,6 +117,7 @@ Attribute_ptr get_attribute(const Instance* instance, int index) {
 /**
  * Returns the number of attributes in the attributes list.
  *
+ * @param instance Instance
  * @return Number of attributes in the attributes list.
  */
 int attribute_size(const Instance* instance) {
@@ -119,6 +127,7 @@ int attribute_size(const Instance* instance) {
 /**
  * Returns the number of continuous and discrete indexed attributes in the attributes list.
  *
+ * @param instance Instance
  * @return Number of continuous and discrete indexed attributes in the attributes list.
  */
 int instance_continuous_attribute_size(const Instance* instance) {
@@ -133,6 +142,7 @@ int instance_continuous_attribute_size(const Instance* instance) {
  * The continuousAttributes method creates a new vector result and it adds the continuous attributes of the
  * attributes list and also it adds 1 for the discrete indexed attributes
  *
+ * @param instance Instance
  * @return result vector that has continuous and discrete indexed attributes.
  */
 Array_list_ptr instance_continuous_attributes(const Instance* instance) {
@@ -148,6 +158,7 @@ Array_list_ptr instance_continuous_attributes(const Instance* instance) {
 /**
  * The toVector method returns a Vector of continuous attributes and discrete indexed attributes.
  *
+ * @param instance Instance
  * @return Vector of continuous attributes and discrete indexed attributes.
  */
 Vector_ptr to_vector(const Instance* instance) {
@@ -164,8 +175,8 @@ Vector_ptr to_vector(const Instance* instance) {
  * Compares two Instance inputs and returns a positive value if the first input's class label is greater
  * than the second's class label input lexicographically.
  *
- * @param o1 First Instance to be compared.
- * @param o2 Second Instance to be compared.
+ * @param instance1 First Instance to be compared.
+ * @param instance2 Second Instance to be compared.
  * @return Negative value if the class label of the first instance is less than the class label of the second instance.
  * Positive value if the class label of the first instance is greater than the class label of the second instance.
  * 0 if the class label of the first instance is equal to the class label of the second instance.
@@ -179,6 +190,7 @@ int compare_instance_labels(const Instance *instance1, const Instance *instance2
 *
 * @param instance1 First instance to be compared
 * @param instance2 Second instance to be compared
+* @param arg Argument used to compare instances.
 * @return -1 if the attribute value of the first instance is less than the attribute value of the second instance.
 * 1 if the attribute value of the first instance is greater than the attribute value of the second instance.
 * 0 if the attribute value of the first instance is equal to the attribute value of the second instance.
@@ -201,7 +213,8 @@ int compare_attributes(const Instance *instance1, const Instance *instance2, con
  * The getSubSetOfFeatures method takes a FeatureSubSet as an input. First it creates a result Instance
  * with the class label, and adds the attributes of the given featureSubSet to it.
  *
- * @param featureSubSet FeatureSubSet an vector of indices.
+ * @param instance Instance
+ * @param feature_sub_set FeatureSubSet an vector of indices.
  * @return result Instance.
  */
 Instance_ptr get_sub_set_of_features_instance(const Instance *instance, const Feature_sub_set *feature_sub_set) {

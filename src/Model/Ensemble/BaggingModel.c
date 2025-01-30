@@ -15,8 +15,8 @@
  * 80 percent of the instances are used for training the trees. The number of trees (forestSize) is a parameter, and basically
  * the method will learn an ensemble of trees as a model.
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters Parameters of the bagging trees algorithm. ensembleSize returns the number of trees in the bagged forest.
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter Parameters of the bagging trees algorithm. ensembleSize returns the number of trees in the bagged forest.
  */
 Model_ptr train_bagging(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_bagging");

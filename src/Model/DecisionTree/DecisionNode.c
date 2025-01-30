@@ -31,7 +31,7 @@
  * @param data      InstanceList input.
  * @param condition DecisionCondition to check.
  * @param parameter RandomForestParameter like seed, ensembleSize, attributeSubsetSize.
- * @param isStump   Refers to decision trees with only 1 splitting rule.
+ * @param is_stump   Refers to decision trees with only 1 splitting rule.
  */
 Decision_node_ptr create_decision_node(Instance_list_ptr data,
                                        Decision_condition_ptr condition,
@@ -184,7 +184,7 @@ Decision_node_ptr create_decision_node2(FILE *input_file) {
  * Then loops through the distributions and calculates the total entropy.
  *
  * @param data InstanceList.
- * @param attributeIndex Index of the attribute.
+ * @param attribute_index Index of the attribute.
  * @return Total entropy for the discrete attribute.
  */
 double entropy_for_discrete_attribute(Instance_list_ptr data, int attribute_index) {
@@ -202,11 +202,12 @@ double entropy_for_discrete_attribute(Instance_list_ptr data, int attribute_inde
  * The createChildrenForDiscreteIndexed method creates an ArrayList of DecisionNodes as children and a partition with respect to
  * indexed attribute.
  *
+ * @param node Decision node
  * @param data InstanceList.
- * @param attributeIndex Index of the attribute.
- * @param attributeValue Value of the attribute.
+ * @param attribute_index Index of the attribute.
+ * @param attribute_value Value of the attribute.
  * @param parameter      RandomForestParameter like seed, ensembleSize, attributeSubsetSize.
- * @param isStump        Refers to decision trees with only 1 splitting rule.
+ * @param is_stump        Refers to decision trees with only 1 splitting rule.
  */
 void create_children_for_discrete_indexed(Decision_node_ptr node,
                                           const Instance_list *data,
@@ -230,10 +231,11 @@ void create_children_for_discrete_indexed(Decision_node_ptr node,
  * The createChildrenForDiscrete method creates an ArrayList of values, a partition with respect to attributes and an ArrayList
  * of DecisionNodes as children.
  *
+ * @param node Decision node
  * @param data InstanceList.
- * @param attributeIndex Index of the attribute.
+ * @param attribute_index Index of the attribute.
  * @param parameter      RandomForestParameter like seed, ensembleSize, attributeSubsetSize.
- * @param isStump        Refers to decision trees with only 1 splitting rule.
+ * @param is_stump        Refers to decision trees with only 1 splitting rule.
  */
 void create_children_for_discrete(Decision_node_ptr node,
                                   const Instance_list *data,
@@ -257,11 +259,12 @@ void create_children_for_discrete(Decision_node_ptr node,
  * The createChildrenForContinuous method creates an ArrayList of DecisionNodes as children and a partition with respect to
  * continious attribute and the given split value.
  *
+ * @param node Decision node
  * @param data InstanceList.
- * @param attributeIndex Index of the attribute.
+ * @param attribute_index Index of the attribute.
  * @param parameter      RandomForestParameter like seed, ensembleSize, attributeSubsetSize.
- * @param isStump        Refers to decision trees with only 1 splitting rule.
- * @param splitValue     Split value is used for partitioning.
+ * @param is_stump        Refers to decision trees with only 1 splitting rule.
+ * @param split_value     Split value is used for partitioning.
  */
 void create_children_for_continuous(Decision_node_ptr node,
                                     const Instance_list *data,
@@ -284,6 +287,7 @@ void create_children_for_continuous(Decision_node_ptr node,
  * The predict method takes an Instance as input and performs prediction on the DecisionNodes and returns the prediction
  * for that instance.
  *
+ * @param node Decision node
  * @param instance Instance to make prediction.
  * @return The prediction for given instance.
  */
@@ -305,6 +309,7 @@ char *predict_node(const Decision_node* node, const Instance *instance) {
  * Recursive method that returns the posterior probability distribution of a given instance. If the node is a leaf
  * node, it returns the class label distribution, otherwise it checks in which direction (child node) this instance
  * is forwarded.
+ * @param node Decision node
  * @param instance Instance for which the posterior probability distribution is calculated.
  * @return Posterior probability distribution for this instance.
  */

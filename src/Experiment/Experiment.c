@@ -7,7 +7,7 @@
 
 /**
  * Constructor for a specific machine learning experiment.
- * @param classifier Classifier used in the machine learning experiment
+ * @param model Model used in the machine learning experiment
  * @param parameter Parameter(s) of the classifier.
  * @param data_set DataSet on which the classifier is run.
  * @param seed Seed of the random number generator
@@ -32,6 +32,7 @@ void free_experiment(Experiment_ptr experiment) {
 
 /**
  * Construct and returns a feature selection experiment.
+ * @param experiment Current experiment
  * @param feature_sub_set Feature subset used in the feature selection experiment
  * @return Experiment constructed
  */

@@ -10,6 +10,8 @@
  * Execute the KFold run with the given classifier on the given data set using the given parameters.
  *
  * @param experiment Experiment to be run.
+ * @param M M in M times K run.
+ * @param K K in M times K run.
  * @return An array of performances: result. result[i] is the performance of the classifier on the i'th bootstrap run.
  */
 Experiment_performance_ptr execute_m_x_k_fold_run_separate_test(const Experiment *experiment, int M, int K) {

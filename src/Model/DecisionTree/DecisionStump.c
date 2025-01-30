@@ -10,8 +10,8 @@
 /**
  * Training algorithm for C4.5 Stump univariate decision tree classifier.
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters -
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter -Parameter of the algorithm (not used)
  */
 Model_ptr train_c45_stump(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_c45_stump");
@@ -24,7 +24,7 @@ Model_ptr train_c45_stump(Instance_list_ptr train_set, const void *parameter) {
 
 /**
  * Loads the decision tree model from an input file.
- * @param fileName File name of the decision tree model.
+ * @param file_name File name of the decision tree model.
  */
 Model_ptr load_c45_stump(const char *file_name) {
     Model_ptr result = load_c45(file_name);

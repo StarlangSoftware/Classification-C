@@ -10,6 +10,7 @@
  *
  * @param instance1 First instance.
  * @param instance2 Second instance.
+ * @param parameter Covariance inverse.
  * @return Mahalanobis distance between two instances.
  */
 double mahalanobis_distance(const Instance* instance1, const Instance* instance2, const void *parameter) {

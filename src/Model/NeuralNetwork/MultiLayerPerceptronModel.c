@@ -14,7 +14,7 @@
  *
  * @param train_set      InstanceList that is used to train.
  * @param validation_set InstanceList that is used to validate.
- * @param parameters    Multi layer perceptron parameters; seed, learningRate, etaDecrease, crossValidationRatio, epoch, hiddenNodes.
+ * @param parameter    Multi layer perceptron parameters; seed, learningRate, etaDecrease, crossValidationRatio, epoch, hiddenNodes.
  */
 Multi_layer_perceptron_model_ptr
 create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
@@ -105,7 +105,9 @@ create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_p
 /**
  * The allocateWeights method allocates layers' weights of Matrix W and V.
  *
+ * @param multi_layer_perceptron Multilayer perceptron model
  * @param H Integer value for weights.
+ * @param seed Seed to set the randomizer.
  */
 void allocate_weights(Multi_layer_perceptron_model_ptr multi_layer_perceptron, int H, int seed) {
     multi_layer_perceptron->W = allocate_layer_weights(H, multi_layer_perceptron->model->d + 1, seed);
@@ -125,6 +127,7 @@ void free_multi_layer_perceptron_model(Multi_layer_perceptron_model_ptr multi_la
 
 /**
  * The calculateOutput method calculates the forward single hidden layer by using Matrices W and V.
+ * @param multi_layer_perceptron Multilayer perceptron model
  */
 void calculate_output_multi_layer_perceptron(const Multi_layer_perceptron_model* multi_layer_perceptron) {
     calculate_forward_single_hidden_layer(multi_layer_perceptron->model, multi_layer_perceptron->W, multi_layer_perceptron->V, multi_layer_perceptron->activation_function);
@@ -138,6 +141,7 @@ char *predict_multi_layer_perceptron(const void *model, const Instance *instance
 
 /**
  * Calculates the posterior probability distribution for the given instance according to multi layer neural network model.
+ * @param model Multilayer perceptron model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */
@@ -167,8 +171,8 @@ Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model2(const char
  * data used for selecting the best weights. 80 percent of the data is used for training the multilayer perceptron with
  * gradient descent.
  *
- * @param trainSet   Training data given to the algorithm
- * @param parameters Parameters of the multilayer perceptron.
+ * @param train_set   Training data given to the algorithm
+ * @param parameter Parameters of the multilayer perceptron.
  */
 Model_ptr train_multi_layer_perceptron(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_multi_layer_perceptron");

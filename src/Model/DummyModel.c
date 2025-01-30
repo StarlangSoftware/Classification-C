@@ -8,7 +8,7 @@
 /**
  * Constructor which sets the distribution using the given InstanceList.
  *
- * @param trainSet InstanceList which is used to get the class distribution.
+ * @param train_set InstanceList which is used to get the class distribution.
  */
 Dummy_model_ptr create_dummy_model(Instance_list_ptr train_set) {
     Dummy_model_ptr result = malloc_(sizeof(Dummy_model), "create_dummy_model");
@@ -40,6 +40,7 @@ Dummy_model_ptr create_dummy_model2(const char *file_name) {
 /**
  * The predict method takes an Instance as an input and returns the entry of distribution which has the maximum value.
  *
+ * @param model Current model
  * @param instance Instance to make prediction.
  * @return The entry of distribution which has the maximum value.
  */
@@ -49,6 +50,7 @@ char *predict_dummy(const void* model, const Instance* instance) {
 
 /**
  * Calculates the posterior probability distribution for the given instance according to dummy model.
+ * @param model Current model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */
@@ -61,7 +63,7 @@ Hash_map_ptr predict_probability_dummy(const void* model, const Instance* instan
  * the training data, there is no training.
  *
  * @param train_set   Training data given to the algorithm.
- * @param parameters -
+ * @param parameter -
  */
 Model_ptr train_dummy(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_dummy");

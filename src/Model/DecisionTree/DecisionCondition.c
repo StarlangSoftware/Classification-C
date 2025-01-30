@@ -11,7 +11,7 @@
 /**
  * A constructor that sets attributeIndex and Attribute value. It also assigns equal sign to the comparison character.
  *
- * @param attributeIndex Integer number that shows attribute index.
+ * @param attribute_index Integer number that shows attribute index.
  * @param value          The value of the Attribute.
  */
 Decision_condition_ptr create_decision_condition(int attribute_index, Attribute_ptr value) {
@@ -25,7 +25,7 @@ Decision_condition_ptr create_decision_condition(int attribute_index, Attribute_
 /**
  * A constructor that sets attributeIndex, comparison and Attribute value.
  *
- * @param attributeIndex Integer number that shows attribute index.
+ * @param attribute_index Integer number that shows attribute index.
  * @param value          The value of the Attribute.
  * @param comparison     Comparison character.
  */

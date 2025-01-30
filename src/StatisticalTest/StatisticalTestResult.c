@@ -7,8 +7,8 @@
 
 /**
  * Constructor of the StatisticalTestResult. It sets the attribute values.
- * @param pValue p value of the statistical test result
- * @param onlyTwoTailed True, if this test applicable only two tailed tests, false otherwise.
+ * @param p_value p value of the statistical test result
+ * @param only_two_tailed True, if this test applicable only two tailed tests, false otherwise.
  */
 Statistical_test_result_ptr create_statistical_test_result(double p_value, bool only_two_tailed) {
     Statistical_test_result_ptr result = malloc_(sizeof(Statistical_test_result), "create_statistical_test_result");
@@ -21,6 +21,7 @@ Statistical_test_result_ptr create_statistical_test_result(double p_value, bool 
  * Returns reject or failed to reject, depending on the alpha level and p value of the statistical test that checks
  * one tailed null hypothesis such as mu1 < mu2. If p value is less than the alpha level, the test rejects the null
  * hypothesis. Otherwise, it fails to reject the null hypothesis.
+ * @param result Current statistical result
  * @param alpha Alpha level of the test
  * @return If p value is less than the alpha level, the test rejects the null hypothesis. Otherwise, it fails to
  * reject the null hypothesis.
@@ -40,6 +41,7 @@ Statistical_test_result_type one_tailed(Statistical_test_result_ptr result, doub
  * Otherwise, it fails to reject the null hypothesis. If the null  hypothesis is one tailed, and p value is less
  * than alpha / 2 or p value is larger than 1 - alpha / 2, the test  rejects the null  hypothesis. Otherwise, it
  * fails to reject the null hypothesis.
+ * @param result Current statistical result
  * @param alpha Alpha level of the test
  * @return If the null  hypothesis is two tailed, and p value is less than the alpha level, the test rejects the
  * null hypothesis.  Otherwise, it fails to reject the null hypothesis. If the null  hypothesis is one tailed, and

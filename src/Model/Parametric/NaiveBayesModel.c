@@ -13,9 +13,9 @@
 /**
  * A constructor that sets the priorDistribution, classMeans and classDeviations.
  *
- * @param priorDistribution DiscreteDistribution input.
- * @param classMeans        A HashMap of String and Vector.
- * @param classDeviations   A HashMap of String and Vector.
+ * @param prior_distribution DiscreteDistribution input.
+ * @param class_means        A HashMap of String and Vector.
+ * @param class_deviations   A HashMap of String and Vector.
  */
 Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr class_means,
                                                Hash_map_ptr class_deviations) {
@@ -56,7 +56,8 @@ Naive_bayes_model_ptr create_naive_bayes_model2(const char *file_name) {
  * of given class label's probability via prior distribution as logLikelihood. Then it loops times of given instance attribute size, and accumulates the
  * logLikelihood by calculating -0.5 * ((xi - mi) / si )** 2).
  *
- * @param classLabel String input class label.
+ * @param model Naive bayes model
+ * @param class_label String input class label.
  * @param instance   Instance input.
  * @return The log likelihood of given class label and Instance.
  */
@@ -108,8 +109,8 @@ void free_naive_bayes_model(Naive_bayes_model_ptr model) {
 /**
  * Training algorithm for Naive Bayes algorithm. It basically calls trainContinuousVersion for continuous data sets,
  * trainDiscreteVersion for discrete data sets.
- * @param trainSet Training data given to the algorithm
- * @param parameters -
+ * @param train_set Training data given to the algorithm
+ * @param parameter -
  */
 Model_ptr train_naive_bayes(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_naive_bayes");
@@ -126,8 +127,9 @@ Model_ptr train_naive_bayes(Instance_list_ptr train_set, const void *parameter) 
 /**
  * Training algorithm for Naive Bayes algorithm with a continuous data set.
  *
- * @param priorDistribution Probability distribution of classes P(C_i)
- * @param classLists        Instances are divided into K lists, where each list contains only instances from a single class
+ * @param classifier Current classifier
+ * @param prior_distribution Probability distribution of classes P(C_i)
+ * @param class_lists        Instances are divided into K lists, where each list contains only instances from a single class
  */
 void train_continuous_version(Model_ptr classifier, Discrete_distribution_ptr prior_distribution,
                               Partition_ptr class_lists) {
@@ -146,7 +148,7 @@ void train_continuous_version(Model_ptr classifier, Discrete_distribution_ptr pr
 
 /**
  * Loads the naive Bayes model from an input file.
- * @param fileName File name of the naive Bayes model.
+ * @param file_name File name of the naive Bayes model.
  */
 Model_ptr load_naive_bayes(const char *file_name) {
     Model_ptr result = malloc_(sizeof(Model), "load_naive_bayes");

@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 6.06.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "KMeansParameter.h"
 #include "../DistanceMetric/EuclidianDistance.h"
@@ -11,7 +10,7 @@
  * * Parameters of the Rocchio classifier.
  *
  * @param seed           Seed is used for random number generation.
- * @param distanceMetric distance metric used to calculate the distance between two instances.
+ * @param distance_function distance metric used to calculate the distance between two instances.
  */
 K_means_parameter_ptr
 create_k_means_parameter(int seed, double (*distance_function)(const Instance *, const Instance *, const void *)) {

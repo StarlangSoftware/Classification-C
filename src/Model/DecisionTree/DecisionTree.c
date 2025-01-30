@@ -41,6 +41,7 @@ void free_decision_tree(Decision_tree_ptr decision_tree) {
  * The predict method  performs prediction on the root node of given instance, and if it is null, it returns the possible class labels.
  * Otherwise it returns the returned class labels.
  *
+ * @param model Current model
  * @param instance Instance make prediction.
  * @return Possible class labels.
  */
@@ -52,7 +53,8 @@ char *predict_tree(const void *model, const Instance *instance) {
 /**
  * The prune method takes an InstanceList and  performs pruning to the root node.
  *
- * @param pruneSet InstanceList to perform pruning.
+ * @param decision_tree Current decision tree to prune
+ * @param prune_set InstanceList to perform pruning.
  */
 void prune(Decision_tree_ptr decision_tree, const Instance_list *prune_set) {
     prune_node(decision_tree, decision_tree->root, prune_set);
@@ -63,8 +65,9 @@ void prune(Decision_tree_ptr decision_tree, const Instance_list *prune_set) {
  * of given InstanceList before pruning, i.e making a node leaf, and after pruning. If the after performance is better than the
  * before performance it prune the given InstanceList from the tree.
  *
- * @param tree     DecisionTree that will be pruned if conditions hold.
- * @param pruneSet Small subset of tree that will be removed from tree.
+ * @param decision_tree     DecisionTree that will be pruned if conditions hold.
+ * @param node Current decision node to prune
+ * @param prune_set Small subset of tree that will be removed from tree.
  */
 void prune_node(Decision_tree_ptr decision_tree, Decision_node_ptr node, const Instance_list *prune_set) {
     if (node->leaf){
@@ -95,6 +98,7 @@ void prune_node(Decision_tree_ptr decision_tree, Decision_node_ptr node, const I
 
 /**
  * Calculates the posterior probability distribution for the given instance according to Decision tree model.
+ * @param model Current model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */

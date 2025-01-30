@@ -2,14 +2,13 @@
 // Created by Olcay Taner YILDIZ on 7.06.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "Performance.h"
 
 /**
  * Constructor that sets the error rate.
  *
- * @param errorRate Double input.
+ * @param error_rate Double input.
  */
 Performance_ptr create_performance(double error_rate) {
     Performance_ptr result = malloc_(sizeof(Performance), "create_performance");

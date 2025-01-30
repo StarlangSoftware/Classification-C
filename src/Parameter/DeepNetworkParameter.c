@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 6.06.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "DeepNetworkParameter.h"
 
@@ -54,7 +53,8 @@ int layer_size(Deep_network_parameter_ptr deep_network_parameter) {
  * The getHiddenNodes method takes a layer index as an input and returns the element at the given index of hiddenLayers
  * vector.
  *
- * @param layerIndex Index of the layer.
+ * @param deep_network_parameter Current deep network parameter
+ * @param layer_index Index of the layer.
  * @return The element at the layerIndex of hiddenLayers vector.
  */
 int get_hidden_nodes(Deep_network_parameter_ptr deep_network_parameter, int layer_index) {

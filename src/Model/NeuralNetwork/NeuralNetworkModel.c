@@ -12,7 +12,7 @@
 /**
  * Constructor that sets the class labels, their sizes as K and the size of the continuous attributes as d.
  *
- * @param trainSet InstanceList to use as train set.
+ * @param train_set InstanceList to use as train set.
  */
 Neural_network_model_ptr create_neural_network_model(const Instance_list *train_set) {
     Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model), "create_neural_network_model");
@@ -52,10 +52,11 @@ Vector_ptr normalize_output(const Vector *o) {
 }
 
 /**
- * The calculateRMinusY method creates a new {@link java.util.Vector} with given Instance, then it multiplies given
+ * The calculateRMinusY method creates a new Vector with given Instance, then it multiplies given
  * input Vector with given weights Matrix. After normalizing the output, it return the difference between the newly created
  * Vector and normalized output.
  *
+ * @param neural_network Neural network
  * @param instance Instance is used to get class labels.
  * @param input    Vector to multiply weights.
  * @param weights  Matrix of weights/
@@ -74,7 +75,7 @@ calculate_r_minus_y(Neural_network_model_ptr neural_network, const Instance *ins
 }
 
 /**
- * The createInputVector method takes an Instance as an input. It converts given Instance to the {@link java.util.Vector}
+ * The createInputVector method takes an Instance as an input. It converts given Instance to the Vector
  * and insert 1.0 to the first element.
  *
  * @param instance Instance to insert 1.0.
@@ -90,6 +91,7 @@ Vector_ptr create_input_vector(const Instance *instance) {
  *
  * @param row    Number of rows.
  * @param column Number of columns.
+ * @param seed Seed to set the randomizer
  * @return Matrix with random weights.
  */
 Matrix_ptr allocate_layer_weights(int row, int column, int seed) {
@@ -128,6 +130,7 @@ Neural_network_model_ptr create_neural_network_model2(FILE *input_file) {
  *
  * @param input   Vector to multiply weights.
  * @param weights Matrix is multiplied with input Vector.
+ * @param activation_function Activation function
  * @return Result of sigmoid function.
  */
 Vector_ptr calculate_hidden(const Vector *input, const Matrix *weights, Activation_function activation_function) {
@@ -147,7 +150,7 @@ Vector_ptr calculate_hidden(const Vector *input, const Matrix *weights, Activati
 }
 
 /**
- * The calculateOneMinusHidden method takes a {@link java.util.Vector} as input. It creates a Vector of ones and
+ * The calculateOneMinusHidden method takes a Vector as input. It creates a Vector of ones and
  * returns the difference between given Vector.
  *
  * @param hidden Vector to find difference.
@@ -165,9 +168,10 @@ Vector_ptr calculate_one_minus_hidden(const Vector *hidden) {
  * The calculateForwardSingleHiddenLayer method takes two matrices W and V. First it multiplies W with x, then
  * multiplies V with the result of the previous multiplication.
  *
+ * @param neural_network Neural network
  * @param W Matrix to multiply with x.
  * @param V Matrix to multiply.
- * @param activationFunction Activation function.
+ * @param activation_function Activation function.
  */
 void calculate_forward_single_hidden_layer(Neural_network_model_ptr neural_network, const Matrix *W, const Matrix *V,
                                            Activation_function activation_function) {
@@ -182,7 +186,9 @@ void calculate_forward_single_hidden_layer(Neural_network_model_ptr neural_netwo
  * The predict method takes an Instance as an input, converts it to a Vector and calculates the Matrix y by
  * multiplying Matrix W with Vector x. Then it returns the class label which has the maximum y value.
  *
+ * @param neural_network_model Neural network
  * @param instance Instance to predict.
+ * @param meta_model Current meta model
  * @return The class lable which has the maximum y.
  */
 char *predict_neural_network(Neural_network_model_ptr neural_network_model, const Instance *instance, const void *meta_model,
@@ -197,7 +203,9 @@ char *predict_neural_network(Neural_network_model_ptr neural_network_model, cons
 
 /**
  * Calculates the posterior probability distribution for the given instance according to neural network model.
+ * @param neural_network_model Neural network
  * @param instance Instance for which posterior probability distribution is calculated.
+ * @param meta_model Current meta model
  * @return Posterior probability distribution for the given instance.
  */
 Hash_map_ptr

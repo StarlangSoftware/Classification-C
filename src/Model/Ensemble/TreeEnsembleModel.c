@@ -19,7 +19,7 @@ Tree_ensemble_model_ptr create_tree_ensemble_model(Array_list_ptr forest) {
 
 /**
  * Loads a tree ensemble model such as Random Forest model or Bagging model from an input model file.
- * @param fileName Model file name.
+ * @param file_name Model file name.
  */
 Tree_ensemble_model_ptr create_tree_ensemble_model2(const char *file_name) {
     Tree_ensemble_model_ptr result = malloc_(sizeof(Tree_ensemble_model), "create_tree_ensemble_model2");
@@ -48,6 +48,7 @@ void free_tree_ensemble_model(Tree_ensemble_model_ptr model) {
  * The predict method takes an Instance as an input and loops through the ArrayList of DecisionTrees.
  * Makes prediction for the items of that ArrayList and returns the maximum item of that ArrayList.
  *
+ * @param model Current model
  * @param instance Instance to make prediction.
  * @return The maximum prediction of a given Instance.
  */
@@ -65,6 +66,7 @@ char *predict_ensemble(const void *model, const Instance *instance) {
 
 /**
  * Calculates the posterior probability distribution for the given instance according to ensemble tree model.
+ * @param model Current model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */

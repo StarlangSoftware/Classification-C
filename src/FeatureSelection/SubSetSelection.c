@@ -2,14 +2,13 @@
 // Created by Olcay Taner YILDIZ on 24.07.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "SubSetSelection.h"
 
 /**
  * A constructor that sets the initial subset with given input.
  *
- * @param initialSubSet FeatureSubSet input.
+ * @param initial_sub_set FeatureSubSet input.
  */
 Sub_set_selection_ptr create_sub_set_selection(Feature_sub_set_ptr initial_sub_set) {
     Sub_set_selection_ptr result = malloc_(sizeof(Sub_set_selection), "create_sub_set_selection");
@@ -39,7 +38,7 @@ Sub_set_selection_ptr create_sub_set_selection3() {
 
 /**
  * Frees memory allocated for sub set selection.
- * @param sub_set_selection
+ * @param sub_set_selection Current subset selection algorithm
  */
 void free_sub_set_selection(Sub_set_selection_ptr sub_set_selection) {
     free_feature_sub_set(sub_set_selection->initial_sub_set);
@@ -49,9 +48,10 @@ void free_sub_set_selection(Sub_set_selection_ptr sub_set_selection) {
 /**
  * The forward method starts with having no feature in the model. In each iteration, it keeps adding the features that are not currently listed.
  *
- * @param currentSubSetList ArrayList to add the FeatureSubsets.
+ * @param sub_set_selection Current subset selection algorithm
+ * @param current_sub_set_list ArrayList to add the FeatureSubsets.
  * @param current           FeatureSubset that will be added to currentSubSetList.
- * @param numberOfFeatures  The number of features to add the subset.
+ * @param number_of_features  The number of features to add the subset.
  */
 void
 forward(Sub_set_selection_ptr sub_set_selection, Array_list_ptr current_sub_set_list, const Feature_sub_set *current,
@@ -68,7 +68,8 @@ forward(Sub_set_selection_ptr sub_set_selection, Array_list_ptr current_sub_set_
 /**
  * The backward method starts with all the features and removes the least significant feature at each iteration.
  *
- * @param currentSubSetList ArrayList to add the FeatureSubsets.
+ * @param sub_set_selection Current subset selection algorithm
+ * @param current_sub_set_list ArrayList to add the FeatureSubsets.
  * @param current           FeatureSubset that will be added to currentSubSetList
  */
 void
@@ -84,8 +85,9 @@ backward(Sub_set_selection_ptr sub_set_selection, Array_list_ptr current_sub_set
  * The operator method calls forward method which starts with having no feature in the model. In each iteration,
  * it keeps adding the features that are not currently listed.
  *
+ * @param sub_set_selection Current subset selection algorithm
  * @param current          FeatureSubset that will be added to new ArrayList.
- * @param numberOfFeatures Indicates the indices of indexList.
+ * @param number_of_features Indicates the indices of indexList.
  * @return ArrayList of FeatureSubSets created from backward.
  */
 Array_list_ptr forward_selection(Sub_set_selection_ptr sub_set_selection, const Feature_sub_set *current, int number_of_features) {
@@ -97,8 +99,9 @@ Array_list_ptr forward_selection(Sub_set_selection_ptr sub_set_selection, const 
 /**
  * The operator method calls backward method which starts with all the features and removes the least significant feature at each iteration.
  *
+ * @param sub_set_selection Current subset selection algorithm
  * @param current          FeatureSubset that will be added to new ArrayList.
- * @param numberOfFeatures Indicates the indices of indexList.
+ * @param number_of_features Indicates the indices of indexList.
  * @return ArrayList of FeatureSubSets created from backward.
  */
 Array_list_ptr
@@ -111,8 +114,9 @@ backward_selection(Sub_set_selection_ptr sub_set_selection, const Feature_sub_se
 /**
  * The operator method calls forward and backward methods.
  *
+ * @param sub_set_selection Current subset selection algorithm
  * @param current          FeatureSubSet input.
- * @param numberOfFeatures Indicates the indices of indexList.
+ * @param number_of_features Indicates the indices of indexList.
  * @return ArrayList of FeatureSubSet.
  */
 Array_list_ptr

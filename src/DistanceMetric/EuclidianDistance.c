@@ -12,6 +12,7 @@
  *
  * @param instance1 First instance
  * @param instance2 Second instance
+ * @param parameter Parameter used to calculate distance (not used in this setting)
  * @return Euclidian distance between two instances.
  */
 double euclidian_distance(const Instance* instance1, const Instance* instance2, const void* parameter) {

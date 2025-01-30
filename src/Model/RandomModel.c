@@ -11,7 +11,7 @@
 /**
  * A constructor that sets the class labels.
  *
- * @param classLabels An ArrayList of class labels.
+ * @param class_labels An ArrayList of class labels.
  */
 Random_model_ptr create_random_model(Array_list_ptr class_labels) {
     Random_model_ptr result = malloc_(sizeof(Random_model), "create_random_model");
@@ -43,6 +43,7 @@ Random_model_ptr create_random_model2(const char *file_name) {
  * The predict method gets an Instance as an input and retrieves the possible class labels as an ArrayList. Then selects a
  * random number as an index and returns the class label at this selected index.
  *
+ * @param model Current model
  * @param instance Instance to make prediction.
  * @return The class label at the randomly selected index.
  */
@@ -55,6 +56,7 @@ char *predict_random(const void* model, const Instance* instance) {
 
 /**
  * Calculates the posterior probability distribution for the given instance according to random model.
+ * @param model Current model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */
@@ -82,8 +84,8 @@ void free_random_model(Random_model_ptr random_model) {
 /**
  * Training algorithm for random classifier.
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters -
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter -
  */
 Model_ptr train_random(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_random");

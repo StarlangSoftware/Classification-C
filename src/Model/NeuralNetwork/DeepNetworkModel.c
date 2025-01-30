@@ -11,7 +11,8 @@
  * of Matrix weights' first layer. Then it loops through the layers and adds random weights till the last layer.
  * At the end it adds random weights to the last layer and also sets the hiddenLayerSize value.
  *
- * @param parameters DeepNetworkParameter input.
+ * @param deep_network Current deep network model.
+ * @param deep_network_parameter DeepNetworkParameter input.
  */
 void allocate_deep_network_weights(Deep_network_model_ptr deep_network, Deep_network_parameter_ptr deep_network_parameter) {
     array_list_add(deep_network->weights, allocate_layer_weights(get_hidden_nodes(deep_network_parameter, 0), deep_network->model->d + 1, deep_network_parameter->seed));
@@ -33,11 +34,11 @@ void allocate_deep_network_weights(Deep_network_model_ptr deep_network, Deep_net
  *
  * @param train_set      InstanceList to be used as trainSet.
  * @param validation_set InstanceList to be used as validationSet.
- * @param parameters    DeepNetworkParameter input.
+ * @param parameter    DeepNetworkParameter input.
  */
 Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                                  Deep_network_parameter_ptr parameter) {
-    Vector_ptr tmp_hidden;
+    Vector_ptr tmp_hidden = NULL;
     Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model), "create_deep_network_model");
     result->model = create_neural_network_model(train_set);
     result->activation_function = parameter->activation_function;
@@ -69,7 +70,7 @@ Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, In
                                                        array_list_get(result->weights, result->weights->size - 1));
             array_list_insert(delta_weights, 0, create_matrix4(r_minus_y, array_list_get(hidden_biased, result->hidden_layer_size - 1)));
             for (int k = result->weights->size - 2; k >= 0; k--){
-                Vector_ptr tmph, one_minus_hidden = NULL, activation_derivative, one;
+                Vector_ptr tmph, one_minus_hidden = NULL, activation_derivative = NULL, one;
                 if (k == result->weights->size - 2){
                     tmph = multiply_with_vector_from_left(array_list_get(result->weights, k + 1), r_minus_y);
                     free_vector(r_minus_y);
@@ -193,6 +194,7 @@ char *predict_deep_network(const void *model, const Instance *instance) {
 
 /**
  * Calculates the posterior probability distribution for the given instance according to deep network model.
+ * @param model Current deep network model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */
@@ -203,7 +205,7 @@ Hash_map_ptr predict_probability_deep_network(const void *model, const Instance 
 }
 
 void calculate_output_deep_network(const Deep_network_model *deep_network) {
-    Vector_ptr hidden, hidden_biased;
+    Vector_ptr hidden = NULL, hidden_biased = NULL;
     for (int i = 0; i < deep_network->weights->size - 1; i++){
         if (i == 0){
             hidden = calculate_hidden(deep_network->model->x, array_list_get(deep_network->weights, i), deep_network->activation_function);
@@ -224,8 +226,8 @@ void calculate_output_deep_network(const Deep_network_model *deep_network) {
 /**
  * Training algorithm for deep network classifier.
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters Parameters of the deep network algorithm. crossValidationRatio and seed are used as parameters.
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter Parameters of the deep network algorithm. crossValidationRatio and seed are used as parameters.
  * @throws DiscreteFeaturesNotAllowed Exception for discrete features.
  */
 Model_ptr train_deep_network(Instance_list_ptr train_set, const void *parameter) {

@@ -13,9 +13,9 @@
  * then creates an input vector by using given trainSet and finds error. Via the validationSet it finds the classification
  * performance and at the end it reassigns the allocated weight Matrix with the matrix that has the best accuracy.
  *
- * @param trainSet      InstanceList that is used to train.
- * @param validationSet InstanceList that is used to validate.
- * @param parameters    Linear perceptron parameters; learningRate, etaDecrease, crossValidationRatio, epoch.
+ * @param train_set      InstanceList that is used to train.
+ * @param validation_set InstanceList that is used to validate.
+ * @param parameter    Linear perceptron parameters; learningRate, etaDecrease, crossValidationRatio, epoch.
  */
 Linear_perceptron_model_ptr
 create_linear_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
@@ -64,6 +64,7 @@ create_linear_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr va
  * The predict method takes an Instance as an input, converts it to a Vector and calculates the Matrix y by
  * multiplying Matrix W with Vector x. Then it returns the class label which has the maximum y value.
  *
+ * @param model Current linear perceptron model
  * @param instance Instance to predict.
  * @return The class lable which has the maximum y.
  */
@@ -75,6 +76,7 @@ char *predict_linear_perceptron(const void *model, const Instance *instance) {
 
 /**
  * Calculates the posterior probability distribution for the given instance according to linear perceptron model.
+ * @param model Current linear perceptron model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */
@@ -86,6 +88,7 @@ Hash_map_ptr predict_probability_linear_perceptron(const void *model, const Inst
 
 /**
  * The calculateOutput method calculates the Matrix y by multiplying Matrix W with Vector x.
+ * @param linear_perceptron Current linear perceptron model
  */
 void calculate_output_linear_perceptron(const Linear_perceptron_model* linear_perceptron) {
     linear_perceptron->model->y = multiply_with_vector_from_right(linear_perceptron->W, linear_perceptron->model->x);
@@ -128,8 +131,8 @@ Model_ptr validation_linear_perceptron(Linear_perceptron_model_ptr linear_percep
  * data used for selecting the best weights. 80 percent of the data is used for training the linear perceptron with
  * gradient descent.
  *
- * @param trainSet   Training data given to the algorithm
- * @param parameters Parameters of the linear perceptron.
+ * @param train_set   Training data given to the algorithm
+ * @param parameter Parameters of the linear perceptron.
  */
 Model_ptr train_linear_perceptron(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_linear_perceptron");

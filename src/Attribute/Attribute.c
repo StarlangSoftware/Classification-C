@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 5.06.2023.
 //
 
-#include <string.h>
 #include <Memory/Memory.h>
 #include "Attribute.h"
 
@@ -48,9 +47,8 @@ Attribute_ptr create_continuous_attribute(double value) {
 /**
  * Constructor for a discrete attribute.
  *
- * @param value Value of the attribute.
  * @param index Index of the attribute.
- * @param maxIndex Maximum index of the attribute.
+ * @param max_index Maximum index of the attribute.
  */
 Attribute_ptr create_discrete_indexed_attribute(int index, int max_index) {
     Attribute_ptr result = malloc_(sizeof(Attribute), "create_discrete_indexed_attribute");
@@ -77,6 +75,7 @@ int continuous_attribute_size(const Attribute *attribute) {
         case DISCRETE_INDEXED:
             return attribute->max_index;
     }
+    return 0;
 }
 
 Array_list_ptr continuous_attributes(const Attribute *attribute) {
@@ -135,4 +134,5 @@ Attribute_ptr clone_attribute(Attribute_ptr attribute) {
         case DISCRETE_INDEXED:
             return create_discrete_indexed_attribute(attribute->int_value, attribute->max_index);
     }
+    return NULL;
 }

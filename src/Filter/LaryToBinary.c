@@ -9,6 +9,7 @@
  * an attribute has values red, green, blue; this attribute will be converted to 3 binary attributes where
  * red will have the value true false false, green will have the value false true false, and blue will have the value false false true.
  *
+ * @param lary_filter Current filter.
  * @param instance The instance to be converted.
  */
 void convert_instance_lary_to_binary(Lary_filter_ptr lary_filter, Instance_ptr instance) {

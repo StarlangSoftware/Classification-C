@@ -9,6 +9,7 @@
  * an attribute has values red, green, blue; this attribute will be converted to 3 continuous attributes where
  * red will have the value 100, green will have the value 010, and blue will have the value 001.
  *
+ * @param lary_filter Current filter.
  * @param instance The instance to be converted.
  */
 void convert_instance_discrete_to_continuous(Lary_filter_ptr lary_filter, Instance_ptr instance) {

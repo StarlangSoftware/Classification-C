@@ -31,7 +31,7 @@ void free_data_definition(Data_definition_ptr data_definition) {
 /**
  * Constructor for creating a new DataDefinition with given attribute types.
  *
- * @param attributeTypes Attribute types of the data definition.
+ * @param attribute_types Attribute types of the data definition.
  */
 Data_definition_ptr create_data_definition2(Array_list_ptr attribute_types) {
     Data_definition_ptr result = malloc_(sizeof(Data_definition), "create_data_definition2");
@@ -43,8 +43,8 @@ Data_definition_ptr create_data_definition2(Array_list_ptr attribute_types) {
 /**
  * Constructor for creating a new DataDefinition with given attribute types.
  *
- * @param attributeTypes Attribute types of the data definition.
- * @param attributeValueList Array of array of strings to represent all possible values of discrete features.
+ * @param attribute_types Attribute types of the data definition.
+ * @param attribute_value_list Array of array of strings to represent all possible values of discrete features.
  */
 Data_definition_ptr create_data_definition3(Array_list_ptr attribute_types, Array_list_ptr attribute_value_list) {
     Data_definition_ptr result = malloc_(sizeof(Data_definition), "create_data_definition3");
@@ -56,6 +56,7 @@ Data_definition_ptr create_data_definition3(Array_list_ptr attribute_types, Arra
 /**
  * Returns the number of attribute types.
  *
+ * @param data_definition Current data definition
  * @return Number of attribute types.
  */
 int attribute_count(const Data_definition *data_definition) {
@@ -65,6 +66,7 @@ int attribute_count(const Data_definition *data_definition) {
 /**
  * Counts the occurrences of binary and discrete type attributes.
  *
+ * @param data_definition Current data definition
  * @return Count of binary and discrete type attributes.
  */
 int discrete_attribute_count(const Data_definition *data_definition) {
@@ -81,6 +83,7 @@ int discrete_attribute_count(const Data_definition *data_definition) {
 /**
  * Counts the occurrences of binary and continuous type attributes.
  *
+ * @param data_definition Current data definition
  * @return Count of of binary and continuous type attributes.
  */
 int continuous_attribute_count(const Data_definition *data_definition) {
@@ -97,6 +100,7 @@ int continuous_attribute_count(const Data_definition *data_definition) {
 /**
  * Returns the attribute type of the corresponding item at given index.
  *
+ * @param data_definition Current data definition
  * @param index Index of the attribute type.
  * @return Attribute type of the corresponding item at given index.
  */
@@ -108,7 +112,8 @@ Attribute_type get_attribute_type(const Data_definition *data_definition, int in
 /**
  * Adds an attribute type to the list of attribute types.
  *
- * @param attributeType Attribute type to add to the list of attribute types.
+ * @param data_definition Current data definition
+ * @param attribute_type Attribute type to add to the list of attribute types.
  */
 void add_attribute(Data_definition_ptr data_definition, Attribute_type attribute_type) {
     Attribute_type *type = malloc_(sizeof(Attribute_type), "add_attribute");
@@ -119,6 +124,7 @@ void add_attribute(Data_definition_ptr data_definition, Attribute_type attribute
 /**
  * Removes the attribute type at given index from the list of attributes.
  *
+ * @param data_definition Current data definition
  * @param index Index to remove attribute type from list.
  */
 void remove_attribute(Data_definition_ptr data_definition, int index) {
@@ -127,6 +133,7 @@ void remove_attribute(Data_definition_ptr data_definition, int index) {
 
 /**
  * Clears all the attribute types from list.
+ * @param data_definition Current data definition
  */
 void remove_all_attributes(Data_definition_ptr data_definition) {
     array_list_clear(data_definition->attribute_types, free_);
@@ -134,6 +141,7 @@ void remove_all_attributes(Data_definition_ptr data_definition) {
 
 /**
  * Returns number of distinct values for a given discrete attribute with index attributeIndex.
+ * @param data_definition Current data definition
  * @param index Index of the discrete attribute.
  * @return Number of distinct values for a given discrete attribute
  */
@@ -144,7 +152,8 @@ int number_of_values(const Data_definition *data_definition, int index) {
 
 /**
  * Returns the index of the given value in the values list of the attributeIndex'th discrete attribute.
- * @param attributeIndex Index of the discrete attribute.
+ * @param data_definition Current data definition
+ * @param index Index of the discrete attribute.
  * @param value Value of the discrete attribute
  * @return Index of the given value in the values list of the discrete attribute.
  */
@@ -161,7 +170,8 @@ int feature_value_index(const Data_definition *data_definition, int index, const
 /**
  * Generates new subset of attribute types by using given feature subset.
  *
- * @param featureSubSet FeatureSubSet input.
+ * @param data_definition Current data definition
+ * @param feature_sub_set FeatureSubSet input.
  * @return DataDefinition with new subset of attribute types.
  */
 Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definition *data_definition,

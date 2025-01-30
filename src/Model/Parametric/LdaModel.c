@@ -14,7 +14,7 @@
 /**
  * A constructor which sets the priorDistribution, w and w1 according to given inputs.
  *
- * @param priorDistribution DiscreteDistribution input.
+ * @param prior_distribution DiscreteDistribution input.
  * @param w                 HashMap of String and Vectors.
  * @param w0                HashMap of String and Double.
  */
@@ -57,7 +57,7 @@ Lda_model_ptr create_lda_model2(const char *file_name) {
  * and w0 plus w1.
  *
  * @param instance Instance input.
- * @param Ci       String input.
+ * @param C_i       String input.
  * @return The dot product of given Instance and w0 plus w1.
  */
 double calculate_metric_lda(const Lda_model *lda_model, const Instance *instance, const char *C_i) {
@@ -104,8 +104,8 @@ char *predict_lda(const void *model, const Instance *instance) {
 /**
  * Training algorithm for the linear discriminant analysis classifier (Introduction to Machine Learning, Alpaydin, 2015).
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters -
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter -
  */
 Model_ptr train_lda(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_lda_1");

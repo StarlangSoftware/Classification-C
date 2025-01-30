@@ -23,7 +23,7 @@ Experiment_performance_ptr create_experiment_performance() {
  * A constructor that takes a file name as an input and takes the inputs from that file assigns these inputs to the errorRate
  * and adds them to the results ArrayList as a new Performance.
  *
- * @param fileName String input.
+ * @param file_name String input.
  */
 Experiment_performance_ptr create_experiment_performance2(const char *file_name) {
     Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance), "create_experiment_performance2");
@@ -39,6 +39,7 @@ Experiment_performance_ptr create_experiment_performance2(const char *file_name)
 /**
  * The add method takes a Performance as an input and adds it to the results ArrayList.
  *
+ * @param experiment_performance Current experiment performance
  * @param performance Performance input.
  */
 void add_performance(Experiment_performance_ptr experiment_performance, Performance_ptr performance) {
@@ -55,6 +56,7 @@ void add_detailed_performance(Experiment_performance_ptr experiment_performance,
 /**
  * The numberOfExperiments method returns the size of the results vector.
  *
+ * @param experiment_performance Current experiment performance
  * @return The results vector.
  */
 int number_of_experiments(const Experiment_performance* experiment_performance) {
@@ -64,6 +66,7 @@ int number_of_experiments(const Experiment_performance* experiment_performance) 
 /**
  * The getErrorRate method takes an index as an input and returns the errorRate at given index of results vector.
  *
+ * @param experiment_performance Current experiment performance
  * @param index Index of results vector to retrieve.
  * @return The errorRate at given index of results vector.
  */

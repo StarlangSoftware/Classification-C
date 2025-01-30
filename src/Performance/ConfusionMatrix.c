@@ -41,8 +41,9 @@ void free_confusion_matrix(Confusion_matrix_ptr confusion_matrix) {
  * it creates a new CounterHashMap. Then, it puts the given predicted class String to the counterHashMap and
  * also put this counterHashMap to the matrix map together with the given actual class String.
  *
- * @param actualClass    String input actual class.
- * @param predictedClass String input predicted class.
+ * @param confusion_matrix Current confusion matrix
+ * @param actual_class    String input actual class.
+ * @param predicted_class String input predicted class.
  */
 void classify(Confusion_matrix_ptr confusion_matrix, char *actual_class, char *predicted_class) {
     Counter_hash_map_ptr counter_hash_map;
@@ -61,6 +62,7 @@ void classify(Confusion_matrix_ptr confusion_matrix, char *actual_class, char *p
  * The addConfusionMatrix method takes a ConfusionMatrix as an input and loops through actual classes of that HashMap
  * and initially gets one row at a time. Then it puts the current row to the matrix HashMap together with the actual class string.
  *
+ * @param confusion_matrix Current confusion matrix
  * @param confusion_matrix2 ConfusionMatrix input.
  */
 void add_confusion_matrix(Confusion_matrix_ptr confusion_matrix, const Confusion_matrix* confusion_matrix2) {
@@ -83,6 +85,7 @@ void add_confusion_matrix(Confusion_matrix_ptr confusion_matrix, const Confusion
  * The sumOfElements method loops through the keys in matrix HashMap and returns the summation of all the values of the keys.
  * I.e: TP+TN+FP+FN.
  *
+ * @param confusion_matrix Current confusion matrix
  * @return The summation of values.
  */
 double sum_of_elements(const Confusion_matrix* confusion_matrix) {
@@ -101,6 +104,7 @@ double sum_of_elements(const Confusion_matrix* confusion_matrix) {
  * The trace_confusion method loops through the keys in matrix HashMap and if the current key contains the actual key,
  * it accumulates the corresponding values. I.e: TP+TN.
  *
+ * @param confusion_matrix Current confusion matrix
  * @return Summation of values.
  */
 double trace_confusion(const Confusion_matrix* confusion_matrix) {
@@ -121,7 +125,8 @@ double trace_confusion(const Confusion_matrix* confusion_matrix) {
  * The columnSum method takes a String predicted class as input, and loops through the keys in matrix HashMap.
  * If the current key contains the predicted class String, it accumulates the corresponding values. I.e: TP+FP.
  *
- * @param predictedClass String input predicted class.
+ * @param confusion_matrix Current confusion matrix
+ * @param predicted_class String input predicted class.
  * @return Summation of values.
  */
 double column_sum_confusion(const Confusion_matrix* confusion_matrix, const char* predicted_class) {

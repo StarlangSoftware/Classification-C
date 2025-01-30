@@ -7,6 +7,7 @@
 /**
  * Converts discrete attributes of a single instance to indexed version.
  *
+ * @param lary_filter Current filter.
  * @param instance The instance to be converted.
  */
 void convert_instance_discrete_to_indexed(Lary_filter_ptr lary_filter, Instance_ptr instance) {

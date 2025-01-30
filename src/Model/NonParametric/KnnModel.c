@@ -13,7 +13,7 @@
  *
  * @param data           InstanceList input.
  * @param k              K value.
- * @param distanceMetric DistanceMetric input.
+ * @param distance_metric DistanceMetric input.
  */
 Knn_model_ptr create_knn_model(Instance_list_ptr data, int k,
                                double (*distance_metric)(const Instance *, const Instance *, const void *)) {
@@ -38,6 +38,7 @@ void free_knn_model(Knn_model_ptr knn_model) {
  * the distance between data and given instance. After sorting this newly created ArrayList, it loops k times and
  * returns the first k instances as an InstanceList.
  *
+ * @param knn_model Knn model
  * @param instance Instance to find nearest neighbors/
  * @return The first k instances which are nearest to the given instance as an InstanceList.
  */
@@ -61,6 +62,7 @@ Instance_list_ptr nearest_neighbors(const Knn_model* knn_model, const Instance *
  * The predict method takes an Instance as an input and finds the nearest neighbors of given instance. Then
  * it returns the first possible class label as the predicted class.
  *
+ * @param model Knn model
  * @param instance Instance to make prediction.
  * @return The first possible class label as the predicted class.
  */
@@ -76,6 +78,7 @@ char *predict_knn(const void *model, const Instance *instance) {
 
 /**
  * Calculates the posterior probability distribution for the given instance according to K-means model.
+ * @param model Knn model
  * @param instance Instance for which posterior probability distribution is calculated.
  * @return Posterior probability distribution for the given instance.
  */
@@ -107,8 +110,8 @@ Knn_model_ptr create_knn_model2(const char *file_name) {
 /**
  * Training algorithm for K-nearest neighbor classifier.
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters K: k parameter of the K-nearest neighbor algorithm
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter K: k parameter of the K-nearest neighbor algorithm
  *                   distanceMetric: distance metric used to calculate the distance between two instances.
  */
 Model_ptr train_knn(Instance_list_ptr train_set, const void *parameter) {

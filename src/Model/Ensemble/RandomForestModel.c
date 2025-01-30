@@ -13,8 +13,8 @@
  * Training algorithm for random forest classifier. Basically the algorithm creates K distinct decision trees from
  * K bootstrap samples of the original training set.
  *
- * @param trainSet   Training data given to the algorithm
- * @param parameters Parameters of the bagging trees algorithm. ensembleSize returns the number of trees in the random forest.
+ * @param train_set   Training data given to the algorithm
+ * @param parameter Parameters of the bagging trees algorithm. ensembleSize returns the number of trees in the random forest.
  */
 Model_ptr train_random_forest(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_random_forest");
@@ -37,7 +37,7 @@ Model_ptr train_random_forest(Instance_list_ptr train_set, const void *parameter
 
 /**
  * Loads the random forest model from an input file.
- * @param fileName File name of the random forest model.
+ * @param file_name File name of the random forest model.
  */
 Model_ptr load_random_forest(const char *file_name) {
     Model_ptr result = load_bagging(file_name);

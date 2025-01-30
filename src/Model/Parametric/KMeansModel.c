@@ -13,9 +13,9 @@
 /**
  * The constructor that sets the classMeans, priorDistribution and distanceMetric according to given inputs.
  *
- * @param priorDistribution DiscreteDistribution input.
- * @param classMeans        InstanceList of class means.
- * @param distanceMetric    DistanceMetric input.
+ * @param prior_distribution DiscreteDistribution input.
+ * @param class_means        InstanceList of class means.
+ * @param distance_metric    DistanceMetric input.
  */
 K_means_model_ptr create_k_means_model(Discrete_distribution_ptr prior_distribution, Instance_list_ptr class_means,
                                        double (*distance_metric)(const Instance *, const Instance *, const void *)) {
@@ -75,8 +75,9 @@ char *predict_k_means(const void *model, const Instance* instance) {
  * the corresponding class label is same as the given String it returns the negated distance between given instance and the
  * current item of class means. Otherwise it returns the smallest negative number.
  *
+ * @param k_means_model K means model
  * @param instance Instance input.
- * @param Ci       String input.
+ * @param C_i       String input.
  * @return The negated distance between given instance and the current item of class means.
  */
 double calculate_metric_k_means(const K_means_model* k_means_model, const Instance *instance, const char *C_i) {
@@ -92,8 +93,8 @@ double calculate_metric_k_means(const K_means_model* k_means_model, const Instan
 /**
  * Training algorithm for KMeans classifier. KMeans finds the mean of each class for training.
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters distanceMetric: distance metric used to calculate the distance between two instances.
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter distanceMetric: distance metric used to calculate the distance between two instances.
  */
 Model_ptr train_k_means(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_k_means");

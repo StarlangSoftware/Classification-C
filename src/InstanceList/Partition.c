@@ -40,6 +40,7 @@ int size_of_partition(const Partition *partition) {
 /**
  * Returns the corresponding instance list at given index of list of instance lists.
  *
+ * @param partition Current partition
  * @param index Index of the instance list.
  * @return Instance list at given index of list of instance lists.
  */
@@ -90,9 +91,11 @@ Partition_ptr create_partition3(const Instance_list* instance_list) {
  * these classes be %20, %30, and %50; then the percentages of these classes in the stratified partitions are the
  * same, that is, %20, %30, and %50.
  *
+ * @param instance_list Current instance list
  * @param ratio Ratio of the stratified partition. Ratio is between 0 and 1. If the ratio is 0.2, then 20 percent
  *              of the instances are put in the first group, 80 percent of the instances are put in the second group.
- * @param random random is used as a random number.
+ * @param seed seed is used as a random number.
+ * @param stratified If true, the partition is created via stratification.
  * @return 2 group stratified partition of the instances in this instance list.
  */
 Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, int seed, bool stratified) {
@@ -140,7 +143,8 @@ Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, i
  * distinct values, the resulting partition will have 4 groups, where each group contain instance whose
  * values of that discrete attribute are the same.
  *
- * @param attributeIndex Index of the discrete attribute.
+ * @param instance_list Current instance list
+ * @param attribute_index Index of the discrete attribute.
  * @return L groups of instances, where L is the number of distinct values of the discrete attribute with index
  * attributeIndex.
  */
@@ -165,8 +169,9 @@ Partition_ptr create_partition5(const Instance_list *instance_list, int attribut
 /**
  * Creates a partition depending on the distinct values of a discrete indexed attribute.
  *
- * @param attributeIndex Index of the discrete indexed attribute.
- * @param attributeValue Value of the attribute.
+ * @param instance_list Current instance list
+ * @param attribute_index Index of the discrete indexed attribute.
+ * @param attribute_value Value of the attribute.
  * @return L groups of instances, where L is the number of distinct values of the discrete indexed attribute with index
  * attributeIndex and value attributeValue.
  */

@@ -8,6 +8,7 @@
  * Execute the bootstrap run with the given classifier on the given data set using the given parameters.
  *
  * @param experiment Experiment to be run.
+ * @param number_of_bootstraps Number of bootstraps.
  * @return An array of performances: result. result[i] is the performance of the classifier on the i'th bootstrap run.
  */
 Experiment_performance_ptr execute_bootstrap(const Experiment *experiment, int number_of_bootstraps) {

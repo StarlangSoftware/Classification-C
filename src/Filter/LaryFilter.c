@@ -7,7 +7,7 @@
 /**
  * Constructor that sets the dataSet and all the attributes distributions.
  *
- * @param dataSet DataSet that will bu used.
+ * @param data_set DataSet that will bu used.
  */
 Lary_filter_ptr create_lary_filter(Data_set_ptr data_set) {
     Lary_filter_ptr result = malloc_(sizeof(Lary_filter), "create_lary_filter");
@@ -29,6 +29,7 @@ void free_lary_filter(Lary_filter_ptr lary_filter) {
  * The removeDiscreteAttributes method takes an Instance as an input, and removes the discrete attributes from
  * given instance.
  *
+ * @param lary_filter Current filter.
  * @param instance Instance to removes attributes from.
  * @param size     Size of the given instance.
  */
@@ -47,6 +48,7 @@ void remove_discrete_attributes_instance(Lary_filter_ptr lary_filter, Instance_p
 /**
  * The removeDiscreteAttributes method removes the discrete attributes from dataDefinition.
  *
+ * @param lary_filter Current filter.
  * @param size Size of item that attributes will be removed.
  */
 void remove_discrete_attributes_definition(Lary_filter_ptr lary_filter, int size) {

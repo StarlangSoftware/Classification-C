@@ -14,7 +14,7 @@
 /**
  * The constructor which sets the priorDistribution, w w1 and HashMap of String Matrix.
  *
- * @param priorDistribution DiscreteDistribution input.
+ * @param prior_distribution DiscreteDistribution input.
  * @param W                 HashMap of String and Matrix.
  * @param w                 HashMap of String and Vectors.
  * @param w0                HashMap of String and Double.
@@ -77,8 +77,9 @@ void free_qda_model(Qda_model_ptr qda_model) {
  * The calculateMetric method takes an Instance and a String as inputs. It multiplies Matrix Wi with Vector xi
  * then calculates the dot product of it with xi. Then, again it finds the dot product of wi and xi and returns the summation with w0i.
  *
+ * @param qda_model Current qda model
  * @param instance Instance input.
- * @param Ci       String input.
+ * @param C_i       String input.
  * @return The result of Wi.multiplyWithVectorFromLeft(xi).dotProduct(xi) + wi.dotProduct(xi) + w0i.
  */
 double calculate_metric_qda(const Qda_model *qda_model, const Instance *instance, const char *C_i) {
@@ -117,8 +118,8 @@ char *predict_qda(const void *model, const Instance *instance) {
 /**
  * Training algorithm for the quadratic discriminant analysis classifier (Introduction to Machine Learning, Alpaydin, 2015).
  *
- * @param trainSet   Training data given to the algorithm.
- * @param parameters -
+ * @param train_set   Training data given to the algorithm.
+ * @param parameter -
  */
 Model_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
     Model_ptr result = malloc_(sizeof(Model), "train_qda_1");

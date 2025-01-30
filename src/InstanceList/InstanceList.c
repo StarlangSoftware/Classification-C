@@ -54,8 +54,8 @@ void free_instance_list2(Instance_list_ptr instance_list) {
  * fourth item is the class label.
  *
  * @param definition Data definition of the data set.
- * @param separator  Separator character which separates the attribute values in the data file.
- * @param fileName   Name of the data set file.
+ * @param separators  Separator character which separates the attribute values in the data file.
+ * @param file_name   Name of the data set file.
  */
 Instance_list_ptr
 create_instance_list2(const Data_definition *definition, const char *separators, const char *file_name) {
@@ -67,9 +67,9 @@ create_instance_list2(const Data_definition *definition, const char *separators,
         if (attribute_list->size == attribute_count(definition) + 1){
             String_ptr attribute = array_list_get(attribute_list, attribute_list->size - 1);
             Instance_ptr current = create_instance2(attribute->s);
-            for (int i = 0; i < attribute_list->size - 1; i++){
-                attribute = array_list_get(attribute_list, i);
-                switch (get_attribute_type(definition, i)) {
+            for (int j = 0; j < attribute_list->size - 1; j++){
+                attribute = array_list_get(attribute_list, j);
+                switch (get_attribute_type(definition, j)) {
                     case DISCRETE:
                         add_attribute_to_instance(current, create_discrete_attribute(attribute->s));
                         break;

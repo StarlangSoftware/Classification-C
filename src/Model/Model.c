@@ -8,7 +8,7 @@
 /**
  * TestClassification an instance list with the current model.
  *
- * @param classifier Classifier
+ * @param model Current model
  * @param test_set Test data (list of instances) to be tested.
  * @return The accuracy (and error) of the model as an instance of Performance class.
  */

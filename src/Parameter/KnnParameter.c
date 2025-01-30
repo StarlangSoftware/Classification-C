@@ -2,7 +2,6 @@
 // Created by Olcay Taner YILDIZ on 6.06.2023.
 //
 
-#include <stdlib.h>
 #include <Memory/Memory.h>
 #include "KnnParameter.h"
 #include "../DistanceMetric/EuclidianDistance.h"
