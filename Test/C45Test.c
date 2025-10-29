@@ -3,6 +3,8 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
+
 #include "../src/DataSet/DataSet.h"
 #include "CreateDataSets.h"
 #include "../src/Parameter/C45Parameter.h"
@@ -20,6 +22,7 @@ void test_c45_classifier(Data_set_ptr data_set, double error_rate, int index, C4
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     C45_parameter_ptr parameter = create_c45_parameter(1, true, 0.2);
     test_c45_classifier(iris, 4.00, 1, parameter);
@@ -29,4 +32,5 @@ int main(){
     test_c45_classifier(tictactoe, 10.97, 5, parameter);
     free_c45_parameter(parameter);
     free_datasets();
+    end_memory_check();
 }

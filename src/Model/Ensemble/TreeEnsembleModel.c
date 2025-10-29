@@ -12,7 +12,7 @@
  * @param forest An vector of DecisionTree.
  */
 Tree_ensemble_model_ptr create_tree_ensemble_model(Array_list_ptr forest) {
-    Tree_ensemble_model_ptr result = malloc_(sizeof(Tree_ensemble_model), "create_tree_ensemble_model");
+    Tree_ensemble_model_ptr result = malloc_(sizeof(Tree_ensemble_model));
     result->forest = forest;
     return result;
 }
@@ -22,7 +22,7 @@ Tree_ensemble_model_ptr create_tree_ensemble_model(Array_list_ptr forest) {
  * @param file_name Model file name.
  */
 Tree_ensemble_model_ptr create_tree_ensemble_model2(const char *file_name) {
-    Tree_ensemble_model_ptr result = malloc_(sizeof(Tree_ensemble_model), "create_tree_ensemble_model2");
+    Tree_ensemble_model_ptr result = malloc_(sizeof(Tree_ensemble_model));
     result->forest = create_array_list();
     FILE* input_file = fopen(file_name, "r");
     int size;

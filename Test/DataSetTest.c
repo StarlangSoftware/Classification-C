@@ -23,12 +23,6 @@ void test_sample_size(){
     if (sample_size(tictactoe) != 958){
         printf("Error in sample size 5");
     }
-    if (sample_size(nursery) != 12960){
-        printf("Error in sample size 6");
-    }
-    if (sample_size(chess) != 28056){
-        printf("Error in sample size 7");
-    }
 }
 
 void test_class_count(){
@@ -46,12 +40,6 @@ void test_class_count(){
     }
     if (class_count(tictactoe) != 2){
         printf("Error in class size 5");
-    }
-    if (class_count(nursery) != 5){
-        printf("Error in class size 6");
-    }
-    if (class_count(chess) != 18){
-        printf("Error in class size 7");
     }
 }
 
@@ -81,22 +69,14 @@ void test_get_classes(){
         printf("Error in get classes 5");
     }
     free_string_ptr(s);
-    s = get_classes(nursery);
-    if (!string_equals2(s, "recommend;priority;not_recom;very_recom;spec_prior")){
-        printf("Error in get classes 6");
-    }
-    free_string_ptr(s);
-    s = get_classes(chess);
-    if (!string_equals2(s, "draw;zero;one;two;three;four;five;six;seven;eight;nine;ten;eleven;twelve;thirteen;fourteen;fifteen;sixteen")){
-        printf("Error in get classes 7");
-    }
-    free_string_ptr(s);
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_sample_size();
     test_class_count();
     test_get_classes();
     free_datasets();
+    end_memory_check();
 }

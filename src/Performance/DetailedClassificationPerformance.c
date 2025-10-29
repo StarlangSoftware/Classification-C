@@ -12,7 +12,7 @@
  */
 Detailed_classification_performance_ptr
 create_detailed_classification_performance(Confusion_matrix_ptr confusion_matrix) {
-    Detailed_classification_performance_ptr result = malloc_(sizeof(Detailed_classification_performance), "create_detailed_classification_performance");
+    Detailed_classification_performance_ptr result = malloc_(sizeof(Detailed_classification_performance));
     result->confusion_matrix = confusion_matrix;
     result->accuracy = get_accuracy(confusion_matrix);
     result->error_rate = 1 - result->accuracy;

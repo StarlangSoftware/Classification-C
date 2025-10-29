@@ -15,7 +15,7 @@
  * @param train_set InstanceList to use as train set.
  */
 Neural_network_model_ptr create_neural_network_model(const Instance_list *train_set) {
-    Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model), "create_neural_network_model");
+    Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model));
     result->class_labels = get_distinct_class_labels(train_set);
     result->K = result->class_labels->size;
     result->d = instance_continuous_attribute_size(get_instance(train_set, 0));
@@ -113,7 +113,7 @@ void free_neural_network_model(Neural_network_model_ptr neural_network) {
  * @return Neural network model
  */
 Neural_network_model_ptr create_neural_network_model2(FILE *input_file) {
-    Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model), "create_neural_network_model2");
+    Neural_network_model_ptr result = malloc_(sizeof(Neural_network_model));
     fscanf(input_file, "%d%d", &(result->K), &(result->d));
     result->class_labels = create_array_list();
     for (int i = 0; i < result->K; i++){
@@ -215,7 +215,7 @@ predict_probability_neural_network(Neural_network_model_ptr neural_network_model
     calculate_output(meta_model);
     Hash_map_ptr result = create_string_hash_map();
     for (int i = 0; i < neural_network_model->class_labels->size; i++){
-        double *probability = malloc_(sizeof(double), "predict_probability_neural_network");
+        double *probability = malloc_(sizeof(double));
         *probability = get_value(neural_network_model->y, i);
         hash_map_insert(result, array_list_get(neural_network_model->class_labels, i), probability);
     }

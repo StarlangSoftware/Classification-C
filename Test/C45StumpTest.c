@@ -21,6 +21,7 @@ void test_c45_stump_classifier(Data_set_ptr data_set, double error_rate, int ind
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_c45_stump_classifier(iris, 33.33, 1);
     test_c45_stump_classifier(bupa, 36.81, 2);
@@ -28,4 +29,5 @@ int main(){
     test_c45_stump_classifier(dermatology, 49.73, 3);
     test_c45_stump_classifier(tictactoe, 30.06, 5);
     free_datasets();
+    end_memory_check();
 }

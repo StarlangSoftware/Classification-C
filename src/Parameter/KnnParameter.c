@@ -15,7 +15,7 @@
  */
 Knn_parameter_ptr
 create_knn_parameter(int seed, int k, double (*distance_function)(const Instance *, const Instance *, const void *)) {
-    Knn_parameter_ptr result = malloc_(sizeof(Knn_parameter), "create_knn_parameter");
+    Knn_parameter_ptr result = malloc_(sizeof(Knn_parameter));
     result->seed = seed;
     result->k = k;
     result->distance_function = distance_function;
@@ -29,7 +29,7 @@ create_knn_parameter(int seed, int k, double (*distance_function)(const Instance
  * @param k              Parameter of the K-nearest neighbor algorithm.
  */
 Knn_parameter_ptr create_knn_parameter2(int seed, int k) {
-    Knn_parameter_ptr result = malloc_(sizeof(Knn_parameter), "create_knn_parameter2");
+    Knn_parameter_ptr result = malloc_(sizeof(Knn_parameter));
     result->seed = seed;
     result->k = k;
     result->distance_function = euclidian_distance;

@@ -39,7 +39,7 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
                                        bool is_stump) {
     int best_attribute = -1;
     double best_split_value = 0;
-    Decision_node_ptr result = malloc_(sizeof(Decision_node), "create_decision_node");
+    Decision_node_ptr result = malloc_(sizeof(Decision_node));
     result->condition = condition;
     result->class_labels_distribution = create_discrete_distribution();
     result->children = create_array_list();
@@ -159,7 +159,7 @@ Decision_node_ptr create_decision_node(Instance_list_ptr data,
  */
 Decision_node_ptr create_decision_node2(FILE *input_file) {
     int size;
-    Decision_node_ptr result = malloc_(sizeof(Decision_node), "create_decision_node2");
+    Decision_node_ptr result = malloc_(sizeof(Decision_node));
     result->condition = create_decision_condition3(input_file);
     result->children = create_array_list();
     fscanf(input_file, "%d", &size);

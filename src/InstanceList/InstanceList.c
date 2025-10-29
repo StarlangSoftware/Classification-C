@@ -17,7 +17,7 @@
  * Empty constructor for an instance list. Initializes the instance list with zero instances.
  */
 Instance_list_ptr create_instance_list() {
-    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list");
+    Instance_list_ptr result = malloc_(sizeof(Instance_list));
     result->list =  create_array_list();
     return result;
 }
@@ -59,7 +59,7 @@ void free_instance_list2(Instance_list_ptr instance_list) {
  */
 Instance_list_ptr
 create_instance_list2(const Data_definition *definition, const char *separators, const char *file_name) {
-    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list2");
+    Instance_list_ptr result = malloc_(sizeof(Instance_list));
     result->list =  create_array_list();
     Array_list_ptr lines = read_lines(file_name);
     for (int i = 0; i < lines->size; i++){
@@ -99,7 +99,7 @@ create_instance_list2(const Data_definition *definition, const char *separators,
  * @param list New list for the list variable.
  */
 Instance_list_ptr create_instance_list3(Array_list_ptr list) {
-    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list3");
+    Instance_list_ptr result = malloc_(sizeof(Instance_list));
     result->list =  list;
     return result;
 }
@@ -594,7 +594,7 @@ void clear(Instance_list_ptr instance_list) {
  */
 Instance_list_ptr create_instance_list4(FILE *input_file) {
     char line[MAX_LINE_LENGTH];
-    Instance_list_ptr result = malloc_(sizeof(Instance_list), "create_instance_list4");
+    Instance_list_ptr result = malloc_(sizeof(Instance_list));
     result->list =  create_array_list();
     fgets(line, MAX_LINE_LENGTH, input_file);
     line[strcspn(line, "\n")] = 0;

@@ -19,7 +19,7 @@
  */
 Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr class_means,
                                                Hash_map_ptr class_deviations) {
-    Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model), "create_naive_bayes_model");
+    Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model));
     result->prior_distribution = prior_distribution;
     result->class_means = class_means;
     result->class_deviations = class_deviations;
@@ -32,7 +32,7 @@ Naive_bayes_model_ptr create_naive_bayes_model(Discrete_distribution_ptr prior_d
  */
 Naive_bayes_model_ptr create_naive_bayes_model2(const char *file_name) {
     char class_label[MAX_LINE_LENGTH];
-    Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model), "create_naive_bayes_model2");
+    Naive_bayes_model_ptr result = malloc_(sizeof(Naive_bayes_model));
     FILE* input_file = fopen(file_name, "r");
     result->prior_distribution = create_discrete_distribution2(input_file);
     result->class_means = create_string_hash_map();
@@ -113,7 +113,7 @@ void free_naive_bayes_model(Naive_bayes_model_ptr model) {
  * @param parameter -
  */
 Model_ptr train_naive_bayes(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_naive_bayes");
+    Model_ptr result = malloc_(sizeof(Model));
     Discrete_distribution_ptr prior_distribution = class_distribution(train_set);
     Partition_ptr class_lists = create_partition3(train_set);
     train_continuous_version(result, prior_distribution, class_lists);
@@ -151,7 +151,7 @@ void train_continuous_version(Model_ptr classifier, Discrete_distribution_ptr pr
  * @param file_name File name of the naive Bayes model.
  */
 Model_ptr load_naive_bayes(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_naive_bayes");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_naive_bayes_model2(file_name);
     result->train = train_naive_bayes;
     result->predict = predict_naive_bayes;

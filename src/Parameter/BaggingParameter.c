@@ -12,7 +12,7 @@
  * @param ensemble_size The number of trees in the bagged forest.
  */
 Bagging_parameter_ptr create_bagging_parameter(int seed, int ensemble_size) {
-    Bagging_parameter_ptr result = malloc_(sizeof(Bagging_parameter), "create_bagging_parameter");
+    Bagging_parameter_ptr result = malloc_(sizeof(Bagging_parameter));
     result->seed = seed;
     result->ensemble_size = ensemble_size;
     return result;

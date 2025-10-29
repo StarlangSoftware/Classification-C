@@ -15,7 +15,7 @@
 Random_forest_parameter_ptr create_random_forest_parameter(int seed,
                                                            int ensemble_size,
                                                            int attribute_subset_size) {
-    Random_forest_parameter_ptr result = malloc_(sizeof(Random_forest_parameter), "create_random_forest_parameter");
+    Random_forest_parameter_ptr result = malloc_(sizeof(Random_forest_parameter));
     result->seed = seed;
     result->ensemble_size = ensemble_size;
     result->attribute_subset_size = attribute_subset_size;

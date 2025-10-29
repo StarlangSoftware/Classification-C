@@ -12,7 +12,7 @@
  * @param number_of_features Indicates the indices of indexList.
  */
 Feature_sub_set_ptr create_feature_sub_set(int number_of_features) {
-    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set), "create_feature_sub_set");
+    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set));
     result->index_list = create_array_list();
     for (int i = 0; i < number_of_features; i++){
         array_list_add_int(result->index_list, i);
@@ -26,7 +26,7 @@ Feature_sub_set_ptr create_feature_sub_set(int number_of_features) {
  * @param index_list A vector consists of integer indices.
  */
 Feature_sub_set_ptr create_feature_sub_set2(Array_list_ptr index_list) {
-    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set), "create_feature_sub_set2");
+    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set));
     result->index_list = index_list;
     return result;
 }
@@ -35,7 +35,7 @@ Feature_sub_set_ptr create_feature_sub_set2(Array_list_ptr index_list) {
  * A constructor that creates a new vector for indexList.
  */
 Feature_sub_set_ptr create_feature_sub_set3() {
-    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set), "create_feature_sub_set3");
+    Feature_sub_set_ptr result = malloc_(sizeof(Feature_sub_set));
     result->index_list = create_array_list();
     return result;
 }

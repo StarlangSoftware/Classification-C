@@ -20,9 +20,11 @@ void test_naive_bayes_classifier(Data_set_ptr data_set, double error_rate, int i
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_naive_bayes_classifier(iris, 4.00, 1);
     test_naive_bayes_classifier(bupa, 38.26, 2);
     test_naive_bayes_classifier(dermatology, 69.40, 3);
     free_datasets();
+    end_memory_check();
 }

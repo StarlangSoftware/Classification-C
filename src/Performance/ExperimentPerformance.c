@@ -13,7 +13,7 @@
  * A constructor which creates a new ArrayList of Performance as results.
  */
 Experiment_performance_ptr create_experiment_performance() {
-    Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance), "create_experiment_performance");
+    Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance));
     result->results = create_array_list();
     result->contains_details = false;
     return result;
@@ -26,7 +26,7 @@ Experiment_performance_ptr create_experiment_performance() {
  * @param file_name String input.
  */
 Experiment_performance_ptr create_experiment_performance2(const char *file_name) {
-    Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance), "create_experiment_performance2");
+    Experiment_performance_ptr result = malloc_(sizeof(Experiment_performance));
     result->results = create_array_list();
     Array_list_ptr lines = read_lines(file_name);
     for (int i = 0; i < lines->size; i++){

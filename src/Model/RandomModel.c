@@ -14,7 +14,7 @@
  * @param class_labels An ArrayList of class labels.
  */
 Random_model_ptr create_random_model(Array_list_ptr class_labels) {
-    Random_model_ptr result = malloc_(sizeof(Random_model), "create_random_model");
+    Random_model_ptr result = malloc_(sizeof(Random_model));
     result->class_labels = class_labels;
     return result;
 }
@@ -24,7 +24,7 @@ Random_model_ptr create_random_model(Array_list_ptr class_labels) {
  * @param file_name Model file name.
  */
 Random_model_ptr create_random_model2(const char *file_name) {
-    Random_model_ptr result = malloc_(sizeof(Random_model), "create_random_model2");
+    Random_model_ptr result = malloc_(sizeof(Random_model));
     result->class_labels = create_array_list();
     FILE* input_file = fopen(file_name, "r");
     fscanf(input_file, "%d", &(result->seed));
@@ -65,7 +65,7 @@ Hash_map_ptr predict_probability_random(const void* model, const Instance* insta
     Hash_map_ptr result = create_string_hash_map();
     for (int i = 0; i < random_model->class_labels->size; i++){
         char* class_label = array_list_get(random_model->class_labels, i);
-        double* p = malloc_(sizeof(double), "predict_probability_random");
+        double* p = malloc_(sizeof(double));
         *p = 1.0 / random_model->class_labels->size;
         hash_map_insert(result, class_label, p);
     }
@@ -88,7 +88,7 @@ void free_random_model(Random_model_ptr random_model) {
  * @param parameter -
  */
 Model_ptr train_random(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_random");
+    Model_ptr result = malloc_(sizeof(Model));
     Discrete_distribution_ptr distribution = class_distribution(train_set);
     Array_list_ptr items = get_items(distribution);
     free_discrete_distribution(distribution);
@@ -104,7 +104,7 @@ Model_ptr train_random(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the random classifier model.
  */
 Model_ptr load_random(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_random");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_random_model2(file_name);
     result->train = train_random;
     result->predict = predict_random;

@@ -19,7 +19,7 @@
  * @param parameter Parameters of the bagging trees algorithm. ensembleSize returns the number of trees in the bagged forest.
  */
 Model_ptr train_bagging(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_bagging");
+    Model_ptr result = malloc_(sizeof(Model));
     int forest_size = ((Bagging_parameter_ptr) parameter)->ensemble_size;
     Array_list_ptr forest = create_array_list();
     for (int i = 0; i < forest_size; i++){
@@ -41,7 +41,7 @@ Model_ptr train_bagging(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the decision tree model.
  */
 Model_ptr load_bagging(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_bagging");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_tree_ensemble_model2(file_name);
     result->train = train_bagging;
     result->predict_probability = predict_probability_ensemble;

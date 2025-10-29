@@ -39,7 +39,7 @@ void allocate_deep_network_weights(Deep_network_model_ptr deep_network, Deep_net
 Deep_network_model_ptr create_deep_network_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                                  Deep_network_parameter_ptr parameter) {
     Vector_ptr tmp_hidden = NULL;
-    Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model), "create_deep_network_model");
+    Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model));
     result->model = create_neural_network_model(train_set);
     result->activation_function = parameter->activation_function;
     result->weights = create_array_list();
@@ -174,7 +174,7 @@ void free_deep_network_model(Deep_network_model_ptr deep_network) {
  * @param file_name Model file name.
  */
 Deep_network_model_ptr create_deep_network_model2(const char *file_name) {
-    Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model), "create_deep_network_model2");
+    Deep_network_model_ptr result = malloc_(sizeof(Deep_network_model));
     FILE* input_file = fopen(file_name, "r");
     result->model = create_neural_network_model2(input_file);
     fscanf(input_file, "%d", &(result->hidden_layer_size));
@@ -231,7 +231,7 @@ void calculate_output_deep_network(const Deep_network_model *deep_network) {
  * @throws DiscreteFeaturesNotAllowed Exception for discrete features.
  */
 Model_ptr train_deep_network(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_deep_network");
+    Model_ptr result = malloc_(sizeof(Model));
     Deep_network_parameter_ptr deep_network_parameter = (Deep_network_parameter_ptr) parameter;
     Partition_ptr partition = create_partition4(train_set, deep_network_parameter->cross_validation_ratio, deep_network_parameter->seed, true);
     result->model = create_deep_network_model(get_instance_list(partition, 1), get_instance_list(partition, 0), deep_network_parameter);
@@ -247,7 +247,7 @@ Model_ptr train_deep_network(Instance_list_ptr train_set, const void *parameter)
  * @param file_name File name of the deep network model.
  */
 Model_ptr load_deep_network(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_deep_network");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_deep_network_model2(file_name);
     result->train = train_deep_network;
     result->predict_probability = predict_probability_deep_network;
@@ -256,7 +256,7 @@ Model_ptr load_deep_network(const char *file_name) {
 }
 
 Model_ptr validation_deep_network(Deep_network_model_ptr deep_network) {
-    Model_ptr result = malloc_(sizeof(Model), "validation_deep_network");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = deep_network;
     result->train = train_deep_network;
     result->predict_probability = predict_probability_deep_network;

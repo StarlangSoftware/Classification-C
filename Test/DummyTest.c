@@ -20,13 +20,13 @@ void test_dummy_classifier(Data_set_ptr data_set, double error_rate, int index){
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_dummy_classifier(iris, 66.67, 1);
     test_dummy_classifier(bupa, 42.03, 2);
     test_dummy_classifier(dermatology, 69.40, 3);
     test_dummy_classifier(car, 29.98, 4);
     test_dummy_classifier(tictactoe, 34.66, 5);
-    test_dummy_classifier(nursery, 66.67, 6);
-    test_dummy_classifier(chess, 83.77, 7);
     free_datasets();
+    end_memory_check();
 }

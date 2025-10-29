@@ -10,7 +10,7 @@
  * Constructor for creating a new DataDefinition.
  */
 Data_definition_ptr create_data_definition() {
-    Data_definition_ptr result = malloc_(sizeof(Data_definition), "create_data_definition");
+    Data_definition_ptr result = malloc_(sizeof(Data_definition));
     result->attribute_types = create_array_list();
     result->attribute_value_list = NULL;
     return result;
@@ -34,7 +34,7 @@ void free_data_definition(Data_definition_ptr data_definition) {
  * @param attribute_types Attribute types of the data definition.
  */
 Data_definition_ptr create_data_definition2(Array_list_ptr attribute_types) {
-    Data_definition_ptr result = malloc_(sizeof(Data_definition), "create_data_definition2");
+    Data_definition_ptr result = malloc_(sizeof(Data_definition));
     result->attribute_types = attribute_types;
     result->attribute_value_list = NULL;
     return result;
@@ -47,7 +47,7 @@ Data_definition_ptr create_data_definition2(Array_list_ptr attribute_types) {
  * @param attribute_value_list Array of array of strings to represent all possible values of discrete features.
  */
 Data_definition_ptr create_data_definition3(Array_list_ptr attribute_types, Array_list_ptr attribute_value_list) {
-    Data_definition_ptr result = malloc_(sizeof(Data_definition), "create_data_definition3");
+    Data_definition_ptr result = malloc_(sizeof(Data_definition));
     result->attribute_types = attribute_types;
     result->attribute_value_list = attribute_value_list;
     return result;
@@ -116,7 +116,7 @@ Attribute_type get_attribute_type(const Data_definition *data_definition, int in
  * @param attribute_type Attribute type to add to the list of attribute types.
  */
 void add_attribute(Data_definition_ptr data_definition, Attribute_type attribute_type) {
-    Attribute_type *type = malloc_(sizeof(Attribute_type), "add_attribute");
+    Attribute_type *type = malloc_(sizeof(Attribute_type));
     *type = attribute_type;
     array_list_add(data_definition->attribute_types, type);
 }
@@ -178,7 +178,7 @@ Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definitio
                                                             const Feature_sub_set *feature_sub_set) {
     Array_list_ptr new_attribute_types = create_array_list();
     for (int i = 0; i < size_of_feature_sub_set(feature_sub_set); i++){
-        Attribute_type* new_type = malloc_(sizeof(Attribute_type), "get_sub_set_of_features_data_definition");
+        Attribute_type* new_type = malloc_(sizeof(Attribute_type));
         *new_type = *(Attribute_type*) array_list_get(data_definition->attribute_types, i);
         array_list_add(new_attribute_types, new_type);
     }
@@ -188,7 +188,7 @@ Data_definition_ptr get_sub_set_of_features_data_definition(const Data_definitio
 Array_list_ptr construct_attribute_type_list(Attribute_type attribute_type, int count) {
     Array_list_ptr attribute_types = create_array_list();
     for (int i = 0; i < count; i++){
-        Attribute_type * type = malloc_(sizeof(Attribute_type), "create_datasets_1");
+        Attribute_type * type = malloc_(sizeof(Attribute_type));
         *type = attribute_type;
         array_list_add(attribute_types, type);
     }

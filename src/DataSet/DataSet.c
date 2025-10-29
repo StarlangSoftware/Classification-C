@@ -11,7 +11,7 @@
  * Constructor for generating a new DataSet.
  */
 Data_set_ptr create_data_set() {
-    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set");
+    Data_set_ptr result = malloc_(sizeof(Data_set));
     result->instances = create_instance_list();
     result->definition = NULL;
     return result;
@@ -23,7 +23,7 @@ Data_set_ptr create_data_set() {
  * @param data_definition Data definition of the data set.
  */
 Data_set_ptr create_data_set2(Data_definition_ptr data_definition) {
-    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set2");
+    Data_set_ptr result = malloc_(sizeof(Data_set));
     result->instances = create_instance_list();
     result->definition = data_definition;
     return result;
@@ -35,7 +35,7 @@ Data_set_ptr create_data_set2(Data_definition_ptr data_definition) {
  * @param file_name ifstream to generate DataSet from.
  */
 Data_set_ptr create_data_set3(char *file_name) {
-    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set3");
+    Data_set_ptr result = malloc_(sizeof(Data_set));
     result->instances = create_instance_list();
     result->definition = create_data_definition();
     Array_list_ptr lines = read_lines(file_name);
@@ -87,7 +87,7 @@ Data_set_ptr create_data_set3(char *file_name) {
  * @param file_name   Name of the data set file.
  */
 Data_set_ptr create_data_set4(Data_definition_ptr data_definition, const char* separators, const char *file_name) {
-    Data_set_ptr result = malloc_(sizeof(Data_set), "create_data_set4");
+    Data_set_ptr result = malloc_(sizeof(Data_set));
     result->instances = create_instance_list2(data_definition, separators, file_name);
     result->definition = data_definition;
     return result;
@@ -142,7 +142,7 @@ void set_definition(Data_set_ptr data_set, const Instance *instance) {
     Attribute_type *type;
     Array_list_ptr attribute_types = create_array_list();
     for (int i = 0; i < attribute_size(instance); i++){
-        type = malloc_(sizeof(Attribute_type), "set_definition");
+        type = malloc_(sizeof(Attribute_type));
         if (get_attribute(instance, i)->attribute_type == BINARY){
             *type = BINARY;
             array_list_add(attribute_types, type);

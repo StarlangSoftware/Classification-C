@@ -11,14 +11,14 @@
  * @param value Value of the attribute. Can be true or false.
  */
 Attribute_ptr create_binary_attribute(bool value) {
-    Attribute_ptr result = malloc_(sizeof(Attribute), "create_binary_attribute");
+    Attribute_ptr result = malloc_(sizeof(Attribute));
     result->attribute_type = BINARY;
     result->bool_value = value;
     return result;
 }
 
 Attribute_ptr create_binary_attribute2(const char *value) {
-    Attribute_ptr result = malloc_(sizeof(Attribute), "create_binary_attribute2");
+    Attribute_ptr result = malloc_(sizeof(Attribute));
     result->attribute_type = BINARY;
     if (string_in_list(value, (char*[]){"true", "True", "TRUE"}, 3)){
         result->bool_value = true;
@@ -38,7 +38,7 @@ Attribute_ptr create_binary_attribute2(const char *value) {
  * @param value Value of the attribute.
  */
 Attribute_ptr create_continuous_attribute(double value) {
-    Attribute_ptr result = malloc_(sizeof(Attribute), "create_continuous_attribute");
+    Attribute_ptr result = malloc_(sizeof(Attribute));
     result->attribute_type = CONTINUOUS;
     result->float_value = value;
     return result;
@@ -51,7 +51,7 @@ Attribute_ptr create_continuous_attribute(double value) {
  * @param max_index Maximum index of the attribute.
  */
 Attribute_ptr create_discrete_indexed_attribute(int index, int max_index) {
-    Attribute_ptr result = malloc_(sizeof(Attribute), "create_discrete_indexed_attribute");
+    Attribute_ptr result = malloc_(sizeof(Attribute));
     result->attribute_type = DISCRETE_INDEXED;
     result->int_value = index;
     result->max_index = max_index;
@@ -59,7 +59,7 @@ Attribute_ptr create_discrete_indexed_attribute(int index, int max_index) {
 }
 
 Attribute_ptr create_discrete_attribute(const char *value) {
-    Attribute_ptr result = malloc_(sizeof(Attribute), "create_discrete_attribute");
+    Attribute_ptr result = malloc_(sizeof(Attribute));
     result->attribute_type = DISCRETE;
     result->string_value = str_copy(result->string_value, value);
     return result;

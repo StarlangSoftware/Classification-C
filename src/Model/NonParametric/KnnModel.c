@@ -17,7 +17,7 @@
  */
 Knn_model_ptr create_knn_model(Instance_list_ptr data, int k,
                                double (*distance_metric)(const Instance *, const Instance *, const void *)) {
-    Knn_model_ptr result = malloc_(sizeof(Knn_model), "create_knn_model");
+    Knn_model_ptr result = malloc_(sizeof(Knn_model));
     result->data = data;
     result->k = k;
     result->distance_metric = distance_metric;
@@ -98,7 +98,7 @@ Hash_map_ptr predict_probability_knn(const void *model, const Instance *instance
  * @param file_name Model file name.
  */
 Knn_model_ptr create_knn_model2(const char *file_name) {
-    Knn_model_ptr result = malloc_(sizeof(Knn_model), "create_knn_model2");
+    Knn_model_ptr result = malloc_(sizeof(Knn_model));
     FILE* input_file = fopen(file_name, "r");
     fscanf(input_file, "%d", &(result->k));
     result->data = create_instance_list4(input_file);
@@ -115,7 +115,7 @@ Knn_model_ptr create_knn_model2(const char *file_name) {
  *                   distanceMetric: distance metric used to calculate the distance between two instances.
  */
 Model_ptr train_knn(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_knn");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_knn_model(train_set, ((Knn_parameter_ptr)(parameter))->k, ((Knn_parameter_ptr)(parameter))->distance_function);
     result->train = train_knn;
     result->predict = predict_knn;
@@ -128,7 +128,7 @@ Model_ptr train_knn(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the K-nearest neighbor model.
  */
 Model_ptr load_knn(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_knn");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_knn_model2(file_name);
     result->train = train_knn;
     result->predict = predict_knn;

@@ -21,8 +21,10 @@ void test_qda_classifier(Data_set_ptr data_set, double error_rate, int index){
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_qda_classifier(iris, 2.00, 1);
     test_qda_classifier(bupa, 36.52, 2);
     free_datasets();
+    end_memory_check();
 }

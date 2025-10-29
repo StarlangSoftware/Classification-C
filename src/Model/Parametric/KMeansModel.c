@@ -19,7 +19,7 @@
  */
 K_means_model_ptr create_k_means_model(Discrete_distribution_ptr prior_distribution, Instance_list_ptr class_means,
                                        double (*distance_metric)(const Instance *, const Instance *, const void *)) {
-    K_means_model_ptr result = malloc_(sizeof(K_means_model), "create_k_means_model");
+    K_means_model_ptr result = malloc_(sizeof(K_means_model));
     result->prior_distribution = prior_distribution;
     result->class_means = class_means;
     result->distance_metric = distance_metric;
@@ -41,7 +41,7 @@ void free_k_means_model(K_means_model_ptr k_means_model) {
  * @param file_name Model file name.
  */
 K_means_model_ptr create_k_means_model2(const char *file_name) {
-    K_means_model_ptr result = malloc_(sizeof(K_means_model), "create_k_means_model2");
+    K_means_model_ptr result = malloc_(sizeof(K_means_model));
     FILE* input_file = fopen(file_name, "r");
     result->prior_distribution = create_discrete_distribution2(input_file);
     result->distance_metric = euclidian_distance;
@@ -97,7 +97,7 @@ double calculate_metric_k_means(const K_means_model* k_means_model, const Instan
  * @param parameter distanceMetric: distance metric used to calculate the distance between two instances.
  */
 Model_ptr train_k_means(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_k_means");
+    Model_ptr result = malloc_(sizeof(Model));
     Discrete_distribution_ptr prior_distribution = class_distribution(train_set);
     Instance_list_ptr class_means = create_instance_list();
     Partition_ptr class_lists = create_partition3(train_set);
@@ -117,7 +117,7 @@ Model_ptr train_k_means(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the K-means model.
  */
 Model_ptr load_k_means(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_k_means");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_k_means_model2(file_name);
     result->train = train_k_means;
     result->predict = predict_k_means;

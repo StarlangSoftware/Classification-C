@@ -17,7 +17,7 @@
  * @param parameter Parameters of the bagging trees algorithm. ensembleSize returns the number of trees in the random forest.
  */
 Model_ptr train_random_forest(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_random_forest");
+    Model_ptr result = malloc_(sizeof(Model));
     Random_forest_parameter_ptr random_forest_parameter = (Random_forest_parameter_ptr) parameter;
     int forest_size = random_forest_parameter->ensemble_size;
     Array_list_ptr forest = create_array_list();

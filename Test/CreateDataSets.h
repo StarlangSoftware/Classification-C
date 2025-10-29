@@ -7,7 +7,7 @@
 #ifndef CLASSIFICATION_CREATEDATASETS_H
 #define CLASSIFICATION_CREATEDATASETS_H
 
-Data_set_ptr iris, car, chess, bupa, tictactoe, dermatology, nursery;
+Data_set_ptr iris, car, bupa, tictactoe, dermatology;
 
 void create_datasets();
 

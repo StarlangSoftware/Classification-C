@@ -11,7 +11,7 @@
  * @param error_rate Double input.
  */
 Performance_ptr create_performance(double error_rate) {
-    Performance_ptr result = malloc_(sizeof(Performance), "create_performance");
+    Performance_ptr result = malloc_(sizeof(Performance));
     result->error_rate = error_rate;
     return result;
 }

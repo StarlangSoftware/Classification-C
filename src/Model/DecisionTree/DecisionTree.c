@@ -13,7 +13,7 @@
  * @param root DecisionNode type input.
  */
 Decision_tree_ptr create_decision_tree(Decision_node_ptr root) {
-    Decision_tree_ptr result = malloc_(sizeof(Decision_tree), "create_decision_tree");
+    Decision_tree_ptr result = malloc_(sizeof(Decision_tree));
     result->root = root;
     return result;
 }
@@ -23,7 +23,7 @@ Decision_tree_ptr create_decision_tree(Decision_node_ptr root) {
  * @param input_file Model file.
  */
 Decision_tree_ptr create_decision_tree2(FILE *input_file) {
-    Decision_tree_ptr result = malloc_(sizeof(Decision_tree), "create_decision_tree2");
+    Decision_tree_ptr result = malloc_(sizeof(Decision_tree));
     result->root = create_decision_node2(input_file);
     return result;
 }
@@ -116,7 +116,7 @@ Hash_map_ptr predict_probability_tree(const void *model, const Instance *instanc
  */
 Model_ptr train_c45(Instance_list_ptr train_set, const void *parameter) {
     Decision_tree_ptr tree;
-    Model_ptr result = malloc_(sizeof(Model), "train_c45");
+    Model_ptr result = malloc_(sizeof(Model));
     C45_parameter_ptr c45_parameter = (C45_parameter_ptr) parameter;
     if (c45_parameter->prune){
         Partition_ptr partition = create_partition4(train_set, c45_parameter->cross_validation_ratio, c45_parameter->seed, true);
@@ -137,7 +137,7 @@ Model_ptr train_c45(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the decision tree model.
  */
 Model_ptr load_c45(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_c45");
+    Model_ptr result = malloc_(sizeof(Model));
     FILE* input_file = fopen(file_name, "r");
     result->model = create_decision_tree2(input_file);
     result->train = train_c45;
@@ -157,7 +157,7 @@ void free_c45(Model_ptr c45) {
 }
 
 Model_ptr validation_c45(Decision_tree_ptr decision_tree) {
-    Model_ptr result = malloc_(sizeof(Model), "validation_c45");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = decision_tree;
     result->train = train_c45;
     result->predict_probability = predict_probability_tree;

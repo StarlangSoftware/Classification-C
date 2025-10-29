@@ -21,7 +21,7 @@
  */
 Qda_model_ptr
 create_qda_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr W, Hash_map_ptr w, Hash_map_ptr w0) {
-    Qda_model_ptr result = malloc_(sizeof(Qda_model), "create_qda_model");
+    Qda_model_ptr result = malloc_(sizeof(Qda_model));
     result->prior_distribution = prior_distribution;
     result->W = W;
     result->w = w;
@@ -34,14 +34,14 @@ create_qda_model(Discrete_distribution_ptr prior_distribution, Hash_map_ptr W, H
  * @param file_name Model file name.
  */
 Qda_model_ptr create_qda_model2(const char *file_name) {
-    Qda_model_ptr result = malloc_(sizeof(Qda_model), "create_qda_model2");
+    Qda_model_ptr result = malloc_(sizeof(Qda_model));
     FILE* input_file = fopen(file_name, "r");
     result->w = create_string_hash_map();
     result->w0 = create_string_hash_map();
     result->prior_distribution = create_discrete_distribution2(input_file);
     for (int i = 0; i < size_of_distribution(result->prior_distribution); i++){
         char class_label[MAX_LINE_LENGTH];
-        double* weight = malloc_(sizeof(double), "create_qda_model2");
+        double* weight = malloc_(sizeof(double));
         fscanf(input_file, "%s %lf", class_label, weight);
         hash_map_insert(result->w0, class_label, weight);
     }
@@ -122,7 +122,7 @@ char *predict_qda(const void *model, const Instance *instance) {
  * @param parameter -
  */
 Model_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_qda_1");
+    Model_ptr result = malloc_(sizeof(Model));
     Partition_ptr class_lists = create_partition3(train_set);
     Discrete_distribution_ptr priorDistribution = class_distribution(train_set);
     Hash_map_ptr w = create_string_hash_map();
@@ -141,7 +141,7 @@ Model_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
         Vector_ptr wi = multiply_with_vector_from_left(class_covariance, average_vector);
         free_matrix(class_covariance);
         hash_map_insert(w, C_i, wi);
-        double* w0i = malloc_(sizeof(double), "train_qda_2");
+        double* w0i = malloc_(sizeof(double));
         *w0i = -0.5 * (dot_product(wi, average_vector) + log(det)) + log(get_probability(priorDistribution, C_i));
         hash_map_insert(w0, C_i, w0i);
         free_vector(average_vector);
@@ -159,7 +159,7 @@ Model_ptr train_qda(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the Qda model.
  */
 Model_ptr load_qda(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_qda");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_qda_model2(file_name);
     result->train = train_qda;
     result->predict = predict_qda;

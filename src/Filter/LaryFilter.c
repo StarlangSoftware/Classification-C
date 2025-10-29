@@ -10,7 +10,7 @@
  * @param data_set DataSet that will bu used.
  */
 Lary_filter_ptr create_lary_filter(Data_set_ptr data_set) {
-    Lary_filter_ptr result = malloc_(sizeof(Lary_filter), "create_lary_filter");
+    Lary_filter_ptr result = malloc_(sizeof(Lary_filter));
     result->data_set = data_set;
     result->attribute_distributions = all_attributes_distribution(data_set->instances);
     return result;

@@ -11,7 +11,7 @@
  * Constructor for generating a partition.
  */
 Partition_ptr create_partition() {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     return result;
 }
@@ -22,7 +22,7 @@ Partition_ptr create_partition() {
  * @param list Instance list to add.
  */
 Partition_ptr create_partition2(Instance_list_ptr list) {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition2");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, list);
     return result;
@@ -54,7 +54,7 @@ Instance_list_ptr get_instance_list(const Partition *partition, int index) {
  * @return Instances of the items at the list of instance lists.
  */
 Array_list_ptr *get_lists(const Partition *partition) {
-    Array_list_ptr* result = malloc_(partition->multi_list->size * sizeof(Array_list_ptr), "get_lists");
+    Array_list_ptr* result = malloc_(partition->multi_list->size * sizeof(Array_list_ptr));
     for (int i = 0; i < partition->multi_list->size; i++){
         Instance_list_ptr instance_list = array_list_get(partition->multi_list, i);
         result[i] = get_instances(instance_list);
@@ -69,7 +69,7 @@ Array_list_ptr *get_lists(const Partition *partition) {
  * @return Groups of instances according to their class labels.
  */
 Partition_ptr create_partition3(const Instance_list* instance_list) {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition3");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     Array_list_ptr class_labels = get_distinct_class_labels(instance_list);
     for (int i = 0; i < class_labels->size; i++){
@@ -99,7 +99,7 @@ Partition_ptr create_partition3(const Instance_list* instance_list) {
  * @return 2 group stratified partition of the instances in this instance list.
  */
 Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, int seed, bool stratified) {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition4");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, create_instance_list());
     array_list_add(result->multi_list, create_instance_list());
@@ -149,7 +149,7 @@ Partition_ptr create_partition4(Instance_list_ptr instance_list, double ratio, i
  * attributeIndex.
  */
 Partition_ptr create_partition5(const Instance_list *instance_list, int attribute_index) {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition5");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     Array_list_ptr value_list = get_attribute_value_list(instance_list, attribute_index);
     for (int i = 0; i < value_list->size; i++){
@@ -176,7 +176,7 @@ Partition_ptr create_partition5(const Instance_list *instance_list, int attribut
  * attributeIndex and value attributeValue.
  */
 Partition_ptr create_partition6(const Instance_list *instance_list, int attribute_index, int attribute_value) {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition6");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, create_instance_list());
     array_list_add(result->multi_list, create_instance_list());
@@ -201,7 +201,7 @@ Partition_ptr create_partition6(const Instance_list *instance_list, int attribut
  * @param split_value     Threshold to divide instances
  */
 Partition_ptr create_partition7(const Instance_list *instance_list, int attribute_index, double split_value) {
-    Partition_ptr result = malloc_(sizeof(Partition), "create_partition7");
+    Partition_ptr result = malloc_(sizeof(Partition));
     result->multi_list = create_array_list();
     array_list_add(result->multi_list, create_instance_list());
     array_list_add(result->multi_list, create_instance_list());

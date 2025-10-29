@@ -11,7 +11,7 @@
  * @param train_set InstanceList which is used to get the class distribution.
  */
 Dummy_model_ptr create_dummy_model(Instance_list_ptr train_set) {
-    Dummy_model_ptr result = malloc_(sizeof(Dummy_model), "create_dummy_model");
+    Dummy_model_ptr result = malloc_(sizeof(Dummy_model));
     result->distribution = class_distribution(train_set);
     return result;
 }
@@ -30,7 +30,7 @@ void free_dummy_model(Dummy_model_ptr dummy_model) {
  * @param file_name Model file name.
  */
 Dummy_model_ptr create_dummy_model2(const char *file_name) {
-    Dummy_model_ptr result = malloc_(sizeof(Dummy_model), "create_dummy_model2");
+    Dummy_model_ptr result = malloc_(sizeof(Dummy_model));
     FILE* input_file = fopen(file_name, "r");
     result->distribution = create_discrete_distribution2(input_file);
     fclose(input_file);
@@ -66,7 +66,7 @@ Hash_map_ptr predict_probability_dummy(const void* model, const Instance* instan
  * @param parameter -
  */
 Model_ptr train_dummy(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_dummy");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_dummy_model(train_set);
     result->train = train_dummy;
     result->predict = predict_dummy;
@@ -79,7 +79,7 @@ Model_ptr train_dummy(Instance_list_ptr train_set, const void *parameter) {
  * @param file_name File name of the dummy model.
  */
 Model_ptr load_dummy(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_dummy");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_dummy_model2(file_name);
     result->train = train_dummy;
     result->predict = predict_dummy;

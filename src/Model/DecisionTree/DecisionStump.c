@@ -14,7 +14,7 @@
  * @param parameter -Parameter of the algorithm (not used)
  */
 Model_ptr train_c45_stump(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_c45_stump");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_decision_tree(create_decision_node(train_set, create_decision_condition4(), NULL, true));
     result->train = train_c45_stump;
     result->predict_probability = predict_probability_tree;

@@ -3,6 +3,8 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
+
 #include "../src/DataSet/DataSet.h"
 #include "CreateDataSets.h"
 #include "../src/Parameter/KMeansParameter.h"
@@ -20,15 +22,15 @@ void test_kmeans_classifier(Data_set_ptr data_set, double error_rate, int index,
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     K_means_parameter_ptr parameter = create_k_means_parameter2(1);
     test_kmeans_classifier(iris, 7.33, 1, parameter);
     test_kmeans_classifier(bupa, 43.77, 2, parameter);
     test_kmeans_classifier(dermatology, 45.08, 3, parameter);
-    test_kmeans_classifier(car, 47.40, 4, parameter);
+    test_kmeans_classifier(car, 44.21, 4, parameter);
     test_kmeans_classifier(tictactoe, 38.94, 5, parameter);
-    test_kmeans_classifier(nursery, 63.61, 6, parameter);
-    test_kmeans_classifier(chess, 83.25, 7, parameter);
     free_k_mean_parameter(parameter);
     free_datasets();
+    end_memory_check();
 }

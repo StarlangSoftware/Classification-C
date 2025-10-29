@@ -14,7 +14,7 @@
  * @param attributes Attributes of the instance.
  */
 Instance_ptr create_instance(const char *class_label, Array_list_ptr attributes) {
-    Instance_ptr result = malloc_(sizeof(Instance), "create_instance");
+    Instance_ptr result = malloc_(sizeof(Instance));
     result->class_label = str_copy(result->class_label, class_label);
     result->attributes = attributes;
     return result;
@@ -37,7 +37,7 @@ void free_instance(Instance_ptr instance) {
  * @param class_label Class label of the instance.
  */
 Instance_ptr create_instance2(const char *class_label) {
-    Instance_ptr result = malloc_(sizeof(Instance), "create_instance2");
+    Instance_ptr result = malloc_(sizeof(Instance));
     result->class_label = str_copy(result->class_label, class_label);
     result->attributes = create_array_list();
     return result;

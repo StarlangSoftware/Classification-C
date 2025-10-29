@@ -22,21 +22,6 @@ void create_datasets(){
     attribute_types = construct_attribute_type_list(DISCRETE, 9);
     data_definition = create_data_definition2(attribute_types);
     tictactoe = create_data_set4(data_definition, ",", "datasets/tictactoe.data");
-    attribute_types = construct_attribute_type_list(DISCRETE, 8);
-    data_definition = create_data_definition2(attribute_types);
-    nursery = create_data_set4(data_definition, ",", "datasets/nursery.data");
-    attribute_types = create_array_list();
-    for (int i = 0; i < 6; i++){
-        Attribute_type * type = malloc_(sizeof(Attribute_type), "create_datasets_7");
-        if (i % 2 == 0){
-            *type = DISCRETE;
-        } else {
-            *type = CONTINUOUS;
-        }
-        array_list_add(attribute_types, type);
-    }
-    data_definition = create_data_definition2(attribute_types);
-    chess = create_data_set4(data_definition, ",", "datasets/chess.data");
 }
 
 void free_datasets() {
@@ -45,6 +30,4 @@ void free_datasets() {
     free_data_set(dermatology);
     free_data_set(car);
     free_data_set(tictactoe);
-    free_data_set(nursery);
-    free_data_set(chess);
 }

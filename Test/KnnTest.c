@@ -3,6 +3,8 @@
 //
 
 #include <math.h>
+#include <Memory/Memory.h>
+
 #include "../src/DataSet/DataSet.h"
 #include "../src/Parameter/KnnParameter.h"
 #include "CreateDataSets.h"
@@ -21,6 +23,7 @@ void test_knn_classifier(Data_set_ptr data_set, double error_rate, int index, Kn
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     Knn_parameter_ptr parameter = create_knn_parameter2(1, 3);
     test_knn_classifier(iris, 4.00, 1, parameter);
@@ -30,4 +33,5 @@ int main(){
     test_knn_classifier(tictactoe, 32.57, 5, parameter);
     free_datasets();
     free_knn_parameter(parameter);
+    end_memory_check();
 }

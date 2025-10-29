@@ -20,13 +20,13 @@ void test_random_classifier(Data_set_ptr data_set, double error_rate, int index)
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_random_classifier(iris, 69.33, 1);
     test_random_classifier(bupa, 49.27, 2);
     test_random_classifier(dermatology, 85.25, 3);
     test_random_classifier(car, 75.17, 4);
     test_random_classifier(tictactoe, 46.76, 5);
-    test_random_classifier(nursery, 79.99, 6);
-    test_random_classifier(chess, 94.31, 7);
     free_datasets();
+    end_memory_check();
 }

@@ -14,7 +14,7 @@
  * @return Allocated experiment.
  */
 Experiment_ptr create_experiment(Model_ptr model, void *parameter, Data_set_ptr data_set, int seed) {
-    Experiment_ptr result = malloc_(sizeof(Experiment), "create_experiment");
+    Experiment_ptr result = malloc_(sizeof(Experiment));
     result->model = model;
     result->parameter = parameter;
     result->data_set = data_set;

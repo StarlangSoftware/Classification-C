@@ -21,9 +21,11 @@ void test_lda_classifier(Data_set_ptr data_set, double error_rate, int index){
 }
 
 int main(){
+    start_large_memory_check();
     create_datasets();
     test_lda_classifier(iris, 2.00, 1);
     test_lda_classifier(bupa, 29.57, 2);
     test_lda_classifier(dermatology, 1.91, 3);
     free_datasets();
+    end_memory_check();
 }

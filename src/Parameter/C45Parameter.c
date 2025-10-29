@@ -15,7 +15,7 @@
 C45_parameter_ptr create_c45_parameter(int seed,
                                        bool prune,
                                        double cross_validation_ratio) {
-    C45_parameter_ptr result = malloc_(sizeof(C45_parameter), "create_c45_parameter");
+    C45_parameter_ptr result = malloc_(sizeof(C45_parameter));
     result->seed = seed;
     result->prune = prune;
     result->cross_validation_ratio = cross_validation_ratio;

@@ -24,7 +24,7 @@ create_deep_network_parameter(int seed,
                               int epoch,
                               Array_list_ptr hidden_layers,
                               Activation_function activation_function) {
-    Deep_network_parameter_ptr result = malloc_(sizeof(Deep_network_parameter), "create_deep_network_parameter");
+    Deep_network_parameter_ptr result = malloc_(sizeof(Deep_network_parameter));
     result->seed = seed;
     result->learning_rate = learning_rate;
     result->eta_decrease = eta_decrease;

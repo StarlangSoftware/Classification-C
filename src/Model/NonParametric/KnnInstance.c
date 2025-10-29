@@ -12,7 +12,7 @@
  * @param distance Double distance value.
  */
 Knn_instance_ptr create_knn_instance(Instance_ptr instance, double distance) {
-    Knn_instance_ptr result = malloc_(sizeof(Knn_instance), "create_knn_instance");
+    Knn_instance_ptr result = malloc_(sizeof(Knn_instance));
     result->instance = instance;
     result->distance = distance;
     return result;

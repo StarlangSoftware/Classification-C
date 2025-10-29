@@ -19,7 +19,7 @@
 Multi_layer_perceptron_model_ptr
 create_multi_layer_perceptron_model(Instance_list_ptr train_set, Instance_list_ptr validation_set,
                                     Multi_layer_perceptron_parameter_ptr parameter) {
-    Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model), "create_multi_layer_perceptron_model");
+    Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model));
     result->model = create_neural_network_model(train_set);
     Matrix_ptr best_W = NULL, best_V = NULL;
     Vector_ptr activation_derivative = NULL, one_minus_hidden = NULL, one = NULL;
@@ -156,7 +156,7 @@ Hash_map_ptr predict_probability_multi_layer_perceptron(const void *model, const
  * @param file_name Model file name.
  */
 Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model2(const char *file_name) {
-    Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model), "create_multi_layer_perceptron_model2");
+    Multi_layer_perceptron_model_ptr result = malloc_(sizeof(Multi_layer_perceptron_model));
     FILE* input_file = fopen(file_name, "r");
     result->model = create_neural_network_model2(input_file);
     result->W = create_matrix5(input_file);
@@ -175,7 +175,7 @@ Multi_layer_perceptron_model_ptr create_multi_layer_perceptron_model2(const char
  * @param parameter Parameters of the multilayer perceptron.
  */
 Model_ptr train_multi_layer_perceptron(Instance_list_ptr train_set, const void *parameter) {
-    Model_ptr result = malloc_(sizeof(Model), "train_multi_layer_perceptron");
+    Model_ptr result = malloc_(sizeof(Model));
     Multi_layer_perceptron_parameter_ptr multi_layer_perceptron_parameter = (Multi_layer_perceptron_parameter_ptr) parameter;
     Partition_ptr partition = create_partition4(train_set, multi_layer_perceptron_parameter->cross_validation_ratio, multi_layer_perceptron_parameter->seed, true);
     result->model = create_multi_layer_perceptron_model(get_instance_list(partition, 1), get_instance_list(partition, 0), multi_layer_perceptron_parameter);
@@ -191,7 +191,7 @@ Model_ptr train_multi_layer_perceptron(Instance_list_ptr train_set, const void *
  * @param file_name File name of the multi-layer perceptron model.
  */
 Model_ptr load_multi_layer_perceptron(const char *file_name) {
-    Model_ptr result = malloc_(sizeof(Model), "load_multi_layer_perceptron");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = create_multi_layer_perceptron_model2(file_name);
     result->train = train_multi_layer_perceptron;
     result->predict_probability = predict_probability_multi_layer_perceptron;
@@ -201,7 +201,7 @@ Model_ptr load_multi_layer_perceptron(const char *file_name) {
 }
 
 Model_ptr validation_multi_layer_perceptron(Multi_layer_perceptron_model_ptr multi_layer_perceptron) {
-    Model_ptr result = malloc_(sizeof(Model), "validation_multi_layer_perceptron");
+    Model_ptr result = malloc_(sizeof(Model));
     result->model = multi_layer_perceptron;
     result->train = train_multi_layer_perceptron;
     result->predict_probability = predict_probability_multi_layer_perceptron;

@@ -7,7 +7,7 @@
 #include "ConfusionMatrix.h"
 
 Confusion_matrix_ptr create_confusion_matrix() {
-    Confusion_matrix_ptr result = malloc_(sizeof(Confusion_matrix), "create_confusion_matrix");
+    Confusion_matrix_ptr result = malloc_(sizeof(Confusion_matrix));
     result->matrix = create_string_hash_map();
     result->class_labels = create_array_list();
     return result;
@@ -19,7 +19,7 @@ Confusion_matrix_ptr create_confusion_matrix() {
  * @param class_labels ArrayList of String.
  */
 Confusion_matrix_ptr create_confusion_matrix2(Array_list_ptr class_labels) {
-    Confusion_matrix_ptr result = malloc_(sizeof(Confusion_matrix), "create_confusion_matrix2");
+    Confusion_matrix_ptr result = malloc_(sizeof(Confusion_matrix));
     result->matrix = create_string_hash_map();
     result->class_labels = class_labels;
     return result;
@@ -158,7 +158,7 @@ double get_accuracy(const Confusion_matrix* confusion_matrix) {
  * @return The result of TP/FP+TP.
  */
 double *precision(const Confusion_matrix* confusion_matrix) {
-    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double), "precision");
+    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double));
     for (int i = 0; i < confusion_matrix->class_labels->size; i++){
         char* actual_class = array_list_get(confusion_matrix->class_labels, i);
         if (hash_map_contains(confusion_matrix->matrix, actual_class)){
@@ -176,7 +176,7 @@ double *precision(const Confusion_matrix* confusion_matrix) {
  * @return The result of TP/FN+TP.
  */
 double *recall(const Confusion_matrix* confusion_matrix) {
-    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double), "recall");
+    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double));
     for (int i = 0; i < confusion_matrix->class_labels->size; i++){
         char* actual_class = array_list_get(confusion_matrix->class_labels, i);
         if (hash_map_contains(confusion_matrix->matrix, actual_class)){
@@ -196,7 +196,7 @@ double *recall(const Confusion_matrix* confusion_matrix) {
 double *f_measure(const Confusion_matrix *confusion_matrix) {
     double* precision_values = precision(confusion_matrix);
     double* recall_values = recall(confusion_matrix);
-    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double), "f_measure");
+    double* result = calloc_(confusion_matrix->class_labels->size, sizeof(double));
     for (int i = 0; i < confusion_matrix->class_labels->size; i++){
         result[i] = 2 / (1 / precision_values[i] + 1 / recall_values[i]);
     }

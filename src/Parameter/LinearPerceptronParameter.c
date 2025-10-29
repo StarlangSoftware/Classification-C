@@ -20,7 +20,7 @@ create_linear_perceptron_parameter(int seed,
                                    double eta_decrease,
                                    double cross_validation_ratio,
                                    int epoch) {
-    Linear_perceptron_parameter_ptr result = malloc_(sizeof(Linear_perceptron_parameter), "create_linear_perceptron_parameter");
+    Linear_perceptron_parameter_ptr result = malloc_(sizeof(Linear_perceptron_parameter));
     result->seed = seed;
     result->learning_rate = learning_rate;
     result->eta_decrease = eta_decrease;
